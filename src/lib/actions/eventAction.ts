@@ -15,7 +15,8 @@ export const createEvent = async ({
     name,
     description,
     eventType,
-    date,
+    startDate,
+    endDate,
     location,
     image,
     vipTicketPrice,
@@ -33,7 +34,8 @@ export const createEvent = async ({
         slug: slug,
         description: description.trim(),
         eventType,
-        date,
+        startDate,
+        endDate,
         location,
         image,
         vipTicketPrice,
@@ -46,6 +48,27 @@ export const createEvent = async ({
 
     return JSON.parse(JSON.stringify(newEvent));
   } catch (error) {
-    console.log(error)
+    console.log(error);
+  }
+};
+
+export const getEventById = async (id: string) => {
+  try {
+    const event = await prisma.event.findUnique({
+      where: {
+        slug: id,
+      },
+      include: {
+        createdBy: true,
+      },
+    });
+
+    if (!event) {
+      throw new Error("Event not found");
+    }
+
+    return event;
+  } catch (error) {
+    console.log(error);
   }
 };

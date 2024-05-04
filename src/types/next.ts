@@ -10,6 +10,11 @@ export type SearchParams<T extends Record<string, string | string[]>> = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
+export type SearchParamProps = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
 export type CreateEventParams = {
   userId: string;
   event: {
@@ -18,7 +23,8 @@ export type CreateEventParams = {
     eventType: string;
     location: string;
     image: string;
-    date: Date;
+    startDate: Date;
+    endDate: Date;
     vipTicketPrice? : string | undefined;
     standardTicketPrice? : string | undefined;
     vipTicketCapacity? : string | undefined;

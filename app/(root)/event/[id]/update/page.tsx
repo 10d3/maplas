@@ -6,9 +6,7 @@ export default async function UpdateEvent() {
 
     const session = await auth();
 
-    const userIdT = session?.user?.id
-
-    const userId = userIdT ? userIdT : ""
+    const userId = session?.user?.id as string
 
     return (
         <>

@@ -74,7 +74,7 @@ export const EventForm = ({ userId, type }: EventFormProps) => {
 
         if (newEvent) {
           form.reset();
-          router.push(`/events/${newEvent?.id}`)
+          router.push(`/event/${newEvent?.slug}`)
           // router.push("/event")
         }
       } catch (error) {
@@ -190,7 +190,31 @@ export const EventForm = ({ userId, type }: EventFormProps) => {
           <div className="flex flex-col gap-5 md:flex-row">
             <FormField
               control={form.control}
-              name="date"
+              name="startDate"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  {/* <FormLabel>Event Title</FormLabel> */}
+                  <FormControl>
+                    <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                      <Image className=" fill-neutral-300" width={24} height={24} alt="location" src='/assets/icons/calendar.svg' />
+                      <p className="mx-3 whitespace-nowrap text-gray-600">Date:</p>
+                      <DatePicker
+                        selected={field.value}
+                        onChange={(date: Date) => field.onChange(date)}
+                        showTimeSelect
+                        timeInputLabel="Time:"
+                        dateFormat='MM/dd/yyyy h:mm aa'
+                        wrapperClassName=" datePicker"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="endDate"
               render={({ field }) => (
                 <FormItem className="w-full">
                   {/* <FormLabel>Event Title</FormLabel> */}

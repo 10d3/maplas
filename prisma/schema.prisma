@@ -73,7 +73,8 @@ model Event {
   slug                   String     @unique
   description            String
   eventType              String
-  date                   DateTime
+  startDate              DateTime
+  endDate                DateTime
   location               String
   image                  String?
   vipTicketPrice         String? // Prix du billet VIP
