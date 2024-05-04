@@ -6,7 +6,9 @@ export default async function CreateEvent() {
 
     const session = await auth();
 
-    const userId = session?.user?.id
+    const userIdT = session?.user?.id
+
+    const userId = userIdT ? userIdT : ""
 
     return (
         <>
