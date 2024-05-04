@@ -1,8 +1,8 @@
 "use client"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { PropsWithChildren } from "react"
 import { signOutAction } from "./aut.action"
-import {LogOut} from 'lucide-react'
+import { LogOut } from 'lucide-react'
 
 export type SignOutButtonProps = PropsWithChildren
 
@@ -13,12 +13,20 @@ export const SignOutButton = (props: SignOutButtonProps) => {
                 {props.children}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                    <DropdownMenuItem  onClick={ () => {
-                             signOutAction();
-                        }}>
-                        <LogOut size={15}className="mr-2"/>
-                        sign out
-                    </DropdownMenuItem>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem>Team</DropdownMenuItem>
+                <DropdownMenuItem>
+                    Admin
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => {
+                    signOutAction();
+                }}>
+                    <LogOut size={15} className="mr-2" />
+                    sign out
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )

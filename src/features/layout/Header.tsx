@@ -2,6 +2,7 @@ import { Menu, X } from 'lucide-react';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { LoggedInButton } from "../auth/LoggedInButton"
 import Link from 'next/link';
+import { SiteConfig } from '@/lib/site-config';
 
 
 export default async function Header() {
@@ -19,7 +20,7 @@ export default async function Header() {
             <div className="container flex h-16 items-center justify-between space-x-4 sm:justify-between sm:space-x-0">
                 <div className="flex gap-2 items-center ">
                     {/* <Image src="/images/logo.svg" width={50} height={35} alt="app logo" /> */}
-                    <h1>La Vache</h1>
+                    <h1>{SiteConfig.title}</h1>
                 </div>
                 {/* menu pc */}
 
