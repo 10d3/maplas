@@ -76,10 +76,10 @@ model Event {
   date                   DateTime
   location               String
   image                  String?
-  vipTicketPrice         Float? // Prix du billet VIP
-  standardTicketPrice    Float // Prix du billet standard
-  vipTicketCapacity      Int? // Capacité du billet VIP
-  standardTicketCapacity Int // Capacité du billet stand
+  vipTicketPrice         String? // Prix du billet VIP
+  standardTicketPrice    String? // Prix du billet standard
+  vipTicketCapacity      String? // Capacité du billet VIP
+  standardTicketCapacity String // Capacité du billet stand
   tickets                Ticket[]
   createdBy              User       @relation("UserEvents", fields: [createdById], references: [id])
   createdById            String

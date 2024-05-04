@@ -6,3 +6,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file)
+
+export function toSlug(str: string) {
+  return str
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "");
+}

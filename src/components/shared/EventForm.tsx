@@ -24,13 +24,17 @@ import { FileUploader } from "./FileUpload"
 import Image from "next/image"
 import DatePicker from "react-datepicker";
 import { useUploadThing } from "@/lib/uploadthing"
+import { useRouter } from "next/navigation"
+import { createEvent } from "@/lib/actions/eventAction"
 
 
 export type EventFormProps = {
-  userId: string | undefined,
+  userId: string,
   type: "Create" | "Update"
 }
 export const EventForm = ({ userId, type }: EventFormProps) => {
+
+  const router = useRouter();
 
   const [files, setFiles] = useState<File[]>([]);
 
@@ -46,6 +50,7 @@ export const EventForm = ({ userId, type }: EventFormProps) => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof EventFormSchema>) {
 
+
     let uploadedImageUrl = values.image;
 
     if (files.length > 0) {
@@ -58,22 +63,23 @@ export const EventForm = ({ userId, type }: EventFormProps) => {
       uploadedImageUrl = uploadedImages[0].url
     }
 
-    // if (type === 'Create') {
-    //   try {
-    //     const newEvent = await createEvent({
-    //       event: { ...values, imageUrl: uploadedImageUrl },
-    //       userId,
-    //       path: '/profile'
-    //     })
+    if (type === 'Create') {
+      try {
+        const newEvent = await createEvent({
+          event: { ...values, image: uploadedImageUrl },
+          userId,
+          path: '/profile'
+        })
 
-    //     if (newEvent) {
-    //       form.reset();
-    //       router.push(`/events/${newEvent._id}`)
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
+        if (newEvent) {
+          form.reset();
+          router.push(`/events/${newEvent?.id}`)
+          // router.push("/event")
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     // if (type === 'Update') {
     //   if (!eventId) {
@@ -171,7 +177,7 @@ export const EventForm = ({ userId, type }: EventFormProps) => {
                   {/* <FormLabel>Event Title</FormLabel> */}
                   <FormControl>
                     <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      <Image width={24} height={24} alt="location" src='/assets/icons/location-gray.svg' />
+                      <Image width={24} height={24} alt="location" src='/assets/icons/location-grey.svg' />
                       <Input placeholder="Event Location" {...field} className="p-regular-16 border-0 bg-gray-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0" />
                     </div>
                   </FormControl>
