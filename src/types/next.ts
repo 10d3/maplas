@@ -11,10 +11,26 @@ export type SearchParams<T extends Record<string, string | string[]>> = {
 };
 
 export type SearchParamProps = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
+export type EventProps = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  eventType: string;
+  location: string;
+  image: string | null;
+  startDate: Date;
+  endDate: Date;
+  vipTicketPrice?: string | null;
+  standardTicketPrice?: string | null;
+  vipTicketCapacity?: string | null;
+  standardTicketCapacity: string;
+  createdById: string;
+};
 export type CreateEventParams = {
   userId: string;
   event: {
@@ -25,17 +41,17 @@ export type CreateEventParams = {
     image: string;
     startDate: Date;
     endDate: Date;
-    vipTicketPrice? : string | undefined;
-    standardTicketPrice? : string | undefined;
-    vipTicketCapacity? : string | undefined;
-    standardTicketCapacity : string;
+    vipTicketPrice?: string | undefined;
+    standardTicketPrice?: string | undefined;
+    vipTicketCapacity?: string | undefined;
+    standardTicketCapacity: string;
   };
   path: string;
 };
-  // vipTicketPrice? : string | undefined;
-  // standardTicketPrice? : string | undefined;
-  // vipTicketCapacity? : string | undefined;
-  // standardTicketCapacity : string;
+// vipTicketPrice? : string | undefined;
+// standardTicketPrice? : string | undefined;
+// vipTicketCapacity? : string | undefined;
+// standardTicketCapacity : string;
 
 export type UpdateEventParams = {
   userId: string;
