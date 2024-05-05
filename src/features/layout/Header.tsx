@@ -18,7 +18,49 @@ export default async function Header() {
     return (
         <header>
             <div className="container flex h-16 items-center justify-between space-x-4 sm:justify-between sm:space-x-0">
-                <div className="flex gap-2 items-center ">
+                {/*menu mobile*/}
+
+                <div className='flex md:hidden justify-between w-full'>
+                    <div className='flex md:hidden'>
+                        <Drawer direction='left'>
+                            <DrawerTrigger>
+                                <Menu />
+                            </DrawerTrigger>
+                            <DrawerContent>
+                                <div className='flex flex-col h-[85%] w-full justify-center items-center'>
+                                    {/* <div className='flex self-end'>
+                                        <DrawerTitle>
+                                            <DrawerClose asChild>
+                                                <X />
+                                            </DrawerClose>
+                                        </DrawerTitle>
+                                    </div> */}
+                                    <div className='flex flex-col items-center gap-4'>
+                                        {links.map((link, i) => {
+                                            return (
+                                                <DrawerClose key={i} asChild>
+                                                    <Link className='' key={i} href={link.href}>{link.name}</Link>
+                                                </DrawerClose>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </DrawerContent>
+                        </Drawer>
+
+                    </div>
+                    <div className=" flex gap-2 items-center ">
+                        {/* <Image src="/images/logo.svg" width={50} height={35} alt="app logo" /> */}
+                        <h1>{SiteConfig.title}</h1>
+                    </div>
+
+                    <div className='flex md:hidden flex-col w-auto items-center'>
+                        <LoggedInButton />
+                    </div>
+                </div>
+                {/*end menu mobile*/}
+
+                <div className=" hidden md:flex gap-2 items-center ">
                     {/* <Image src="/images/logo.svg" width={50} height={35} alt="app logo" /> */}
                     <h1>{SiteConfig.title}</h1>
                 </div>
@@ -36,40 +78,6 @@ export default async function Header() {
                     <nav className="flex items-center space-x-1">
                         <LoggedInButton />
                     </nav>
-                </div>
-
-                <div className='flex md:hidden'>
-                    <Drawer direction='left'>
-                        <DrawerTrigger>
-                            <Menu />
-                        </DrawerTrigger>
-                        <DrawerContent>
-                            <div className='flex flex-col h-[85%] w-full justify-between'>
-                                <div className='flex self-end'>
-                                    <DrawerTitle>
-                                        <DrawerClose asChild>
-                                            <X />
-                                        </DrawerClose>
-                                    </DrawerTitle>
-                                </div>
-                                <div className='flex flex-col items-center gap-4'>
-                                    {links.map((link, i) => {
-                                        return (
-                                            <DrawerClose key={i} asChild>
-                                                <Link className='' key={i} href={link.href}>{link.name}</Link>
-                                            </DrawerClose>
-                                        );
-                                    })}
-                                </div>
-                                <div className='flex flex-col w-full items-center'>
-                                    <div className='flex flex-col gap-4 p-3 items-center'>
-                                        <LoggedInButton />
-                                    </div>
-                                </div>
-                            </div>
-                        </DrawerContent>
-                    </Drawer>
-
                 </div>
 
             </div>
