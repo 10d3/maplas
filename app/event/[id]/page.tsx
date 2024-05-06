@@ -1,5 +1,5 @@
 
-import { getEventById } from '@/lib/actions/eventAction'
+import { getEventById, getRelatedEvents } from '@/lib/actions/eventAction'
 import { formatDateTime } from '@/lib/utils'
 import { SearchParamProps } from '@/types/next'
 import Image from 'next/image'
@@ -13,6 +13,9 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
     const priceStandard = Number(event?.standardTicketPrice)
     const dateS = event?.startDate as Date
     const dateE = event?.endDate as Date
+    const eventTypeOf = event?.eventType as string
+
+    const eventRelated = await getRelatedEvents(eventTypeOf)
 
     console.log(event)
     return (
@@ -44,7 +47,7 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                                 </p>
                                 {dateE && (<p className='ml-1'>{formatDateTime(dateE).dateOnly} -
                                     {' '} {formatDateTime(dateE).timeOnly}
-                                </p>) }
+                                </p>)}
                             </div>
                         </div>
                         <div className='flex items-center gap-3'>

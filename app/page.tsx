@@ -19,7 +19,7 @@ export default function Home({searchParams:{q, eventtype, location}}:PageProps) 
     eventtype,
     location,
 }
-  const data = "Featured Events"
+  const data = "Top Events"
   return (
     <main className="flex min-h-screen flex-col items-center justify-between pl-10 mr-10 md:pl-24 md:pr-24 ">
       <Hero/>

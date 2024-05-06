@@ -21,6 +21,8 @@ export const EventFormSchema = z.object({
   standardTicketCapacity: z.string(),
 });
 
+export type eventSchemaProps = z.infer<typeof EventFormSchema>
+
 export const eventFilterSchema = z.object({
   q: z.string().optional(),
   eventtype: z.string().optional(),

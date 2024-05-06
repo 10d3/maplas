@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { EventFormSchema } from "@/lib/validation"
+import { EventFormSchema, eventSchemaProps } from "@/lib/validation"
 import * as z from "zod"
 import { eventDefaultValues } from "../constants"
 import SelectCustom from "../ui/SelectCustom"
@@ -25,21 +25,24 @@ import Image from "next/image"
 import DatePicker from "react-datepicker";
 import { useUploadThing } from "@/lib/uploadthing"
 import { useRouter } from "next/navigation"
-import { createEvent } from "@/lib/actions/eventAction"
+import { createEvent, updateEvent } from "@/lib/actions/eventAction"
+import { EventProps, EventProps2 } from "@/types/next"
 
 
 
 export type EventFormProps = {
   userId: string,
-  type: "Create" | "Update"
+  type: "Create" | "Update",
+  event?: EventProps2,
+  eventId:string | undefined
 }
-export const EventForm = ({ userId, type }: EventFormProps) => {
+export const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
 
   const router = useRouter();
 
   const [files, setFiles] = useState<File[]>([]);
 
-  const initialValue = eventDefaultValues
+  const initialValue = event && type === "Update" ? {...event, startDate: new Date(event?.startDate),endDate: new Date(event?.endDate) } : eventDefaultValues
 
   const { startUpload } = useUploadThing('imageUploader')
 
@@ -67,14 +70,14 @@ export const EventForm = ({ userId, type }: EventFormProps) => {
     if (type === 'Create') {
       try {
         const newEvent = await createEvent({
-          event: { ...values, image: uploadedImageUrl },
+          event: { ...values, image: uploadedImageUrl, },
           userId,
           path: '/profile'
         })
 
         if (newEvent) {
           form.reset();
-          router.push(`/event/${newEvent?.slug}`)
+          router.push('/successfully')
           // router.push("/event")
         }
       } catch (error) {
@@ -82,27 +85,28 @@ export const EventForm = ({ userId, type }: EventFormProps) => {
       }
     }
 
-    // if (type === 'Update') {
-    //   if (!eventId) {
-    //     router.back()
-    //     return;
-    //   }
+    if (type === 'Update') {
+      if (!eventId) {
+        router.back()
+        return;
+      }
 
-    //   try {
-    //     const updatedEvent = await updateEvent({
-    //       userId,
-    //       event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
-    //       path: `/events/${eventId}`
-    //     })
+      try {
+        const updatedEvent1 = await updateEvent({
+          userId,
+          eventId,
+          event: { ...values, image: uploadedImageUrl, },
+          path: `/event/${eventId}`
+        })
 
-    //     if (updatedEvent) {
-    //       form.reset();
-    //       router.push(`/events/${updatedEvent._id}`)
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
+        if (updatedEvent1) {
+          form.reset();
+          router.push("/succefully/update")
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
   return (
     <>

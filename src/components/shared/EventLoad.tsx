@@ -5,13 +5,6 @@ import EventFilterSidebar from './EventFilterSidebar';
 import { eventFilterValues } from '@/lib/validation';
 import { prisma } from '@/db/prisma';
 
-
-// interface EventResultProps {
-//     filterValues: eventFilterValues,
-//     location? : string,
-//     q? : string,
-//     eventtype? : string,
-// }
 interface searchParams {
       q: string | undefined,
       eventtype: string | undefined,
@@ -46,7 +39,7 @@ export default async function EventLoad({ title, filterValues }: { title: string
         }
     });
 
-    if (events?.length === 0) {
+    if (events?.length === 0 && title != "Top Events") {
         return <div className="flex flex-col space-y-3 pb-6 items-center justify-center">
             <Skeleton className="h-[125px] w-[250px] rounded-xl" />
             <div className="space-y-2">
@@ -54,6 +47,10 @@ export default async function EventLoad({ title, filterValues }: { title: string
                 <Skeleton className="h-4 w-[200px]" />
             </div>
         </div>;
+    }
+
+    if(title == 'Top Events'){
+        return null;
     }
 
     return (

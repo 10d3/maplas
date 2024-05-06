@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/db/prisma";
-import { CreateEventParams } from "@/types/next";
+import { CreateEventParams, CreateEventParams2 } from "@/types/next";
 import { toSlug } from "../utils";
 import { nanoid } from "nanoid";
 import { EventFormSchema } from "../validation";
@@ -72,3 +72,37 @@ export const getEventById = async (id: string) => {
     console.log(error);
   }
 };
+
+export const updateEvent = async ({userId, event, eventId, path}:CreateEventParams2) => {
+
+  const event1 = EventFormSchema.parse(event)
+    try {
+      const updateEvent1 = await prisma.event.update({
+        where:{
+          id:eventId,
+        },
+        data:{
+          ...event1,
+          createdById: userId,
+        }
+      })
+      return JSON.parse(JSON.stringify(updateEvent1));
+    } catch (error) {
+      console.log(error)
+    }
+}
+
+
+export const getRelatedEvents = async (eventTypeOf:string) => {
+  try {
+    const relatedEvent = await prisma.event.findMany({
+      where:{
+        eventType: eventTypeOf,
+      }
+    })
+
+    return relatedEvent;
+  } catch (error) {
+    console.log(error)
+  }
+}

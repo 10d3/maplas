@@ -15,6 +15,21 @@ export type SearchParamProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
+export type EventProps2 = {
+  id: string;
+  name: string;
+  description: string;
+  eventType: string;
+  startDate: Date;
+  endDate: Date;
+  location: string;
+  image: string;
+  vipTicketPrice: string;
+  standardTicketPrice: string;
+  vipTicketCapacity: string;
+  standardTicketCapacity: string;
+};
+
 export type EventProps = {
   id: string;
   name: string;
@@ -48,6 +63,24 @@ export type CreateEventParams = {
   };
   path: string;
 };
+export type CreateEventParams2 = {
+  userId: string;
+  eventId: string;
+  event: {
+    name: string;
+    description: string;
+    eventType: string;
+    location: string;
+    image: string;
+    startDate: Date;
+    endDate: Date;
+    vipTicketPrice?: string;
+    standardTicketPrice?: string;
+    vipTicketCapacity?: string;
+    standardTicketCapacity: string;
+  };
+  path: string;
+};
 // vipTicketPrice? : string | undefined;
 // standardTicketPrice? : string | undefined;
 // vipTicketCapacity? : string | undefined;
@@ -56,17 +89,17 @@ export type CreateEventParams = {
 export type UpdateEventParams = {
   userId: string;
   event: {
-    _id: string;
-    title: string;
-    imageUrl: string;
+    name: string;
     description: string;
+    eventType: string;
     location: string;
-    startDateTime: Date;
-    endDateTime: Date;
-    categoryId: string;
-    price: string;
-    isFree: boolean;
-    url: string;
+    image: string;
+    startDate: Date;
+    endDate: Date;
+    vipTicketPrice?: string | undefined;
+    standardTicketPrice?: string | undefined;
+    vipTicketCapacity?: string | undefined;
+    standardTicketCapacity: string;
   };
   path: string;
 };
