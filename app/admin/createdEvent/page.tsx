@@ -33,7 +33,7 @@ export default async function page() {
     }
 
     return (
-        <section>
+        <section className='m-auto my-10 max-w-[40rem] md:min-w-full space-y-10 px-3 flex flex-col justify-center items-center'>
             <Table>
                 <TableCaption>A list of your Events.</TableCaption>
                 <TableHeader>
