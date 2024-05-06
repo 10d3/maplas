@@ -4,6 +4,7 @@ import "./globals.css";
 import 'react-datepicker/dist/react-datepicker.css'
 import { cn } from "@/lib/utils";
 import Header from "@/features/layout/Header";
+import Providers from "./Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,20 +20,24 @@ export default function RootLayout({
 }>) {
   return (
     <>
-    <html lang="en" className="h-full" suppressHydrationWarning>
-      <head />
-      <body
-        className={cn(
-          'h-full bg-background font-sans antialiased',
-          inter.className
-        )}
-      >
+      <html lang="en" className="h-full" suppressHydrationWarning>
+        <head />
+        <body
+          className={cn(
+            'h-full bg-background font-sans antialiased',
+            inter.className
+          )}
+        >
           <div className="relative flex min-h-screen flex-col ">
             <Header />
-            <div className="flex-1">{children}</div>
+            <div className="flex-1">
+              <Providers>
+                {children}
+              </Providers>
+            </div>
           </div>
-      </body>
-    </html>
-  </>
+        </body>
+      </html>
+    </>
   );
 }
