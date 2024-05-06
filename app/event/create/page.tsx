@@ -17,7 +17,7 @@ export default async function CreateEvent() {
                 </h3>
             </section>
             <div className=' my-8'>
-                <EventForm userId={userId} type="Create" />
+                <EventForm eventId='' userId={userId} type="Create" />
             </div>
         </>
     )
