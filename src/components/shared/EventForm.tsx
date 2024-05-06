@@ -27,6 +27,7 @@ import { useUploadThing } from "@/lib/uploadthing"
 import { useRouter } from "next/navigation"
 import { createEvent, updateEvent } from "@/lib/actions/eventAction"
 import { EventProps, EventProps2 } from "@/types/next"
+import { Loader } from "../ui/loader"
 
 
 
@@ -330,7 +331,7 @@ export const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             type="submit"
             size='lg'
             disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? "Submitting" : `${type} Event`}
+            {form.formState.isSubmitting ? <Loader/> : `${type} Event`}
           </Button>
         </form>
       </Form>

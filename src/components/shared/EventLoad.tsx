@@ -49,9 +49,9 @@ export default async function EventLoad({ title, filterValues }: { title: string
         </div>;
     }
 
-    if(title == 'Top Events'){
-        return null;
-    }
+    // if(title == 'Top Events'){
+    //     return null;
+    // }
 
     return (
         <section className='mb-8'>
