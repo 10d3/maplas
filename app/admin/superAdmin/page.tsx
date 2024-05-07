@@ -5,7 +5,6 @@ import { prisma } from "@/db/prisma";
 import Link from "next/link";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Check, Pencil, Trash } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import ButtonAction from "@/components/shared/ButtonAction";
 
