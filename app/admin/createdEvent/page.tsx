@@ -57,9 +57,9 @@ export default async function page() {
                             </TableCell>
                             <TableCell>{event.name}</TableCell>
                             <TableCell>{event.approved ? "Approved" : "Pending"}</TableCell>
-                            <TableCell className="text-right">
-                                <Link href={`/admin/createdEvent/${event.id}/update`} >Edit<Pencil size={15} className='ml-2' /></Link>
-                                </TableCell>
+                            <TableCell className='text-right' >
+                                <Link className={buttonVariants({ variant:"default", size: 'sm'})} href={`/admin/createdEvent/${event.id}/update`} ><Pencil size={15} className='mr-2' />Edit</Link>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

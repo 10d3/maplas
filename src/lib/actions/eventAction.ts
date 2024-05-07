@@ -106,3 +106,31 @@ export const getRelatedEvents = async (eventTypeOf:string) => {
     console.log(error)
   }
 }
+
+export const approvalSubmission = async (eventId:string)=>{
+  console.log(eventId)
+  try {
+    const approve = await prisma.event.update({
+      where:{
+        id: eventId,
+      },
+      data:{
+        approved:true,
+      }
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteSubmission = async (eventId:string)=>{
+  try {
+    const deleted = await prisma.event.delete({
+      where:{
+        id: eventId,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}

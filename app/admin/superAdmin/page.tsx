@@ -7,6 +7,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Check, Pencil, Trash } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
+import ButtonAction from "@/components/shared/ButtonAction";
 
 export default async function AdminPage() {
     const unapprovedEvents = await prisma.event.findMany({
@@ -75,16 +76,8 @@ export default async function AdminPage() {
                                 <TableCell>{event.createdBy.name}</TableCell>
                                 <TableCell><Link href={`/admin/superAdmin/event/${event.slug}`}>See More</Link></TableCell>
                                 <TableCell className="text-right flex flex-col gap-2">
-                                    <Link
-                                        className={buttonVariants({ variant: "outline", size: 'sm' })}
-                                        href={`/admin/createdEvent/${event.id}/update`} >
-                                        Approval<Check size={15} className='ml-2' />
-                                    </Link>
-                                    <Link
-                                        className={buttonVariants({ variant: "outline", size: 'sm' })}
-                                        href={`/admin/createdEvent/${event.id}/update`} >
-                                        Delete<Trash size={15} className='ml-2' />
-                                    </Link>
+                                    <ButtonAction eventId={event.id} text="Approve" />
+                                    <ButtonAction eventId={event.id} text="Delete" />
                                 </TableCell>
                             </TableRow>
                         ))}
