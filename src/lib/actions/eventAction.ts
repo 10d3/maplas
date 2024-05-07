@@ -73,64 +73,70 @@ export const getEventById = async (id: string) => {
   }
 };
 
-export const updateEvent = async ({userId, event, eventId, path}:CreateEventParams2) => {
+export const updateEvent = async ({
+  userId,
+  event,
+  eventId,
+  path,
+}: CreateEventParams2) => {
+  const event1 = EventFormSchema.parse(event);
+  try {
+    const updateEvent1 = await prisma.event.update({
+      where: {
+        id: eventId,
+      },
+      data: {
+        ...event1,
+        createdById: userId,
+      },
+    });
+    return JSON.parse(JSON.stringify(updateEvent1));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  const event1 = EventFormSchema.parse(event)
-    try {
-      const updateEvent1 = await prisma.event.update({
-        where:{
-          id:eventId,
-        },
-        data:{
-          ...event1,
-          createdById: userId,
-        }
-      })
-      return JSON.parse(JSON.stringify(updateEvent1));
-    } catch (error) {
-      console.log(error)
-    }
-}
-
-
-export const getRelatedEvents = async (eventTypeOf:string) => {
+export const getRelatedEvents = async (eventTypeOf: string) => {
   try {
     const relatedEvent = await prisma.event.findMany({
-      where:{
+      where: {
         eventType: eventTypeOf,
-      }
-    })
+        approved: true,
+      },
+    });
 
     return relatedEvent;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-export const approvalSubmission = async (eventId:string)=>{
-  console.log(eventId)
+export const approvalSubmission = async (eventId: string) => {
+  console.log(eventId);
   try {
-    const approve = await prisma.event.update({
-      where:{
+    await prisma.event.update({
+      where: {
         id: eventId,
       },
-      data:{
-        approved:true,
-      }
-    })
+      data: {
+        approved: true,
+      },
+    });
+    return true;
   } catch (error) {
-    console.log(error)
+    return false;
   }
-}
+};
 
-export const deleteSubmission = async (eventId:string)=>{
+export const deleteSubmission = async (eventId: string) => {
   try {
-    const deleted = await prisma.event.delete({
-      where:{
+    await prisma.event.delete({
+      where: {
         id: eventId,
       },
-    })
+    });
+    return true;
   } catch (error) {
-    console.log(error)
+    return false;
   }
-}
+};

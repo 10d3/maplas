@@ -27,10 +27,10 @@ export default function CardEvent({ id, slug, name, description, startDate, endD
 
 
     return (
-        <Card className='w-[350px] h-auto'>
+        <Card className='w-[350px] h-auro'>
             <CardHeader>
                 <div className='w-[300px] m-auto'>
-                <Image className='w-full h-[330px] rounded-md' width={500} height={500} src={imageSt} alt='dj flash' />
+                <Image className=' w-96 h-full max-h-[260px] object-cover object-center rounded-md' width={1000} height={1000} src={imageSt} alt='dj flash' />
                 </div>
             </CardHeader>
             <CardContent>

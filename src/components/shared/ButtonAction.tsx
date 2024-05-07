@@ -5,6 +5,7 @@ import { Check, Pencil, Trash } from "lucide-react";
 
 export default function ButtonAction({ eventId, text }: { eventId: string, text: string }) {
 
+
     if (text == "Delete") {
         return (
             <Button onClick={() => { deleteSubmission(eventId) }} variant='default' size='sm'>
