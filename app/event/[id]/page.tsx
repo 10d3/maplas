@@ -1,7 +1,10 @@
 
+import { auth } from '@/auth/auth'
 import CardEvent from '@/components/shared/CardEvent'
+import CheckOutButton from '@/components/shared/CheckOutButton'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { getEventById, getRelatedEvents } from '@/lib/actions/eventAction'
 import { formatDateTime } from '@/lib/utils'
@@ -11,6 +14,11 @@ import Image from 'next/image'
 import React from 'react'
 
 export default async function EventDetail({ params: { id } }: SearchParamProps) {
+
+
+    const session = await auth();
+    const user = session?.user?.id as string;
+
 
     const event = await getEventById(id)
     const imagebla = event?.image as string
@@ -22,7 +30,8 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
 
     const eventRelated = await getRelatedEvents(eventTypeOf)
 
-    console.log(event)
+    const closedEvent = event?.startDate && new Date(event?.startDate) < new Date();
+
     return (
         <>
             <section className='flex justify-center bg-contain w-auto'>
@@ -34,14 +43,14 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                         <div className='flex flex-col gap-6'>
                             <h2 className=' font-bold text-2xl'>{event?.name}</h2>
                             <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
-                                <div className='flex gap-3 '>
+                                <div className='flex gap-3 px-auto'>
                                     <Badge className='text-[0.9rem] font-bold' variant='destructive'>
                                         {priceStandard === 0 ? "FREE" : `${event?.standardTicketPrice} Gdes`}
                                     </Badge>
                                     <Badge className='text-[0.9rem] font-bold' variant='secondary'>
                                         {event?.eventType}
                                     </Badge>
-                                    {event?.vipTicketPrice && (
+                                    {(event?.vipTicketPrice && Number(event?.vipTicketPrice) != 0) && (
                                         <Badge className='text-[0.9rem] p-2 font-bold bg-green-500 '>
                                             <BadgeCheck className='mr-2' size={15} /> {event?.vipTicketPrice} Gdes
                                         </Badge>)}
@@ -55,7 +64,13 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                                 </div>
                             </div>
                         </div>
-                        {/* checkout button */}
+                        {closedEvent ? (
+                            <div>
+                                <Button disabled>Event Close</Button>
+                            </div>) : (
+                            <div>
+                                <CheckOutButton event= {event} userId={user}/>
+                            </div>)}
                         <div className='flex flex-col gap-5'>
                             <div className='flex gap-2 sm:gap-3'>
                                 <Image src='/assets/icons/calendar.svg' alt='calendar' width={32} height={32} />

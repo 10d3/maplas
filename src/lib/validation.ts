@@ -21,7 +21,7 @@ export const EventFormSchema = z.object({
   standardTicketCapacity: z.string(),
 });
 
-export type eventSchemaProps = z.infer<typeof EventFormSchema>
+export type eventSchemaProps = z.infer<typeof EventFormSchema>;
 
 export const eventFilterSchema = z.object({
   q: z.string().optional(),
@@ -30,3 +30,19 @@ export const eventFilterSchema = z.object({
 });
 
 export type eventFilterValues = z.infer<typeof eventFilterSchema>;
+
+const method = ["MonCash", "Card"];
+const choice = ["Ticket Standard", "Ticket VIP"];
+
+export const checkOutSchema = z.object({
+  methodPay: z
+    .string()
+    .min(1)
+    .refine((value) => method.includes(value), "Invalid event type"),
+  choiceP: z
+    .string()
+    .min(1)
+    .refine((value) => choice.includes(value), "Invalid event type"),
+});
+
+export type checkOutSchemaProps = z.infer<typeof checkOutSchema>;

@@ -103,3 +103,30 @@ export type UpdateEventParams = {
   };
   path: string;
 };
+
+export interface EventOR {
+  id: string;
+    name: string;
+    slug: string;
+    description: string;
+    eventType: string;
+    startDate: Date;
+    endDate: Date;
+    location: string;
+    image: string;
+    vipTicketPrice: string;
+    standardTicketPrice: string;
+    createdById: string;
+    approved: boolean;
+    createdBy: {
+        id: string;
+        name: string | null;
+        email: string | null;
+        emailVerified: Date | null;
+        image: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        superAdmin: boolean;
+        isVerify: boolean;
+    };
+}

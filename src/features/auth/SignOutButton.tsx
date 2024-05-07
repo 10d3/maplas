@@ -21,8 +21,8 @@ export const SignOutButton = (props: SignOutButtonProps) => {
                         <User size={15} /> Profile
                     </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
+                {/* <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem>Team</DropdownMenuItem> */}
                 <DropdownMenuItem>
                     <Link className="flex flex-row gap-1 items-center" href='/admin'>
                         <Shield size={15} />Admin

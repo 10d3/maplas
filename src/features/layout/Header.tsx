@@ -3,6 +3,7 @@ import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTitle, DrawerTr
 import { LoggedInButton } from "../auth/LoggedInButton"
 import Link from 'next/link';
 import { SiteConfig } from '@/lib/site-config';
+import { Separator } from '@/components/ui/separator';
 
 
 export default async function Header() {
@@ -51,7 +52,7 @@ export default async function Header() {
                     </div>
                     <div className=" flex gap-2 items-center ">
                         {/* <Image src="/images/logo.svg" width={50} height={35} alt="app logo" /> */}
-                        <h1>{SiteConfig.title}</h1>
+                        <Link href='/'><h1 className='text-2xl font-semibold'>{SiteConfig.title}</h1></Link>
                     </div>
 
                     <div className='flex md:hidden flex-col w-auto items-center'>
@@ -62,7 +63,7 @@ export default async function Header() {
 
                 <div className=" hidden md:flex gap-2 items-center ">
                     {/* <Image src="/images/logo.svg" width={50} height={35} alt="app logo" /> */}
-                    <h1>{SiteConfig.title}</h1>
+                    <Link href='/'><h1 className='text-2xl'>{SiteConfig.title}</h1></Link>
                 </div>
                 {/* menu pc */}
 
@@ -81,6 +82,7 @@ export default async function Header() {
                 </div>
 
             </div>
+            <Separator className='w-full' />
         </header>
     )
 }
