@@ -35,7 +35,7 @@ export const checkoutOrder = async (order: any) => {
         buyerId: order.buyerId,
       },
       mode: "payment",
-      success_url: `${env.NEXT_PUBLIC_SERVER_URL}/tickets`,
+      success_url: `${env.NEXT_PUBLIC_SERVER_URL}/admin/tickets`,
       cancel_url: `${env.NEXT_PUBLIC_SERVER_URL}/`,
     });
 

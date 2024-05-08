@@ -13,6 +13,9 @@ import { prisma } from '@/db/prisma'
 import { eventTypes } from '@/lib/eventTypes'
 import { checkoutOrder } from '@/lib/actions/orderAction'
 import { Loader } from '../ui/loader'
+import { loadStripe } from '@stripe/stripe-js';
+
+loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function CheckOutButton({ userId, event }: { userId: string, event: any }) {
 
