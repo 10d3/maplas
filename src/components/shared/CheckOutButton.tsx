@@ -12,8 +12,21 @@ import SelectCustom from '../ui/SelectCustom'
 import { prisma } from '@/db/prisma'
 import { eventTypes } from '@/lib/eventTypes'
 import { checkoutOrder } from '@/lib/actions/orderAction'
+import { Loader } from '../ui/loader'
 
 export default function CheckOutButton({ userId, event }: { userId: string, event: any }) {
+
+    useEffect(() => {
+        // Check to see if this is a redirect back from Checkout
+        const query = new URLSearchParams(window.location.search);
+        if (query.get('success')) {
+            console.log('Order placed! You will receive an email confirmation.');
+        }
+
+        if (query.get('canceled')) {
+            console.log('Order canceled -- continue to shop around and checkout when you’re ready.');
+        }
+    }, []);
 
     console.log(event)
 
@@ -30,7 +43,7 @@ export default function CheckOutButton({ userId, event }: { userId: string, even
     async function onSubmit(values: z.infer<typeof checkOutSchema>) {
         const price = values.choiceP == 'Ticket Standard' ? Number(event.standardTicketPrice) : Number(event.vipTicketPrice);
         console.log(values.methodPay)
-        if(values.methodPay == 'Card'){
+        if (values.methodPay == 'Card') {
             console.log(price)
             const order = {
                 price: price,
@@ -39,7 +52,7 @@ export default function CheckOutButton({ userId, event }: { userId: string, even
                 buyerId: userId,
             }
             await checkoutOrder(order);
-        }else{
+        } else {
             console.log('MonCash')
         }
     }
@@ -85,7 +98,7 @@ export default function CheckOutButton({ userId, event }: { userId: string, even
                         )}
                     />
                 </div>
-                <Button  role='link' size='lg' className=' w-full my-2 bg-green-600'>Pay Now</Button>
+                <Button disabled={form.formState.isSubmitting} role='link' size='lg' className=' w-full my-2 bg-green-600'> {form.formState.isSubmitting ? <Loader/> :" Pay Now"}</Button>
             </form>
         </Form>
     )
