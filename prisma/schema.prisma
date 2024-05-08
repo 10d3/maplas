@@ -89,18 +89,19 @@ model Event {
 }
 
 model Ticket {
-  id         String   @id @default(cuid())
-  ticketId   String   @unique
-  eventId    String
-  eventName  String
-  eventImage String
-  userId     String?
-  price      Float
-  status     String   @default("available")
-  qrCodePath String?
-  createdAt  DateTime @default(now())
-  event      Event    @relation(fields: [eventId], references: [id], onDelete: Cascade) // Définition de l'argument onDelete ici
-  buyer      User?    @relation("UserTickets", fields: [userId], references: [id])
+  id          String   @id @default(cuid())
+  ticketId    String   @unique
+  eventId     String
+  isVIPticket Boolean  @default(false)
+  eventName   String
+  eventImage  String
+  userId      String?
+  price       Float
+  status      String   @default("available")
+  qrCodePath  String?
+  createdAt   DateTime @default(now())
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade) // Définition de l'argument onDelete ici
+  buyer       User?    @relation("UserTickets", fields: [userId], references: [id])
 }
 
 model Purchase {

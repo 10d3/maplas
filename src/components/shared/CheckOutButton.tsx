@@ -53,7 +53,30 @@ export default function CheckOutButton({ userId, event }: { userId: string, even
             }
             await checkoutOrder(order);
         } else {
-            console.log('MonCash')
+            try {
+                const response = await fetch('/api/payment', { // Correction de l'URL de l'API
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        amount: price,
+                        orderId: event.name + event.id,
+                    }),
+                });
+
+                const data = await response.json();
+                console.log('Payment created:', data);
+                if (data.redirect) { // Vérifiez si la propriété de redirection est présente dans la réponse
+                    console.log(data.redirect);
+                    window.location.href = data.redirect.destination; // Rediriger l'utilisateur
+                } else {
+                    console.error('Failed to retrieve redirect URL');
+                    // Gérer les cas où l'URL de redirection n'est pas disponible
+                }
+            } catch (error) {
+                console.error('Error creating payment:', error);
+            }
         }
     }
 
@@ -98,7 +121,7 @@ export default function CheckOutButton({ userId, event }: { userId: string, even
                         )}
                     />
                 </div>
-                <Button disabled={form.formState.isSubmitting} role='link' size='lg' className=' w-full my-2 bg-green-600'> {form.formState.isSubmitting ? <Loader/> :" Pay Now"}</Button>
+                <Button disabled={form.formState.isSubmitting} role='link' size='lg' className=' w-full my-2 bg-green-600'> {form.formState.isSubmitting ? <Loader /> : " Pay Now"}</Button>
             </form>
         </Form>
     )

@@ -12,3 +12,4 @@ export const eventTypes = [
     "Ateliers et Cours",
     "Visites Guidees et Excursions touristiques"
 ]
+
