@@ -17,7 +17,7 @@ export const POST = async function (request: Request) {
     apiVersion: '2024-04-10',
     typescript: true
   })
-  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET! as string
 
   let event
 
@@ -25,7 +25,7 @@ export const POST = async function (request: Request) {
     event = stripe.webhooks.constructEvent(body, sig, endpointSecret)
   } catch (err) {
     console.log(err)
-    return NextResponse.json({ message: 'Webhook error', error: err })
+    return NextResponse.json({ message: 'Webhook fail', error: err })
   }
 
   // Get the ID and type
