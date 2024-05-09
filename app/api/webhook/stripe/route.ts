@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { createOrder, userTicketAssign } from "@/lib/actions/orderAction";
 import { prisma } from "@/db/prisma";
 
-export async function Post(request: Request) {
+export const POST = async function (request: Request) {
   const body = await request.text();
 
 
