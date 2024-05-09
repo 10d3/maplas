@@ -13,16 +13,16 @@ export const POST = async function (request: Request) {
     return NextResponse.json({ message: 'No signature' })
   }
 
-  const stripe = new Stripe(process.env.STRIPE_WEBHOOK_SECRET!,{
-    apiVersion: '2024-04-10',
-    typescript: true
-  })
+  // const stripe = new Stripe(process.env.STRIPE_WEBHOOK_SECRET!,{
+  //   apiVersion: '2024-04-10',
+  //   typescript: true
+  // })
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET! as string
 
   let event
 
   try {
-    event = stripe.webhooks.constructEvent(body, sig, "whsec_Yq4muuIm8LIMUyJTltAlrjKHTgsOYZnL")
+    event = Stripe.webhooks.constructEvent(body, sig, endpointSecret)
   } catch (err) {
     console.log(err)
     return NextResponse.json({ message: 'Webhook fail', error: err })
