@@ -22,10 +22,10 @@ export const POST = async function (request: Request) {
   let event
 
   try {
-    event = stripe.webhooks.constructEvent(body, sig, endpointSecret)
+    event = stripe.webhooks.constructEvent(body, sig, "whsec_Yq4muuIm8LIMUyJTltAlrjKHTgsOYZnL")
   } catch (err) {
     console.log(err)
-    return NextResponse.json({ message: 'Webhook fail', error: err })
+    return NextResponse.json({ message: 'Webhook fail', error: body })
   }
 
   // Get the ID and type
