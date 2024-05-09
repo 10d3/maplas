@@ -3,64 +3,43 @@ import { NextResponse } from "next/server";
 import { createOrder, userTicketAssign } from "@/lib/actions/orderAction";
 import { prisma } from "@/db/prisma";
 
-export async function POST(request: Request) {
-  const body = await request.json();
+export const POST = async function (request: Request) {
+  const body = await request.text();
 
-  console.log(body);
 
-  switch (body.type) {
-    case "checkout.session.completed": {
-      const { id, amount_total, metadata } = body.data.object;
+  const sig = request.headers.get('stripe-signature') as string
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
 
-      console.log(id, amount_total);
+  let event
 
-      const order = {
-        stripeId: id,
-        eventId: metadata?.eventId || "",
-        buyerId: metadata?.buyerId || "",
-        totalAmount: amount_total ? (amount_total / 100).toString() : "0",
-        createdAt: new Date(),
-      };
-
-      const newOrder = await createOrder(order);
-      await userTicketAssign(order);
-      return NextResponse.json({ message: "OK", order: newOrder });
-    }
+  try {
+    event = stripe.webhooks.constructEvent(body, sig, endpointSecret)
+  } catch (err) {
+    console.log(err)
+    return NextResponse.json({ message: 'Webhook error', error: err })
   }
 
-  // const sig = request.headers.get('stripe-signature') as string
-  // const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
+  // Get the ID and type
+  const eventType = event.type
 
-  // let event
+  // CREATE
+  if (eventType === 'checkout.session.completed') {
+    const { id, amount_total, metadata } = event.data.object
 
-  // try {
-  //   event = stripe.webhooks.constructEvent(body, sig, endpointSecret)
-  // } catch (err) {
-  //   console.log(err)
-  //   return NextResponse.json({ message: 'Webhook error', error: err })
-  // }
+    console.log(id, amount_total)
 
-  // // Get the ID and type
-  // const eventType = event.type
+    const order = {
+      stripeId: id,
+      eventId: metadata?.eventId || '',
+      buyerId: metadata?.buyerId || '',
+      totalAmount: amount_total ? (amount_total / 100).toString() : '0',
+      createdAt: new Date(),
+    }
 
-  // // CREATE
-  // if (eventType === 'checkout.session.completed') {
-  //   const { id, amount_total, metadata } = event.data.object
+    const newOrder = await createOrder(order)
+    await userTicketAssign(order)
+    return NextResponse.json({ message: 'OK', order: newOrder })
+  }
 
-  //   console.log(id, amount_total)
-
-  //   const order = {
-  //     stripeId: id,
-  //     eventId: metadata?.eventId || '',
-  //     buyerId: metadata?.buyerId || '',
-  //     totalAmount: amount_total ? (amount_total / 100).toString() : '0',
-  //     createdAt: new Date(),
-  //   }
-
-  //   const newOrder = await createOrder(order)
-  //   await userTicketAssign(order)
-  //   return NextResponse.json({ message: 'OK', order: newOrder })
-  // }
-
-  // return new Response('', { status: 200 })
+  return new Response('', { status: 200 })
 }

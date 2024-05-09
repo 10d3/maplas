@@ -65,7 +65,7 @@ export default async function AccountPage() {
                     {<Link href='admin/dashboard' className={buttonVariants({ variant: "outline", size: 'lg' })}>
                         <LayoutDashboard className='mr-2' size={15} />DashBoard
                     </Link>}
-                    {tickets.length != 0 && <Link href='/tickets' className={buttonVariants({ variant: "outline", size: 'lg' })}>Mes Tickets</Link>}
+                    {tickets.length != 0 && <Link href='/admin/tickets' className={buttonVariants({ variant: "outline", size: 'lg' })}>Mes Tickets</Link>}
                 </CardContent>
                 <CardFooter className='flex flex-row-reverse'>
                     <SignOutButton />

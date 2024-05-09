@@ -11,7 +11,7 @@ import { Input } from '../ui/input'
 import SelectCustom from '../ui/SelectCustom'
 import { prisma } from '@/db/prisma'
 import { eventTypes } from '@/lib/eventTypes'
-import { checkoutOrder } from '@/lib/actions/orderAction'
+import { MonCashPayment, checkoutOrder } from '@/lib/actions/orderAction'
 import { Loader } from '../ui/loader'
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -56,26 +56,26 @@ export default function CheckOutButton({ userId, event }: { userId: string, even
             }
             await checkoutOrder(order);
         } else {
+            console.log(price)
             try {
-                const response = await fetch('/api/payment', { // Correction de l'URL de l'API
+                const response = await fetch('/api/payment/test/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         amount: price,
-                        orderId: event.name + event.id,
+                        orderId: event.id,
                     }),
                 });
 
                 const data = await response.json();
                 console.log('Payment created:', data);
-                if (data.redirect) { // Vérifiez si la propriété de redirection est présente dans la réponse
-                    console.log(data.redirect);
-                    window.location.href = data.redirect.destination; // Rediriger l'utilisateur
+                if (data.redirect) { // Check for redirect property in response
+                    window.location.href = data.redirect.destination; // Redirect the user
                 } else {
                     console.error('Failed to retrieve redirect URL');
-                    // Gérer les cas où l'URL de redirection n'est pas disponible
+                    // Handle cases where redirect URL is not available
                 }
             } catch (error) {
                 console.error('Error creating payment:', error);

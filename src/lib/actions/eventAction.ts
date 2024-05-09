@@ -5,6 +5,7 @@ import { CreateEventParams, CreateEventParams2 } from "@/types/next";
 import { toSlug } from "../utils";
 import { nanoid } from "nanoid";
 import { EventFormSchema } from "../validation";
+import generateTicketsForEvent, { generateVIPTicketsForEvent } from "../ticketGenerator/ticketsGenerator";
 
 export const createEvent = async ({
   event,
@@ -122,6 +123,9 @@ export const approvalSubmission = async (eventId: string) => {
         approved: true,
       },
     });
+
+    await generateTicketsForEvent(eventId);
+    await generateVIPTicketsForEvent(eventId);
     return true;
   } catch (error) {
     return false;

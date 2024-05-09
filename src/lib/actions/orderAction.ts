@@ -6,8 +6,7 @@ import { prisma } from "@/db/prisma";
 import { env } from "process";
 
 export const checkoutOrder = async (order: any) => {
-
-  console.log(order)
+  console.log(order);
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   const price_usd = order.price / 135;
@@ -63,22 +62,23 @@ export const createOrder = async (order: any) => {
   }
 };
 
-export async function userTicketAssign(order: any){
+export async function userTicketAssign(order: any) {
+  try {
+    const Tickets = await prisma.ticket.findMany({
+      where: { price: order.price },
+    });
+    const randomIndex = Math.floor(Math.random() * Tickets.length);
+    const randomTicket = Tickets[randomIndex];
 
-   try {
-     const Tickets = await prisma.ticket.findMany({where:{price:order.price}});
-     const randomIndex = Math.floor(Math.random() * Tickets.length)
-     const randomTicket = Tickets[randomIndex]
-
-     await prisma.ticket.update({
-      where:{id: randomTicket.id},
-      data:{
-        userId: order.buyerId
-      }
-     })
-    } catch (error) {
-      console.log(error)
-    }
+    await prisma.ticket.update({
+      where: { id: randomTicket.id },
+      data: {
+        userId: order.buyerId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function getOrdersByEvent({ searchString, eventId }: any) {
@@ -108,7 +108,6 @@ export async function getOrdersByEvent({ searchString, eventId }: any) {
     handleError(error);
   }
 }
-
 
 export async function getOrdersByUser({ userId, limit = 3, page }: any) {
   try {
@@ -148,40 +147,52 @@ export async function getOrdersByUser({ userId, limit = 3, page }: any) {
   }
 }
 
-// const Moncash = require("nodejs-moncash-sdk");
+const Moncash = require("nodejs-moncash-sdk");
 
-// export const MonCashPayment = async (order: any) => {
-//   Moncash.configure({
-//     mode: "sandbox",
-//     client_id: env.ClientId,
-//     client_secret: env.ClientSecret,
-//   });
+export const MonCashPayment = async (order: any) => {
+  // Configuration de Moncash
+  Moncash.configure({
+    mode: "sandbox",
+    client_id: env.ClientId,
+    client_secret: env.ClientSecret,
+  });
 
-//   const create_payment_json = {
-//     amount: order.price,
-//     orderId: order.orderId,
-//   };
-//   console.log(create_payment_json);
+  // Création de l'objet de paiement
+  const create_payment_json = {
+    amount: Number(order.price),
+    orderId: order.eventId,
+  };
 
-//   try {
-//     const payment_creator = Moncash.payment;
-//     payment_creator.create(
-//       create_payment_json,
-//       function (error: any, payment: any) {
-//         if (error) {
-//           console.log(error);
-//           throw error;
-//         } else {
-//           console.log("Create Payment Response");
-//           console.log(payment_creator.redirect_uri(payment));
-//           const redirectURL = payment_creator.redirect_uri(payment);
-//           // res.status(200).json({ redirect: { destination: redirectURL } });
-//           redirect(redirectURL);
-//           return redirectURL
-//         }
-//       }
-//     );
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+  let urlData; // Variable pour stocker l'URL de redirection
+
+  try {
+    // Création du paiement avec Moncash
+    const payment_creator = Moncash.payment;
+    const dataT = payment_creator.create(create_payment_json,function (error: any, payment: any) {
+        if (error) {
+          console.log(error);
+          throw error;
+        } else {
+          // Si le paiement est créé avec succès, obtenir l'URL de redirection
+          console.log("Create Payment Response");
+          console.log(payment_creator.redirect_uri(payment));
+          const redirectURL = payment_creator.redirect_uri(payment);
+          console.log(redirectURL)
+
+          // Attribuer l'URL de redirection à urlData
+          urlData = payment_creator.redirect_uri(payment);
+          console.log(urlData)
+        }
+        return urlData
+      }
+    );
+
+    // La console log ici pourrait ne pas afficher l'URL car elle est asynchrone
+    console.log(dataT); // Ceci peut afficher undefined car la création de paiement est asynchrone
+  } catch (error) {
+    console.log(error);
+  }
+
+  // Retourner l'URL de redirection (peut être undefined si la création de paiement est encore en cours)
+  return urlData;
+};

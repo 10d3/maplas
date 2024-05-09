@@ -26,7 +26,7 @@ export default async function AdminPage({ searchParams }: any) {
         where: { userId, },
     })
 
-    console.log(tickets)
+    console.log(tickets[0].qrCodePath)
 
     if (!userId) {
         return (<h1>va la bas</h1>)
@@ -51,9 +51,7 @@ export default async function AdminPage({ searchParams }: any) {
                         <TableRow>
                             <TableHead className="w-[100px]">Image</TableHead>
                             <TableHead>Title</TableHead>
-                            <TableHead>Organizer Name</TableHead>
                             <TableHead>Full Detaild</TableHead>
-                            <TableHead className="text-right">Action</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -68,11 +66,7 @@ export default async function AdminPage({ searchParams }: any) {
                                     </Avatar>
                                 </TableCell>
                                 <TableCell>{event.eventName}</TableCell>
-                                <TableCell><Link href={`/admin/superAdmin/event/${event.id}`}>See More</Link></TableCell>
-                                <TableCell className="text-right flex flex-col gap-2">
-                                    <ButtonAction eventId={event.id} text="Approve" />
-                                    <ButtonAction eventId={event.id} text="Delete" />
-                                </TableCell>
+                                <TableCell><Link href={`/admin/tickets/${event.id}`}>See More</Link></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
