@@ -1,4 +1,3 @@
-"use server"
 import QRCode from 'qrcode';
 import fs from 'fs/promises';
 import path from 'path';
@@ -10,9 +9,7 @@ export async function generateQRCode(eventId: string): Promise<string | null> {
 
   await fs.mkdir(qrCodeDirectory, { recursive: true });
 
-  console.log(qrCodeDirectory)
-
-  function generateRandomName(length:number) {
+  function generateRandomName(length: number) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let randomName = '';
     for (let i = 0; i <= length; i++) {
@@ -21,18 +18,15 @@ export async function generateQRCode(eventId: string): Promise<string | null> {
     return randomName;
   }
 
-  const qrCodePath = path.join(qrCodeDirectory, `${eventId}_${generateRandomName(16)}.png`);
+  const qrCodeFileName = `${eventId}_${generateRandomName(16)}.png`;
+  const qrCodePath = path.join(qrCodeDirectory, qrCodeFileName);
+  const qrCodePublicPath = path.join('/qrcodes', eventId, qrCodeFileName).replace(/\\/g, '/'); // Convert backslashes to forward slashes
 
   try {
-    // Create directory for the event if it doesn't exist
-    // await fs.mkdir(qrCodeDirectory, { recursive: true });
-
-    // Generate QR code
-    // const qrCodePath = path.join(qrCodeDirectory, `${eventId}_${generateRandomName(16)}.png`);
     await QRCode.toFile(qrCodePath, content);
 
-    // Return the path to the generated QR code image
-    return qrCodePath.replace(process.cwd(), '');
+    // Return the public path to the generated QR code image
+    return qrCodePublicPath;
   } catch (error) {
     console.error('Error generating and saving QR code:', error);
     return null;

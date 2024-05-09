@@ -1,5 +1,5 @@
 "use client"
-import { FormEvent, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Button } from '../ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { useForm } from 'react-hook-form'
@@ -7,13 +7,11 @@ import { z } from 'zod'
 import { checkOutSchema } from '@/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { checkOutValues } from '../constants'
-import { Input } from '../ui/input'
 import SelectCustom from '../ui/SelectCustom'
-import { prisma } from '@/db/prisma'
-import { eventTypes } from '@/lib/eventTypes'
-import { MonCashPayment, checkoutOrder } from '@/lib/actions/orderAction'
+import { checkoutOrder } from '@/lib/actions/orderAction'
 import { Loader } from '../ui/loader'
 import { loadStripe } from '@stripe/stripe-js';
+import { prisma } from '@/db/prisma'
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -57,6 +55,9 @@ export default function CheckOutButton({ userId, event }: { userId: string, even
             await checkoutOrder(order);
         } else {
             console.log(price)
+            const Tickets = await prisma.ticket.findMany({ where: { eventId : event.id, price, status:'available' } });
+            const randomIndex = Math.floor(Math.random() * Tickets.length)
+            const randomTicket = Tickets[randomIndex]
             try {
                 const response = await fetch('/api/payment/test/', {
                     method: 'POST',
@@ -65,7 +66,7 @@ export default function CheckOutButton({ userId, event }: { userId: string, even
                     },
                     body: JSON.stringify({
                         amount: price,
-                        orderId: event.id,
+                        orderId: randomTicket.id,
                     }),
                 });
 

@@ -11,7 +11,7 @@ export default async function Header() {
     const links = [
         { name: "Home", href: "/" },
         { name: "Event", href: "/event" },
-        { name: 'Create', href: '/create-event' },
+        { name: 'Create', href: '/event/create' },
         { name: "FAQ", href: "#" },
     ];
 
