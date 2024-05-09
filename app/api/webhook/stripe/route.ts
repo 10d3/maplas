@@ -1,13 +1,22 @@
-import stripe, { Stripe } from "stripe";
+import { Stripe } from "stripe";
 import { NextResponse } from "next/server";
 import { createOrder, userTicketAssign } from "@/lib/actions/orderAction";
 import { prisma } from "@/db/prisma";
 
-export const POST = async function (request: Request) {
+export async function Post(request: Request) {
   const body = await request.text();
 
 
-  const sig = request.headers.get('stripe-signature') as string
+  const sig = request.headers.get('Stripe-Signature') as string
+  if (!sig) {
+    console.log('No signature')
+    return NextResponse.json({ message: 'No signature' })
+  }
+
+  const stripe = new Stripe(process.env.STRIPE_WEBHOOK_SECRET!,{
+    apiVersion: '2024-04-10',
+    typescript: true
+  })
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
 
   let event
