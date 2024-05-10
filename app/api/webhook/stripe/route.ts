@@ -13,19 +13,19 @@ export const POST = async function (request: Request) {
     return NextResponse.json({ message: 'No signature' })
   }
 
-  // const stripe = new Stripe(process.env.STRIPE_WEBHOOK_SECRET!,{
-  //   apiVersion: '2024-04-10',
-  //   typescript: true
-  // })
-  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET! as string
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string
+  if (!endpointSecret) {
+    console.log('Missing Stripe webhook secret');
+    return  NextResponse.json({ message: 'Missing Stripe webhook secret' }, { status: 400 });
+  }
 
-  let event
+  let event:Stripe.Event
 
   try {
     event = stripe.webhooks.constructEvent(body, sig, endpointSecret)
   } catch (err) {
-    console.log(err)
-    return NextResponse.json({ message: 'Webhook fail', error: err })
+    console.log('Webhook signature verification failed:', err);
+    return NextResponse.json({ message:'Webhook signature verification failed', error: err },{status:400})
   }
 
   // Get the ID and type
