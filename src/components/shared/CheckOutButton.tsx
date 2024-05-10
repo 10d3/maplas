@@ -15,7 +15,7 @@ import { prisma } from '@/db/prisma'
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
-export default function CheckOutButton({ userId, event }: { userId: string, event: any }) {
+export default function CheckOutButton({ userId, event, Tickets }: { userId: string, event: any, Tickets:any }) {
 
     useEffect(() => {
         // Check to see if this is a redirect back from Checkout
@@ -55,9 +55,10 @@ export default function CheckOutButton({ userId, event }: { userId: string, even
             await checkoutOrder(order);
         } else {
             console.log(price)
-            const Tickets = await prisma.ticket.findMany({ where: { eventId : event.id, price, status:'available' } });
+            // const Tickets = await prisma.ticket.findMany({ where: { eventId : event.id, price, status:'available' } });
             const randomIndex = Math.floor(Math.random() * Tickets.length)
-            const randomTicket = Tickets[randomIndex]
+            const randomTicket = Tickets[randomIndex].price = price ? Tickets[randomIndex] : Tickets[randomIndex + 1]
+            console.log(randomTicket)
             try {
                 const response = await fetch('/api/payment/test/', {
                     method: 'POST',

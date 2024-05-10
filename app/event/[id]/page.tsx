@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { prisma } from '@/db/prisma'
 import { getEventById, getRelatedEvents } from '@/lib/actions/eventAction'
 import { formatDateTime } from '@/lib/utils'
 import { SearchParamProps } from '@/types/next'
@@ -27,6 +28,8 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
     const dateS = event?.startDate as Date
     const dateE = event?.endDate as Date
     const eventTypeOf = event?.eventType as string
+
+    const Tickets = await prisma.ticket.findMany({ where: { eventId: event?.id, status: 'available' } });
 
     const eventRelated = await getRelatedEvents(eventTypeOf)
 
@@ -69,7 +72,7 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                                 <Button disabled>Event Close</Button>
                             </div>) : (
                             <div>
-                                <CheckOutButton event= {event} userId={user}/>
+                                <CheckOutButton event={event} userId={user} Tickets={Tickets} />
                             </div>)}
                         <div className='flex flex-col gap-5'>
                             <div className='flex gap-2 sm:gap-3'>
