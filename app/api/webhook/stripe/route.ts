@@ -4,27 +4,17 @@ import { prisma } from "@/db/prisma";
 import stripe from "stripe";
 
 export const POST = async function (request: Request) {
-  const body = await request.text();
+  const body = await request.text()
 
-  const sig = request.headers.get('Stripe-Signature') as string;
-  if (!sig) {
-    console.log('No signature');
-    return NextResponse.json({ message: 'No signature' });
-  }
+  const sig = request.headers.get('stripe-signature') as string
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
 
-  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
-  if (!endpointSecret) {
-    console.log('Missing Stripe webhook secret');
-    return NextResponse.json({ message: 'Missing Stripe webhook secret' }, { status: 400 });
-  }
-
-  let event: stripe.Event;
+  let event
 
   try {
-    event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
+    event = stripe.webhooks.constructEvent(body, sig, endpointSecret)
   } catch (err) {
-    console.log('Webhook signature verification failed:', err);
-    return NextResponse.json({ message: 'Webhook signature verification failed', error: err }, { status: 400 });
+    return NextResponse.json({ message: 'Webhook error', error: err })
   }
 
   // Get the ID and type
