@@ -17,8 +17,7 @@ loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function CheckOutButton({ userId, event, Tickets }: { userId: string, event: any, Tickets:any }) {
 
-    // const soldOut = Tickets.length == 0;
-    const soldOut = false;
+    const soldOut = Tickets.length == 0;
 
     useEffect(() => {
         // Check to see if this is a redirect back from Checkout
