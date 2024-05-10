@@ -32,9 +32,11 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
     const Tickets = await prisma.ticket.findMany({ where: { eventId: event?.id, status: 'available' } });
 
     const eventRelated = await getRelatedEvents(eventTypeOf)
+    const filteredEvents = eventRelated?.filter(event => event.slug !== id);
+    console.log(filteredEvents)
 
     const closedEvent = event?.startDate && new Date(event?.startDate) < new Date();
-
+    const soldOut = Tickets.length == 0;
     return (
         <>
             <section className='flex justify-center bg-contain w-auto'>
@@ -70,10 +72,7 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                         {closedEvent ? (
                             <div>
                                 <Button disabled>Event Close</Button>
-                            </div>) : (
-                            <div>
-                                <CheckOutButton event={event} userId={user} Tickets={Tickets} />
-                            </div>)}
+                            </div>) : (<div><CheckOutButton event={event} userId={user} Tickets={Tickets} /></div>)}
                         <div className='flex flex-col gap-5'>
                             <div className='flex gap-2 sm:gap-3'>
                                 <Image src='/assets/icons/calendar.svg' alt='calendar' width={32} height={32} />
@@ -99,14 +98,14 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                 </div>
             </section>
             <Separator className='my-4 w-full' />
-            <section className='flex flex-col md:flex-row gap-4 my-4 items-center w-full'>
+            {filteredEvents?.length == 0 ? null : (<section className='flex flex-col gap-4 my-4 items-center w-full'>
                 <h1 className='font-bold text-2xl'>Related Events</h1>
                 <div className='flex flex-col md:flex-row items-center gap-4'>
-                    {eventRelated?.map((event) => (
+                    {filteredEvents?.map((event) => (
                         <CardEvent key={event.id} {...event} />
                     ))}
                 </div>
-            </section>
+            </section>)}
         </>
     )
 }

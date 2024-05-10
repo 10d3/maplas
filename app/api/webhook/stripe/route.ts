@@ -44,6 +44,7 @@ export const POST = async function (request: Request) {
 
     // Create the order and assign tickets to the user
     const newOrder = await createOrder(order);
+    console.log(newOrder)
     await userTicketAssign(order);
 
     return NextResponse.json({ message: 'OK', order: newOrder });

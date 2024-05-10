@@ -6,8 +6,7 @@ import { prisma } from "@/db/prisma";
 import { env } from "process";
 
 export const checkoutOrder = async (order: any) => {
-
-  console.log(order)
+  console.log(order);
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   const price_usd = order.price / 135;
@@ -46,40 +45,53 @@ export const checkoutOrder = async (order: any) => {
 };
 
 export const createOrder = async (order: any) => {
+  console.log(order);
+  const price_Number = Math.floor(Number(order.totalAmount) * 135)
+  console.log(price_Number)
   try {
-    // await connectToDatabase();
-
     const newOrder = await prisma.purchase.create({
       data: {
-        ...order,
-        event: order.eventId,
-        buyer: order.buyerId,
+        price: price_Number,
+        eventId: order.eventId,
+        buyerId: order.buyerId,
       },
     });
 
-    return JSON.parse(JSON.stringify(newOrder));
+    console.log(newOrder);
+    return newOrder;
   } catch (error) {
-    handleError(error);
+    // Handle the error more robustly, for example:
+    console.error('Error creating order:', error);
+    throw error; // Rethrow the error to propagate it to the caller
   }
 };
 
-export async function userTicketAssign(order: any){
+export async function userTicketAssign(order: any) {
 
-   try {
-     const Tickets = await prisma.ticket.findMany({where:{eventId: order.eventId ,price:order.price, status:'available'}});
-     const randomIndex = Math.floor(Math.random() * Tickets.length)
-     const randomTicket = Tickets[randomIndex]
+  console.log(order)
 
-     await prisma.ticket.update({
-      where:{id: randomTicket.id},
-      data:{
+  const price_htg = Math.floor(Number(order.totalAmount) * 135)
+  try {
+    const Tickets = await prisma.ticket.findMany({
+      where: {
+        eventId: order.eventId,
+        price: price_htg,
+        status: "available",
+      },
+    });
+    const randomIndex = Math.floor(Math.random() * Tickets.length);
+    const randomTicket = Tickets[randomIndex];
+
+    await prisma.ticket.update({
+      where: { id: randomTicket.id },
+      data: {
         userId: order.buyerId,
-        status: 'sold'
-      }
-     })
-    } catch (error) {
-      console.log(error)
-    }
+        status: "sold",
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function getOrdersByEvent({ searchString, eventId }: any) {
@@ -109,7 +121,6 @@ export async function getOrdersByEvent({ searchString, eventId }: any) {
     handleError(error);
   }
 }
-
 
 export async function getOrdersByUser({ userId, limit = 3, page }: any) {
   try {
