@@ -1,4 +1,4 @@
-import { Stripe } from "stripe";
+import stripe, { Stripe } from "stripe";
 import { NextResponse } from "next/server";
 import { createOrder, userTicketAssign } from "@/lib/actions/orderAction";
 import { prisma } from "@/db/prisma";
@@ -22,7 +22,7 @@ export const POST = async function (request: Request) {
   let event
 
   try {
-    event = Stripe.webhooks.constructEvent(body, sig, endpointSecret)
+    event = stripe.webhooks.constructEvent(body, sig, endpointSecret)
   } catch (err) {
     console.log(err)
     return NextResponse.json({ message: 'Webhook fail', error: err })
