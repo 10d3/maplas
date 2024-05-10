@@ -17,6 +17,8 @@ loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function CheckOutButton({ userId, event, Tickets }: { userId: string, event: any, Tickets:any }) {
 
+    const soldOut = Tickets.length == 0;
+
     useEffect(() => {
         // Check to see if this is a redirect back from Checkout
         const query = new URLSearchParams(window.location.search);
@@ -29,7 +31,7 @@ export default function CheckOutButton({ userId, event, Tickets }: { userId: str
         }
     }, []);
 
-    console.log(event)
+    // console.log(event)
 
     const priceD = Number(event.vipTicketPrice) == 0 ? ['Ticket Standard'] : ['Ticket Standard', 'Ticket VIP']
     const methodPP = ['MonCash', 'Card']
@@ -43,7 +45,7 @@ export default function CheckOutButton({ userId, event, Tickets }: { userId: str
 
     async function onSubmit(values: z.infer<typeof checkOutSchema>) {
         const price = values.choiceP == 'Ticket Standard' ? Number(event.standardTicketPrice) : Number(event.vipTicketPrice);
-        console.log(values.methodPay)
+        // console.log(values.methodPay)
         if (values.methodPay == 'Card') {
             console.log(price)
             const order = {
@@ -54,11 +56,11 @@ export default function CheckOutButton({ userId, event, Tickets }: { userId: str
             }
             await checkoutOrder(order);
         } else {
-            console.log(price)
+            // console.log(price)
             // const Tickets = await prisma.ticket.findMany({ where: { eventId : event.id, price, status:'available' } });
             const randomIndex = Math.floor(Math.random() * Tickets.length)
             const randomTicket = Tickets[randomIndex].price = price ? Tickets[randomIndex] : Tickets[randomIndex + 1]
-            console.log(randomTicket)
+            // console.log(randomTicket)
             try {
                 const response = await fetch('/api/payment/test/', {
                     method: 'POST',
@@ -72,7 +74,7 @@ export default function CheckOutButton({ userId, event, Tickets }: { userId: str
                 });
 
                 const data = await response.json();
-                console.log('Payment created:', data);
+                // console.log('Payment created:', data);
                 if (data.redirect) { // Check for redirect property in response
                     window.location.href = data.redirect.destination; // Redirect the user
                 } else {
@@ -126,7 +128,7 @@ export default function CheckOutButton({ userId, event, Tickets }: { userId: str
                         )}
                     />
                 </div>
-                <Button disabled={form.formState.isSubmitting} role='link' size='lg' className=' w-full my-2 bg-green-600'> {form.formState.isSubmitting ? <Loader /> : " Pay Now"}</Button>
+                { soldOut ? <Button disabled size='lg' className=' w-full my-2 bg-green-600'>Sold Out</Button> : <Button disabled={form.formState.isSubmitting} role='link' size='lg' className=' w-full my-2 bg-green-600'> {form.formState.isSubmitting ? <Loader /> : " Pay Now"}</Button>}
             </form>
         </Form>
     )
