@@ -49,7 +49,6 @@ export default async function AdminPage({ searchParams }: any) {
                     {/* <TableCaption>A list of your Events.</TableCaption> */}
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[100px]">Image</TableHead>
                             <TableHead>Title</TableHead>
                             <TableHead>Full Detaild</TableHead>
                         </TableRow>
@@ -57,14 +56,6 @@ export default async function AdminPage({ searchParams }: any) {
                     <TableBody>
                         {tickets.map((event) => (
                             <TableRow key={event.id}>
-                                <TableCell className="font-medium">
-                                    <Avatar className='rounded'>
-                                        <AvatarFallback>
-                                            {event.eventName[0]}
-                                        </AvatarFallback>
-                                        {event.qrCodePath && <AvatarImage src={event.qrCodePath} alt={event.eventName} />}
-                                    </Avatar>
-                                </TableCell>
                                 <TableCell>{event.eventName}</TableCell>
                                 <TableCell><Link href={`/admin/tickets/${event.id}`}>See More</Link></TableCell>
                             </TableRow>

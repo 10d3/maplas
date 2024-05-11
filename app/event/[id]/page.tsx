@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { prisma } from '@/db/prisma'
+import SignInButton from '@/features/auth/SignInButton'
 import { getEventById, getRelatedEvents } from '@/lib/actions/eventAction'
 import { formatDateTime } from '@/lib/utils'
 import { SearchParamProps } from '@/types/next'
@@ -30,7 +31,8 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
     const eventTypeOf = event?.eventType as string
 
     const Tickets = await prisma.ticket.findMany({ where: { eventId: event?.id, status: 'available' } });
-
+    const vipTickets = Tickets.filter(ticket => ticket.isVIPticket === true);
+    const standardTickets = Tickets.filter(ticket => ticket.isVIPticket === false);
     const eventRelated = await getRelatedEvents(eventTypeOf)
     const filteredEvents = eventRelated?.filter(event => event.slug !== id);
     console.log(filteredEvents)
@@ -60,6 +62,14 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                                             <BadgeCheck className='mr-2' size={15} /> {event?.vipTicketPrice} Gdes
                                         </Badge>)}
                                 </div>
+                                <div className='flex flex-row gap-2'>
+                                <Badge className='text-[0.9rem] font-bold' variant='secondary'>
+                                        Standard Tickets Left: {standardTickets.length}
+                                    </Badge>
+                                    <Badge className='text-[0.9rem] font-bold' variant='secondary'>
+                                        VIP Tickets Left: {vipTickets.length}
+                                    </Badge>
+                                </div>
                                 <div>
                                     <p className='ml-2 mt-2 sm:mt-0 text-[1rem] font-semibold'>Organizer :{" "} <span className=' text-primary font-bold text-[1rem]'>{event?.createdBy.name}</span></p>
                                     {/* <Avatar>
@@ -72,7 +82,7 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                         {closedEvent ? (
                             <div>
                                 <Button disabled>Event Close</Button>
-                            </div>) : (<div><CheckOutButton event={event} userId={user} Tickets={Tickets} /></div>)}
+                            </div>) : (<div>{user ? <CheckOutButton event={event} userId={user} Tickets={Tickets} /> : <div className='flex flex-col '><h1>You need to login first before you make purshase</h1><SignInButton /></div>}</div>)}
                         <div className='flex flex-col gap-5'>
                             <div className='flex gap-2 sm:gap-3'>
                                 <Image src='/assets/icons/calendar.svg' alt='calendar' width={32} height={32} />
