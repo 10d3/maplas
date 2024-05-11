@@ -33,7 +33,7 @@ export default async function AdminPage() {
     }
 
     return (
-        <main className="m-auto my-10 max-w-[40rem] md:min-w-full space-y-10 px-3 flex flex-col justify-center items-center">
+        <main className="m-auto my-10 max-w-[90%] md:max-w-[40rem] md:min-w-full space-y-10 px-3 flex flex-col justify-center items-center">
             <h1 className="text-center"> SuperAdmin Dashboard</h1>
             <h1>Liste d&apos;evennement en attente d&apos;etre approuver</h1>
             {/* <section className="flex flex-col gap-3">
@@ -76,8 +76,8 @@ export default async function AdminPage() {
                                 <TableCell>{event.createdBy.name}</TableCell>
                                 <TableCell><Link href={`/admin/superAdmin/event/${event.slug}`}>See More</Link></TableCell>
                                 <TableCell className="text-right flex flex-col gap-2">
-                                    {/* <ButtonAction eventId={event.id} text="Approve" />
-                                    <ButtonAction eventId={event.id} text="Delete" /> */}
+                                    {/* {/* <ButtonAction eventId={event.id} text="Approve" /> */}
+                                    {/* <ButtonAction eventId={event.id} text="Delete" /> */}
                                     <AdminSidebar event={event}/>
                                 </TableCell>
                             </TableRow>

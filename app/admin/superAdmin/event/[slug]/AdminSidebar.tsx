@@ -26,7 +26,7 @@ interface EventType {
 
 export default function AdminSidebar({ event }:{event:any}) {
     return (
-        <div className="flex w-[200px] flex-none flex-row items-center gap-2 md:flex-col md:items-stretch">
+        <div className="flex min-w-auto md:min-w-[200px] flex-none flex-col items-center gap-2 md:items-stretch">
           {event.approved ? (
             <span className="text-center font-semibold text-green-500">
               Approved
@@ -51,7 +51,7 @@ function ApproveSubmissionButton({ jobId }: AdminButtonProps) {
   return (
     <form action={formAction} className="space-y-1">
       <input hidden name="jobId" value={jobId} />
-      <FormSubmitButton className="w-1/2 bg-green-500 hover:bg-green-600">
+      <FormSubmitButton className=" w-full md:w-1/2 bg-green-500 hover:bg-green-600">
         Approve
       </FormSubmitButton>
       {formState?.error && (
@@ -68,7 +68,7 @@ function DeleteJobButton({ jobId }: AdminButtonProps) {
   return (
     <form action={formAction} className="space-y-1">
       <input hidden name="jobId" value={jobId} />
-      <FormSubmitButton className="w-1/2 bg-red-500 hover:bg-red-600">
+      <FormSubmitButton className=" w-full md:w-1/2 bg-red-500 hover:bg-red-600">
         Delete
       </FormSubmitButton>
       {formState?.error && (
