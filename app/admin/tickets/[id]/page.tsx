@@ -79,8 +79,8 @@ export default async function page({ params: { id } }: UpdateEventProps) {
         <div className="bg-[#6c47b8] p-4 flex flex-col gap-2">
           <p className="text-xs text-center opacity-70">SCAN BARCODE</p>
           <Image
-            alt="Barcode"
-            className=" bg-cover mx-auto w-[60px] h-[60px]"
+            alt="QRcode"
+            className=" bg-cover mx-auto w-[74px] h-[70px]"
             height={1000}
             src={imageB}
             // style={{
