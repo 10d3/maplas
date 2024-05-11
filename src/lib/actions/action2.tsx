@@ -2,6 +2,7 @@
 import { prisma } from "@/db/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import generateTicketsForEvent, { generateVIPTicketsForEvent } from "../ticketGenerator/ticketsGenerator";
 
 type FormState = { error?: string } | undefined;
 
@@ -21,6 +22,8 @@ export async function approveSubmission(
       },
     });
 
+    await generateTicketsForEvent(eventId);
+    await generateVIPTicketsForEvent(eventId);
     revalidatePath("/");
   } catch (error) {
     let message = "Unexpected error";

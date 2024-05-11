@@ -40,7 +40,7 @@ export default async function page() {
                     <TableRow>
                         <TableHead className="w-[100px]">Image</TableHead>
                         <TableHead>Title</TableHead>
-                        <TableHead>Approval</TableHead>
+                        <TableHead>Status</TableHead>
                         <TableHead className="text-right">Action</TableHead>
                     </TableRow>
                 </TableHeader>
