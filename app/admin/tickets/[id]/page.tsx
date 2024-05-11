@@ -29,7 +29,7 @@ export default async function page({ params: { id } }: UpdateEventProps) {
         <div className="p-6">
           <Image
             alt="Halloween Party"
-            className=" bg-cover rounded-lg w-[320px] h-[120px]"
+            className=" bg-contain rounded-lg w-[320px] h-[120px]"
             height={1000}
             src={imageE}
             // style={{
