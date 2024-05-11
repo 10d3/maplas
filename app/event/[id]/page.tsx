@@ -2,6 +2,7 @@
 import { auth } from '@/auth/auth'
 import CardEvent from '@/components/shared/CardEvent'
 import CheckOutButton from '@/components/shared/CheckOutButton'
+import Map from '@/components/shared/Map'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -11,7 +12,7 @@ import SignInButton from '@/features/auth/SignInButton'
 import { getEventById, getRelatedEvents } from '@/lib/actions/eventAction'
 import { formatDateTime } from '@/lib/utils'
 import { SearchParamProps } from '@/types/next'
-import { BadgeCheck } from 'lucide-react'
+import { BadgeCheck, Calendar, LocateIcon } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 
@@ -63,7 +64,7 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                                         </Badge>)}
                                 </div>
                                 <div className='flex flex-row gap-2'>
-                                <Badge className='text-[0.9rem] font-bold' variant='secondary'>
+                                    <Badge className='text-[0.9rem] font-bold' variant='secondary'>
                                         Standard Tickets Left: {standardTickets.length}
                                     </Badge>
                                     <Badge className='text-[0.9rem] font-bold' variant='secondary'>
@@ -85,24 +86,27 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                             </div>) : (<div>{user ? <CheckOutButton event={event} userId={user} Tickets={Tickets} /> : <div className='flex flex-col '><h1>You need to login first before you make purshase</h1><SignInButton /></div>}</div>)}
                         <div className='flex flex-col gap-5'>
                             <div className='flex gap-2 sm:gap-3'>
-                                <Image src='/assets/icons/calendar.svg' alt='calendar' width={32} height={32} />
+                                <Calendar size={30} />
                                 <div className=' flex flex-wrap items-center'>
-                                    <p>{formatDateTime(dateS).dateOnly} - {' '}
-                                        {formatDateTime(dateS).timeOnly}
-                                    </p>
-                                    {dateE && (<p className='ml-1'>{formatDateTime(dateE).dateOnly} -
+                                    <p>{formatDateTime(dateS).dateOnly} - {formatDateTime(dateS).timeOnly}</p>
+                                    {/* {dateE && (<p className='ml-1'>{formatDateTime(dateE).dateOnly} -
                                         {' '} {formatDateTime(dateE).timeOnly}
-                                    </p>)}
+                                    </p>)} */}
                                 </div>
                             </div>
                             <div className='flex items-center gap-3'>
-                                <Image src='/assets/icons/location-grey.svg' alt='location' width={32} height={32} />
+                                <LocateIcon size={30} />
                                 <p>{event?.location}</p>
                             </div>
                         </div>
                         <div className='flex flex-col gap-2'>
                             <p className=' font-bold text-gray-600'>Description</p>
                             <p className=''>{event?.description}</p>
+                        </div>
+                        <Separator />
+                        <div className='w-full flex-col'>
+                            <h1 className='font-semibold text-xl'>About the location:</h1>
+                            <Map />
                         </div>
                     </div>
                 </div>

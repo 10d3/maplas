@@ -29,12 +29,12 @@ export default function RootLayout({
           )}
         >
           <div className="relative flex min-h-screen flex-col px-0 md:px-52 ">
-            <Header />
-            <div className="flex-1">
-              <Providers>
+            <Providers>
+              <Header />
+              <div className="flex-1">
                 {children}
-              </Providers>
-            </div>
+              </div>
+            </Providers>
           </div>
         </body>
       </html>

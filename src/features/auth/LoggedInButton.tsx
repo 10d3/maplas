@@ -11,7 +11,7 @@ export const LoggedInButton = async () => {
     const user = await auth()
 
     if (!user) {
-        return <SignInButton />
+        return <LoginButton />
     }
     return (
         <SignOutButton>
