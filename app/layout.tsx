@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { cn } from "@/lib/utils";
 import Header from "@/features/layout/Header";
 import Providers from "./Providers";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] });
 

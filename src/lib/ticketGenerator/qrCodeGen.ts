@@ -32,3 +32,5 @@ export async function generateQRCode(eventId: string): Promise<string | null> {
     return null;
   }
 }
+
+
