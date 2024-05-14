@@ -48,11 +48,11 @@ export default function ScannerApp({ tickets }: any) {
             <div id="reader" style={{ width: '100%' }}></div>
             <div>
                 <h2>Scanned Codes:</h2>
-                <ul>
+                {/* <ul>
                     {scannedCodes.map((code, index) => (
                         <li key={index}>{code}</li>
                     ))}
-                </ul>
+                </ul> */}
             </div>
             <div>
                 <h2>Matched Tickets:</h2>
