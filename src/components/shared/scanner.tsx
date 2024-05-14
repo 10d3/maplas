@@ -20,10 +20,11 @@ export default function ScannerApp({ tickets }: any) {
             const matchedTicket = tickets.find((ticket: any) => ticket.ticketId === decodedText);
             if (matchedTicket) {
                 console.log("Ticket trouvé:", matchedTicket);
-                setMatchedTickets((prevTickets) => [...prevTickets, matchedTicket]);
+                setMatchedTickets([matchedTicket]);
                 setBgColor('bg-green-500'); // Définir la couleur de fond en vert si le ticket est trouvé
             } else {
                 console.log("Aucun ticket correspondant trouvé.");
+                setMatchedTickets([]);
                 setBgColor('bg-red-500'); // Définir la couleur de fond en rouge sinon
             }
 
@@ -55,11 +56,12 @@ export default function ScannerApp({ tickets }: any) {
             </div>
             <div>
                 <h2>Matched Tickets:</h2>
-                <ul>
-                    {matchedTickets.map((ticket, index) => (
-                        <li key={index}>{ticket.name}</li> // Assuming each ticket has a 'name' property
-                    ))}
-                </ul>
+                {matchedTickets.map((ticket, index) => (
+                    <ul key={index}>
+                        <li>{ticket.buyer?.name}</li>
+                        {ticket.isVIPticket && (<li>VIP Person</li>)}
+                    </ul>
+                ))}
             </div>
         </div>
     );
