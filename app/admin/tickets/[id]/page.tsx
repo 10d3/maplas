@@ -1,9 +1,11 @@
 import { auth } from '@/auth/auth'
 import { prisma } from '@/db/prisma'
 import { formatDateTime } from '@/lib/utils'
-import { Check, CheckCheckIcon, MapPinIcon, ShareIcon } from 'lucide-react'
+import { Check, CheckCheckIcon, MapPinIcon, QrCode, ShareIcon } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
+import QRCode from 'qrcode'
+import QrCodetoImage from '@/components/shared/qrcode'
 
 
 interface UpdateEventProps {
@@ -23,6 +25,13 @@ export default async function page({ params: { id } }: UpdateEventProps) {
   const dateS = event?.startDate as Date
   const session = await auth()
 
+  // QRCode.toCanvas(canvas, ticket?.qrCodePath as string, function(error:any){
+  //   if (error) console.log(error)
+  //     console.log('success')
+  // })
+
+  // QRCode.toCanvas(ticket?.qrCodePath as string).then(qrCodep)
+
   return (
     <section className='flex items-center justify-center h-[90dvh]'>
       <div className="bg-[#6c47b8] text-white w-80 rounded-2xl overflow-hidden shadow-lg">
@@ -32,10 +41,6 @@ export default async function page({ params: { id } }: UpdateEventProps) {
             className=" bg-contain rounded-lg w-[320px] h-[120px]"
             height={1000}
             src={imageE}
-            // style={{
-            //   aspectRatio: "320/120",
-            //   objectFit: "cover",
-            // }}
             width={1000}
           />
           <h2 className="text-2xl font-bold mt-4 flex items-center justify-between">
@@ -76,19 +81,9 @@ export default async function page({ params: { id } }: UpdateEventProps) {
             </div>
           </div>
         </div>
-        <div className="bg-[#6c47b8] p-4 flex flex-col gap-2">
+        <div className="bg-[#6c47b8] items-center p-4 flex flex-col gap-2">
           <p className="text-xs text-center opacity-70">SCAN BARCODE</p>
-          <Image
-            alt="QRcode"
-            className=" bg-cover mx-auto w-[74px] h-[70px]"
-            height={1000}
-            src={imageB}
-            // style={{
-            //   aspectRatio: "240/60",
-            //   objectFit: "cover",
-            // }}
-            width={1000}
-          />
+          <QrCodetoImage imageB={imageB} />
         </div>
       </div>
     </section>

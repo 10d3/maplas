@@ -4,7 +4,7 @@ import path from 'path';
 
 // Function to generate a QR code and save the image
 export async function generateQRCode(eventId: string): Promise<string | null> {
-  const content = `Event ID: ${eventId}`;
+  const content = eventId;
   const qrCodeDirectory = path.join(process.cwd(), 'public', 'qrcodes', eventId);
 
   await fs.mkdir(qrCodeDirectory, { recursive: true });

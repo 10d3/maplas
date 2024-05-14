@@ -43,16 +43,16 @@ export default async function generateTicketsForEvent(eventId: string) {
       const ticketContent = generateRandomUID(16);
 
       // Générez le QR code
-      const qrCodePath = await generateQRCode(ticketContent);
+      // const qrCodePath = await generateQRCode(ticketContent);
 
-      if (qrCodePath) {
+      if (ticketContent) {
         // Créez le ticket dans la base de données avec le chemin du QR code
         await prisma.ticket.create({
           data: {
             eventId,
             ticketId: ticketContent,
             price: ticketsPrice,
-            qrCodePath,
+            qrCodePath: ticketContent,
             status: "available",
             eventName: event.name,    // Ajout du nom de l'événement au ticket
             eventImage: event.image || "",  // Ajout de l'image de l'événement au ticket
@@ -92,9 +92,9 @@ export async function generateVIPTicketsForEvent(eventId: string) {
       const ticketContent = generateRandomUID(18)
 
       // Générez le QR code
-      const qrCodePath = await generateQRCode(ticketContent);
+      // const qrCodePath = await generateQRCode(ticketContent);
 
-      if (qrCodePath) {
+      if (ticketContent) {
         // Créez le ticket dans la base de données avec le chemin du QR code
         await prisma.ticket.create({
             data: {
@@ -102,7 +102,7 @@ export async function generateVIPTicketsForEvent(eventId: string) {
               isVIPticket: true,
               ticketId: ticketContent,
               price: ticketsVIPprice,
-              qrCodePath,
+              qrCodePath: ticketContent,
               status: "available",
               eventName: event.name,    // Ajout du nom de l'événement au ticket
               eventImage: event.image || '',  // Ajout de l'image de l'événement au ticket

@@ -1,44 +1,66 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { Html5QrcodeScanner } from 'html5-qrcode'
-import { Button } from '../ui/button'
+import { useEffect, useState } from 'react';
+import { Html5QrcodeScanner } from 'html5-qrcode';
 
-export default function Scanner() {
-
-    const [resultData, setResultData] = useState<string>('')
-    const [scanAgain, setScanAgain] = useState<boolean>(true)
+export default function ScannerApp({ tickets }: any) {
+    const [scannedCodes, setScannedCodes] = useState<string[]>([]);
+    const [matchedTickets, setMatchedTickets] = useState<any[]>([]);
+    const [bgColor, setBgColor] = useState<string>('bg-white'); // Définir la couleur de fond par défaut en blanc
 
     useEffect(() => {
-        const scanner = new Html5QrcodeScanner("reader", {
-            qrbox: {
-                width: 250,
-                height: 250,
-            },
-            fps: 5,
-        },
+        const html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader",
+            { fps: 10, qrbox: 250 },
             false
-        )
+        );
 
-        scanner.render(success, error);
-        function success(result: string) {
-            scanner.clear();
-            setResultData(result)
-        }
-        function error() {
-            console.log("error")
-        }
-    }, [scanAgain])
+        const onScanSuccess = (decodedText: string, decodedResult: any) => {
+            console.log("Scanned Code:", decodedText);
+
+            const matchedTicket = tickets.find((ticket: any) => ticket.id === decodedText);
+            if (matchedTicket) {
+                console.log("Ticket trouvé:", matchedTicket);
+                setMatchedTickets((prevTickets) => [...prevTickets, matchedTicket]);
+                setBgColor('bg-green-500'); // Définir la couleur de fond en vert si le ticket est trouvé
+            } else {
+                console.log("Aucun ticket correspondant trouvé.");
+                setBgColor('bg-red-500'); // Définir la couleur de fond en rouge sinon
+            }
+
+            setScannedCodes((prevCodes) => [...prevCodes, decodedText]);
+        };
+
+        const onScanError = (errorMessage: string) => {
+            console.error(errorMessage);
+        };
+
+        html5QrcodeScanner.render(onScanSuccess, onScanError);
+
+        return () => {
+            html5QrcodeScanner.clear().catch(error => console.error('Failed to clear scanner', error));
+        };
+    }, [tickets]);
 
     return (
-        <div className='flex items-center justify-center flex-col gap-4'>
-            <div><h1>scanner</h1></div>
-            {resultData ?
-                (<div>
-                    {resultData}
-                </div>) :
-                (<div id='reader' className='w-[80%] h-[50%]'></div>)
-            }
-            <Button onClick={()=> { setScanAgain(!scanAgain)}}>Scan Again</Button>
+        <div className={`flex items-center justify-center flex-col gap-4 h-screen ${bgColor}`}>
+            <h1>QR Scanner</h1>
+            <div id="reader" style={{ width: '100%' }}></div>
+            <div>
+                <h2>Scanned Codes:</h2>
+                <ul>
+                    {scannedCodes.map((code, index) => (
+                        <li key={index}>{code}</li>
+                    ))}
+                </ul>
+            </div>
+            <div>
+                <h2>Matched Tickets:</h2>
+                <ul>
+                    {matchedTickets.map((ticket, index) => (
+                        <li key={index}>{ticket.name}</li> // Assuming each ticket has a 'name' property
+                    ))}
+                </ul>
+            </div>
         </div>
-    )
+    );
 }

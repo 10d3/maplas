@@ -1,8 +1,11 @@
-import Scanner from '@/components/shared/scanner'
-import React from 'react'
 
-export default function page() {
+import ScannerApp from '@/components/shared/scanner'
+import { prisma } from '@/db/prisma'
+
+export default async function page() {
+  const tickets = await prisma.ticket.findMany()
+  console.log(tickets)
   return (
-    <div className='w-full h-auto flex items-center justify-center'><Scanner/></div>
+    <div className='w-full h-auto flex items-center justify-center'><ScannerApp tickets={tickets} /></div>
   )
 }
