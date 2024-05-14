@@ -17,7 +17,7 @@ export default function ScannerApp({ tickets }: any) {
         const onScanSuccess = (decodedText: string, decodedResult: any) => {
             console.log("Scanned Code:", decodedText);
 
-            const matchedTicket = tickets.find((ticket: any) => ticket.id === decodedText);
+            const matchedTicket = tickets.find((ticket: any) => ticket.ticketId === decodedText);
             if (matchedTicket) {
                 console.log("Ticket trouvé:", matchedTicket);
                 setMatchedTickets((prevTickets) => [...prevTickets, matchedTicket]);
