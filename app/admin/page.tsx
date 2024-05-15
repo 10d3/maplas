@@ -7,7 +7,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { auth } from '@/auth/auth';
 import { SignOutButton } from '@/features/auth/SignOutButton';
 import { prisma } from '@/db/prisma';
-import { LayoutDashboard, LockKeyhole, Settings2, SquareGanttChart } from 'lucide-react';
+import { LayoutDashboard, LockKeyhole, Settings2, SquareGanttChart, TicketCheck } from 'lucide-react';
 
 export default async function AccountPage() {
     const session = await auth();
@@ -55,8 +55,8 @@ export default async function AccountPage() {
                     </div>
                 </CardHeader>
                 <CardContent className='flex flex-col gap-2'>
-                    <Link href='/admin/setting' className={buttonVariants({ variant: "outline", size: "lg" })}>
-                        <Settings2 className='mr-2' size={15} />Setting</Link>
+                    {/* <Link href='/admin/setting' className={buttonVariants({ variant: "outline", size: "lg" })}>
+                        <Settings2 className='mr-2' size={15} />Setting</Link> */}
                     <Link href='admin/createdEvent' className={buttonVariants({ variant: "outline", size: 'lg' })}>
                         <SquareGanttChart className='mr-2' size={15} /> Created Event
                     </Link>
@@ -65,7 +65,9 @@ export default async function AccountPage() {
                     {<Link href='admin/dashboard' className={buttonVariants({ variant: "outline", size: 'lg' })}>
                         <LayoutDashboard className='mr-2' size={15} />DashBoard
                     </Link>}
-                    {tickets.length != 0 && <Link href='/admin/tickets' className={buttonVariants({ variant: "outline", size: 'lg' })}>Mes Tickets</Link>}
+                    {tickets.length != 0 && <Link href='/admin/tickets' className={buttonVariants({ variant: "outline", size: 'lg' })}>
+                        <TicketCheck className='mr-2' size={15} />Mes Tickets
+                    </Link>}
                 </CardContent>
                 <CardFooter className='flex flex-row-reverse'>
                     <SignOutButton />

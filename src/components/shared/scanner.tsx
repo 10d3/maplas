@@ -7,6 +7,7 @@ export default function ScannerApp({ tickets }: any) {
     const [matchedTickets, setMatchedTickets] = useState<any[]>([]);
     const [bgColor, setBgColor] = useState<string>('bg-white'); // Définir la couleur de fond par défaut en blanc
 
+
     useEffect(() => {
         const html5QrcodeScanner = new Html5QrcodeScanner(
             "reader",
@@ -18,21 +19,30 @@ export default function ScannerApp({ tickets }: any) {
             console.log("Scanned Code:", decodedText);
 
             const matchedTicket = tickets.find((ticket: any) => ticket.ticketId === decodedText);
+            const newCodes:any = []
             if (matchedTicket) {
-                console.log("Ticket trouvé:", matchedTicket);
-                setMatchedTickets([matchedTicket]);
-                setBgColor('bg-green-500'); // Définir la couleur de fond en vert si le ticket est trouvé
+                if (newCodes.includes(decodedText)) {
+                    console.log(scannedCodes)
+                    console.log("Ticket already scanned:", matchedTicket);
+                    setBgColor('bg-orange-500');
+                } else {
+                    console.log("Ticket trouvé:", matchedTicket);
+                    setMatchedTickets([matchedTicket]);
+                    setBgColor('bg-green-500');
+                    newCodes.push(decodedText)
+                    console.log(newCodes)
+                }
             } else {
                 console.log("Aucun ticket correspondant trouvé.");
                 setMatchedTickets([]);
-                setBgColor('bg-red-500'); // Définir la couleur de fond en rouge sinon
+                setBgColor('bg-red-500');
             }
 
             setScannedCodes((prevCodes) => [...prevCodes, decodedText]);
         };
 
         const onScanError = (errorMessage: string) => {
-            console.error(errorMessage);
+            // console.error(errorMessage);
         };
 
         html5QrcodeScanner.render(onScanSuccess, onScanError);
@@ -40,8 +50,9 @@ export default function ScannerApp({ tickets }: any) {
         return () => {
             html5QrcodeScanner.clear().catch(error => console.error('Failed to clear scanner', error));
         };
-    }, [tickets]);
+    },);
 
+    console.log(scannedCodes)
     return (
         <div className={`flex items-center justify-center flex-col gap-4 h-screen ${bgColor}`}>
             <h1>QR Scanner</h1>
