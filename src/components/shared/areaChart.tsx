@@ -1,13 +1,12 @@
 'use client'
 import React from 'react'
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 export default function AreaChartComponent({ data }: any) {
     return (
         <ResponsiveContainer width='100%' height='80%'>
-            <AreaChart data={data}>
-                <CartesianGrid strokeDasharray='2 2' stroke='#1e293b' vertical={false} />
-                <Area dataKey='cashIn' type='monotone' fill={`url(#cyan-gradient)`} stroke='#06b6d4' />
+            <BarChart data={data}>
+                <Bar dataKey='cashIn' fill='#000' />
                 <XAxis dataKey='date'
                     fontSize={10} stroke='#334155'
                     tickLine={false} axisLine={false} interval={3}
@@ -21,21 +20,17 @@ export default function AreaChartComponent({ data }: any) {
                     tickLine={false} axisLine={false} interval={1}
                     tickFormatter={(value) => {
                         return `$${Intl.NumberFormat('en-us').format(value)}`
-                    }} />
-                <defs>
-                    <linearGradient id='cyan-gradient' x1='0' y1='0' x2='0' y2='1'>
-                        <stop offset='0%' stopColor='#06b6d4' stopOpacity={0.4} />
-                        <stop offset='75%' stopColor='##d946ef' stopOpacity={0.05} />
-                    </linearGradient>
-                </defs>
+                    }}
+                />
                 <Tooltip
-                    cursor={
-                        {
-                            fill: '#06b6d4',
-                            radius: 4,
-                            stroke: '#334155'
-                        }
-                    }
+                    // cursor={
+                    //     {
+                    //         fill: '#06b6d4',
+                    //         radius: 4,
+                    //         stroke: '#334155'
+                    //     }
+                    // }
+                    cursor={false}
                     content={({ active, payload }) => {
                         if (!active || !payload || payload.length === 0) {
                             return null
@@ -58,7 +53,7 @@ export default function AreaChartComponent({ data }: any) {
                         )
                     }}
                 />
-            </AreaChart>
+            </BarChart>
         </ResponsiveContainer>
     )
 }

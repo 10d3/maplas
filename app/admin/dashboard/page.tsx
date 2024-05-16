@@ -1,10 +1,12 @@
 import { auth } from '@/auth/auth'
+import CartData from '@/components/shared/CartData';
 import AreaChartComponent from '@/components/shared/areaChart';
 import AreaChart from '@/components/shared/areaChart';
 import EventCard from '@/components/shared/eventCard';
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { prisma } from '@/db/prisma';
+import { CreditCard, DollarSign, Users } from 'lucide-react';
 import React from 'react'
 
 export default async function DashBoard() {
@@ -26,6 +28,26 @@ export default async function DashBoard() {
     { date: "2023-04-11", cashIn: 17000, cashOut: 11712 },
     { date: "2023-04-12", cashIn: 18000, cashOut: 12811 },
   ];
+  const cardData: any = [
+    {
+      label: "Total Revenue",
+      amount: "$45,231.89",
+      discription: "+20.1% from last month",
+      icon: <DollarSign className="size-4 text-gray-400" />
+    },
+    {
+      label: "Subscriptions",
+      amount: "+2350",
+      discription: "+180.1% from last month",
+      icon: <Users className="size-4 text-gray-400" />
+    },
+    {
+      label: "Sales",
+      amount: "+12,234",
+      discription: "+19% from last month",
+      icon: <CreditCard className="size-4 text-gray-400" />
+    },
+  ];
   return (
     <div className='w-[100%] md:w-auto h-auto flex items-center flex-col justify-center gap-4 mb-6'>
       <section className='flex md:flex-row flex-col justify-between w-full md:w-[80%] gap-4'>
@@ -38,7 +60,7 @@ export default async function DashBoard() {
         </div>
       </section>
       <section className='flex flex-col w-full md:w-[80%] justify-between items-center md:flex-row gap-4'>
-        {/* {cardData.map((d, i) => (
+        {cardData.map((d:any, i:any) => (
           <CartData
             key={i}
             body={d.amount}
@@ -46,7 +68,7 @@ export default async function DashBoard() {
             icon={d.icon}
             title={d.label}
           />
-        ))} */}
+        ))}
       </section>
       <section className='flex flex-col md:flex-row w-full justify-between items-center md:w-[80%] gap-4'>
         <Card className='w-full md:w-1/2 h-[27rem] p-0 m-0'>

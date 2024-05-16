@@ -24,7 +24,7 @@ export default function EventCard({ event }: any) {
                     </div>
                 </div>
             </section>
-            <section className="flex flex-col md:flex-row gap-3">
+            {/* <section className="flex flex-col md:flex-row gap-3">
                 <div className="flex flex-col items-center">
                     <DollarSign size={15}/>
                     <p>1000</p>
@@ -37,7 +37,7 @@ export default function EventCard({ event }: any) {
                     <TicketCheck size={15}/>
                     <p>300</p>
                 </div>
-            </section>
+            </section> */}
         </div>
     );
 }
