@@ -12,14 +12,14 @@ async function filterEvent(formData: FormData) {
 
   console.log(formData.get("q"))
   const values = Object.fromEntries(formData.entries())
-  const {q, eventtype, location} = eventFilterSchema.parse(values)
+  const { q, eventtype, location } = eventFilterSchema.parse(values)
   const searchParams = new URLSearchParams({
-    ...(q && { q: q.trim()}),
-    ...(eventtype && { eventtype: eventtype}),
-    ...(location && { location: location}),
+    ...(q && { q: q.trim() }),
+    ...(eventtype && { eventtype: eventtype }),
+    ...(location && { location: location }),
   })
 
-  redirect(`/?${searchParams.toString()}`)
+  redirect(`?${searchParams.toString()}`)
 }
 
 export default async function EventFilterSidebar() {

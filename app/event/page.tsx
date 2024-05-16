@@ -19,8 +19,7 @@ export default function page({searchParams:{q, eventtype, location}}:PageProps) 
 
     const data = "Featured Events"
     return (
-        <section>
-            <h1>work</h1>
+        <section className="flex min-h-screen flex-col items-center justify-between pl-10 mr-10 md:pl-24 md:pr-24 ">
             <EventLoad title={data} filterValues={filterValues} />
         </section>
     )
