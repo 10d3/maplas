@@ -9,15 +9,17 @@ interface PageProps {
     q?: string | undefined,
     eventtype?: string | undefined,
     location?: string | undefined,
+    page?:string
   }
 }
 
-export default function Home({searchParams:{q, eventtype, location}}:PageProps) {
+export default function Home({searchParams:{q, eventtype, location, page}}:PageProps) {
 
   const filterValues = {
     q,
     eventtype,
     location,
+    page
 }
   const data = "Top Events"
   return (

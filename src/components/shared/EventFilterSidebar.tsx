@@ -10,7 +10,6 @@ import SelectCustom from "../ui/SelectCustom";
 async function filterEvent(formData: FormData) {
   'use server'
 
-  console.log(formData.get("q"))
   const values = Object.fromEntries(formData.entries())
   const { q, eventtype, location } = eventFilterSchema.parse(values)
   const searchParams = new URLSearchParams({

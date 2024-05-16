@@ -6,15 +6,17 @@ interface PageProps {
       q?: string | undefined,
       eventtype?: string | undefined,
       location?: string | undefined,
+      page?:string
     }
   }
 
-export default function page({searchParams:{q, eventtype, location}}:PageProps) {
+export default function page({searchParams:{q, eventtype, location, page}}:PageProps) {
 
     const filterValues = {
         q,
         eventtype,
         location,
+        page
     }
 
     const data = "Featured Events"

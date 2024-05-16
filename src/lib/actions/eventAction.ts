@@ -100,6 +100,7 @@ export const updateEvent = async ({
 export const getRelatedEvents = async (eventTypeOf: string) => {
   try {
     const relatedEvent = await prisma.event.findMany({
+      take:3,
       where: {
         eventType: eventTypeOf,
         approved: true,
