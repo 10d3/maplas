@@ -24,6 +24,7 @@ export default async function AdminPage({ searchParams }: any) {
 
     const tickets = await prisma.ticket.findMany({
         where: { userId, },
+        orderBy:{createdAt: 'desc'}
     })
 
     console.log(tickets[0].qrCodePath)
@@ -44,7 +45,7 @@ export default async function AdminPage({ searchParams }: any) {
         <main className="m-auto my-10 max-w-[40rem] md:min-w-full space-y-10 px-3 flex flex-col justify-center items-center">
             <h1 className="text-center"> Tickets </h1>
             <h1>Liste de mes Tickets</h1>
-            <section>
+            <section className="w-[90%]">
                 <Table>
                     {/* <TableCaption>A list of your Events.</TableCaption> */}
                     <TableHeader>
@@ -57,7 +58,7 @@ export default async function AdminPage({ searchParams }: any) {
                         {tickets.map((event) => (
                             <TableRow key={event.id}>
                                 <TableCell>{event.eventName}</TableCell>
-                                <TableCell><Link href={`/admin/tickets/${event.id}`}>See More</Link></TableCell>
+                                <TableCell><Link className=" text-cyan-800 font-semibold" href={`/admin/tickets/${event.id}`}>See More</Link></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
