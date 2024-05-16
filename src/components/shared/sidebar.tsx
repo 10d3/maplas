@@ -77,7 +77,7 @@ export default function SideBar() {
                                         <DrawerClose key={i} asChild>
                                             <Tooltip>
                                                 <TooltipTrigger asChild>
-                                                    <Link className='' key={i} href={link.href}><Button variant={link.href === pathname ? "default" : "ghost"}>{link.icon}</Button><span className="sr-only">{link.name}</span></Link>
+                                                    <Link className='' key={i} href={link.href}><Button className='flex flex-row gap-2' variant={link.href === pathname ? "default" : "ghost"}>{link.icon} {link.name}</Button><span className="sr-only">{link.name}</span></Link>
                                                 </TooltipTrigger>
                                                 <TooltipContent side="right">{link.name}</TooltipContent>
                                             </Tooltip>
