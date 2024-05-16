@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { prisma } from '@/db/prisma';
 import { CreditCard, DollarSign, Users } from 'lucide-react';
+import Link from 'next/link';
 import React from 'react'
 
 export default async function DashBoard() {
@@ -55,7 +56,7 @@ export default async function DashBoard() {
           <h1>Welcome back {user?.name} </h1>
         </div>
         <div className='flex flex-row gap-2'>
-          <Button className='w-[50%]'>Create new Event</Button>
+          <Button className='w-[50%]'><Link href='/event/create'>Create new Event</Link></Button>
           <Button className='w-[50%]'>Virement</Button>
         </div>
       </section>
