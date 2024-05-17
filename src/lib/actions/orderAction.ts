@@ -72,7 +72,7 @@ export async function userTicketAssign(order: any) {
 
   console.log(order)
 
-  const price_htg = Math.floor(Number(order.totalAmount) * 135)
+  const price_htg = Math.round(Number(order.totalAmount) * 135)
   try {
     const Tickets = await prisma.ticket.findMany({
       where: {
