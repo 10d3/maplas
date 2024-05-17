@@ -18,27 +18,23 @@ import {
 
 export function Withdraw() {
   return (
-    <Tabs defaultValue="account" className="w-[400px]">
+    <Tabs defaultValue="account" className=" flex flex-col items-center md:min-w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="account">MonCash</TabsTrigger>
         <TabsTrigger value="password">Bank Account</TabsTrigger>
       </TabsList>
       <TabsContent value="account">
-        <Card>
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>MonCash</CardTitle>
             <CardDescription>
               Retrait avec MonCash.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="w-full space-y-2">
             <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" defaultValue="Pedro Duarte" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" defaultValue="@peduarte" />
+              <Label htmlFor="username">MonCash Number</Label>
+              <Input id="username" defaultValue="50944758595" type="number" />
             </div>
           </CardContent>
           <CardFooter>
