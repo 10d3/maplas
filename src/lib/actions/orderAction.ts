@@ -54,6 +54,8 @@ export const createOrder = async (order: any) => {
         price: price_Number,
         eventId: order.eventId,
         buyerId: order.buyerId,
+        createdAt: order.createdAt,
+        method: order.method
       },
     });
 

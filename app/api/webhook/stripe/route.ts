@@ -38,6 +38,7 @@ export const POST = async function (request: Request) {
       stripeId: id,
       eventId: metadata?.eventId || '',
       buyerId: metadata?.buyerId || '',
+      method: 'Card',
       totalAmount: amount_total ? (amount_total / 100).toString() : '0', // Amount is in cents, convert to dollars
       createdAt: new Date(),
     };

@@ -105,12 +105,14 @@ model Ticket {
 }
 
 model Purchase {
-  id      String @id @default(cuid())
-  event   Event  @relation(fields: [eventId], references: [id])
-  eventId String
-  price   Float
-  buyer   User   @relation(fields: [buyerId], references: [id])
-  buyerId String
+  id        String   @id @default(cuid())
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String
+  price     Float
+  createdAt DateTime @default(now())
+  method    String
+  buyer     User     @relation(fields: [buyerId], references: [id])
+  buyerId   String
 }
 
 model VerificationToken {
