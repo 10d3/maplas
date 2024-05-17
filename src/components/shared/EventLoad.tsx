@@ -16,10 +16,8 @@ interface searchParams {
 export default async function EventLoad({ title, filterValues }: { title: string, filterValues: searchParams }) {
 
     const { q, eventtype, location, page } = filterValues;
-    const pageN = page ? parseInt(page) : 1 ;
-    // const pageN = page ? pageA : 1;
-    console.log(pageN)
-    const eventPerPage = 2
+    const pageN = page ? parseInt(page) : 1;
+    const eventPerPage = 4
     const skip = (pageN - 1) * eventPerPage
     const searchString = q?.split(" ").filter((word) => word.length > 0).join(" & ")
     const searchFilter = searchString ? {
@@ -77,7 +75,13 @@ export default async function EventLoad({ title, filterValues }: { title: string
                     ))}
                 </div>
                 {
-                    title !== "Top Events" && events.length > 0 && <Pagination currentPage={pageN} totalPage={Math.ceil(totalEvent / eventPerPage)} filterValues={filterValues} />
+                    title !== "Top Events" &&
+                    events.length > 0 &&
+                    <Pagination
+                        currentPage={pageN}
+                        totalPage={Math.ceil(totalEvent / eventPerPage)}
+                        filterValues={filterValues}
+                    />
                 }
             </div>
         </section>
