@@ -1,7 +1,6 @@
 import { auth } from '@/auth/auth'
 import CartData from '@/components/shared/CartData';
 import AreaChartComponent from '@/components/shared/areaChart';
-import AreaChart from '@/components/shared/areaChart';
 import EventCard from '@/components/shared/eventCard';
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -9,12 +8,22 @@ import { prisma } from '@/db/prisma';
 import { CreditCard, DollarSign, Users } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Withdraw } from '@/components/shared/withdraw';
+
 
 export default async function DashBoard() {
   const session = await auth();
   const user = session?.user
 
-  const events = await prisma.event.findMany({where:{createdById : user?.id}})
+  const events = await prisma.event.findMany({ where: { createdById: user?.id } })
   const data = [
     { date: "2023-04-01", cashIn: 1926, cashOut: 1450 },
     { date: "2023-04-02", cashIn: 2994, cashOut: 2235 },
@@ -57,11 +66,23 @@ export default async function DashBoard() {
         </div>
         <div className='flex flex-row gap-2'>
           <Button className='w-[50%]'><Link href='/event/create'>Create new Event</Link></Button>
-          <Button className='w-[50%]'>Virement</Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className='w-[50%]'>Virement</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Are you absolutely sure?</DialogTitle>
+                <DialogDescription>
+                  <Withdraw />
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
         </div>
       </section>
       <section className='flex flex-col w-full md:w-[80%] justify-between items-center md:flex-row gap-4'>
-        {cardData.map((d:any, i:any) => (
+        {cardData.map((d: any, i: any) => (
           <CartData
             key={i}
             body={d.amount}
@@ -73,7 +94,7 @@ export default async function DashBoard() {
       </section>
       <section className='flex flex-col md:flex-row w-full justify-between items-center md:w-[80%] gap-4'>
         <Card className='w-full md:w-1/2 h-[27rem] p-0 m-0'>
-            <p className="p-4 font-semibold">Overview</p>
+          <p className="p-4 font-semibold">Overview</p>
           <CardContent className='w-full m-0 p-0 h-full'>
             <AreaChartComponent data={data} />
           </CardContent>

@@ -9,7 +9,7 @@ export const checkoutOrder = async (order: any) => {
   console.log(order);
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const price_usd = order.price / 135;
+  const price_usd = Math.round(order.price / 135);
 
   const price = Math.round(price_usd * 100);
 
