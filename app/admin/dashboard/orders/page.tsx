@@ -21,8 +21,8 @@ export default async function page() {
                             <TableRow>
                                 <TableHead>Title</TableHead>
                                 <TableHead>Buyer Name</TableHead>
-                                <TableHead>Buyer Email</TableHead>
                                 <TableHead>Payment Method</TableHead>
+                                <TableHead>Buyer Email</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>

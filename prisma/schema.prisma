@@ -60,11 +60,13 @@ model User {
   updatedAt     DateTime   @updatedAt
   superAdmin    Boolean    @default(false)
   isVerify      Boolean    @default(false)
+  balance       Float      @default(0)
   accounts      Account[]
   sessions      Session[]
   tickets       Ticket[]   @relation("UserTickets")
   events        Event[]    @relation("UserEvents")
   Purchase      Purchase[]
+  Transfer      Transfer[]
 }
 
 model Event {
@@ -113,6 +115,16 @@ model Purchase {
   method    String
   buyer     User     @relation(fields: [buyerId], references: [id])
   buyerId   String
+}
+
+model Transfer {
+  id              String   @id @default(cuid())
+  amount          Float
+  createdAt       DateTime @default(now())
+  recipientAcc    String
+  method          String
+  recipientUser   User     @relation(fields: [recipientUserId], references: [id])
+  recipientUserId String
 }
 
 model VerificationToken {

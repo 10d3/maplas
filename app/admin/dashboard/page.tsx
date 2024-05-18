@@ -74,7 +74,7 @@ export default async function DashBoard() {
               <DialogHeader>
                 <DialogTitle>Are you absolutely sure?</DialogTitle>
                 <DialogDescription>
-                  <Withdraw />
+                  <Withdraw userId={user?.id} />
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>

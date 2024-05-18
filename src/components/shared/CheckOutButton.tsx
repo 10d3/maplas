@@ -37,7 +37,7 @@ export default function CheckOutButton({ userId, event, Tickets }: { userId: str
     const methodPP = ['MonCash', 'Card']
 
 
-    const initiaValues = checkOutValues
+    const initiaValues = checkOutValues;
     const form = useForm<z.infer<typeof checkOutSchema>>({
         resolver: zodResolver(checkOutSchema),
         defaultValues: initiaValues

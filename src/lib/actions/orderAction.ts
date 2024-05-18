@@ -161,3 +161,31 @@ export async function getOrdersByUser({ userId, limit = 3, page }: any) {
     handleError(error);
   }
 }
+
+export const PaymentStripeCreator = async (userId:any, amount:number, accountId:string)=>{
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  const user = await prisma.user.findUnique({where:{id:userId}})
+  const balanceTotal = user?.balance
+  try {
+    if (balanceTotal! < amount) {
+      throw new Error('Insufficient funds')
+     }
+    //  const acc = await stripe.accounts.create({
+    //   type: 'express',
+    //   country: 'US',
+    //  })
+     const payout = await stripe.transfers.create({
+       amount,
+       currency: 'usd',
+       destination: accountId,
+       source_type:'bank_account'
+     });
+     await prisma.user.update({
+      where: { id: userId },
+      data: { balance: { decrement: amount } },
+    });
+    return payout;
+  } catch (error) {
+    console.error(error)
+  }
+}

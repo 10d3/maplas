@@ -46,3 +46,12 @@ export const checkOutSchema = z.object({
 });
 
 export type checkOutSchemaProps = z.infer<typeof checkOutSchema>;
+
+const methodW = ['MonCash', 'BankAccount']
+
+export const withdrawSchema = z.object({
+  amount: z.string().min(1),
+  methodWithdraw: z.string().min(1).refine((value) => methodW.includes(value), 'Invalid withdraw type' ),
+  recipient: z.string().min(1)
+})
+export type withdrawSchemaProps = z.infer<typeof withdrawSchema>

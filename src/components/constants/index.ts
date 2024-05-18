@@ -16,3 +16,9 @@ export const checkOutValues = {
   methodPay: "",
   choiceP: "",
 };
+
+export const paymentValues = {
+  methodWithdraw: "",
+  // amount:,
+  // recipient:"",
+};
