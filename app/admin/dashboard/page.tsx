@@ -72,7 +72,7 @@ export default async function DashBoard() {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Are you absolutely sure?</DialogTitle>
+                <DialogTitle>Votre Retrait en toute securite</DialogTitle>
                 <DialogDescription>
                   <Withdraw userId={user?.id} />
                 </DialogDescription>
