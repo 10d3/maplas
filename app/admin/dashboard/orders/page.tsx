@@ -22,14 +22,16 @@ export default async function page() {
                                 <TableHead>Title</TableHead>
                                 <TableHead>Buyer Name</TableHead>
                                 <TableHead>Buyer Email</TableHead>
+                                <TableHead>Payment Method</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {ordersFilter.map((event) => (
-                                <TableRow key={event.id}>
-                                    <TableCell>{event.event.name}</TableCell>
-                                    <TableCell>{event?.buyer.name}</TableCell>
-                                    <TableCell>{event?.buyer.email}</TableCell>
+                            {ordersFilter.map((order) => (
+                                <TableRow key={order.id}>
+                                    <TableCell>{order.event.name}</TableCell>
+                                    <TableCell>{order?.buyer.name}</TableCell>
+                                    <TableCell>{order?.method}</TableCell>
+                                    <TableCell>{order?.buyer.email}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
