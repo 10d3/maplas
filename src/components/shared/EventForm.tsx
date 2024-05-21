@@ -182,7 +182,7 @@ export const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                   {/* <FormLabel>Event Title</FormLabel> */}
                   <FormControl>
                     <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      <Image width={24} height={24} alt="location" src='/assets/icons/location-grey.svg' />
+                      {/* <Image width={24} height={24} alt="location" src='/assets/icons/location-grey.svg' /> */}
                       <Input placeholder="Event Location" {...field} className="p-regular-16 border-0 bg-gray-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0" />
                     </div>
                   </FormControl>
@@ -200,7 +200,7 @@ export const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                   {/* <FormLabel>Event Title</FormLabel> */}
                   <FormControl>
                     <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      <Image className=" fill-neutral-300" width={24} height={24} alt="location" src='/assets/icons/calendar.svg' />
+                      {/* <Image className=" fill-neutral-300" width={24} height={24} alt="location" src='/assets/icons/calendar.svg' /> */}
                       <p className="mx-3 whitespace-nowrap text-gray-600">Date:</p>
                       <DatePicker
                         selected={field.value}
@@ -224,7 +224,7 @@ export const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                   {/* <FormLabel>Event Title</FormLabel> */}
                   <FormControl>
                     <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      <Image className=" fill-neutral-300" width={24} height={24} alt="location" src='/assets/icons/calendar.svg' />
+                      {/* <Image className=" fill-neutral-300" width={24} height={24} alt="location" src='/assets/icons/calendar.svg' /> */}
                       <p className="mx-3 whitespace-nowrap text-gray-600">Date:</p>
                       <DatePicker
                         selected={field.value}
@@ -250,7 +250,7 @@ export const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                   {/* <FormLabel>Event Title</FormLabel> */}
                   <FormControl>
                     <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      <Image width={24} height={24} alt="location" src='/assets/icons/dollar.svg' />
+                      {/* <Image width={24} height={24} alt="location" src='/assets/icons/dollar.svg' /> */}
                       <Input
                         type="number"
                         placeholder="VIP Ticket Price Leave blank if you don't have vip ticket" {...field}
@@ -270,7 +270,7 @@ export const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                   {/* <FormLabel>Event Title</FormLabel> */}
                   <FormControl>
                     <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      <Image width={24} height={24} alt="location" src='/assets/icons/dollar.svg' />
+                      {/* <Image width={24} height={24} alt="location" src='/assets/icons/dollar.svg' /> */}
                       <Input
                         type="number"
                         placeholder="VIP Ticket Capacity Leave blank if you don't have vip ticket" {...field}
@@ -292,7 +292,7 @@ export const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                   {/* <FormLabel>Event Title</FormLabel> */}
                   <FormControl>
                     <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      <Image width={24} height={24} alt="location" src='/assets/icons/dollar.svg' />
+                      {/* <Image width={24} height={24} alt="location" src='/assets/icons/dollar.svg' /> */}
                       <Input
                         type="number"
                         placeholder="Standard Ticket Price " {...field}
@@ -312,7 +312,7 @@ export const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                   {/* <FormLabel>Event Title</FormLabel> */}
                   <FormControl>
                     <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      <Image width={24} height={24} alt="location" src='/assets/icons/dollar.svg' />
+                      {/* <Image width={24} height={24} alt="location" src='/assets/icons/dollar.svg' /> */}
                       <Input
                         type="number"
                         placeholder="Standart Ticket Capacity" {...field}
