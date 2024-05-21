@@ -10,7 +10,7 @@ export default async function CreateEvent() {
 
 
     return (
-        <>
+        <section className='w-full flex flex-col items-center'>
             <section className=' bg-primary-50 bg-cover bg-center py-5 md:py-10'>
                 <h3 className=' text-2xl text-center '>
                     Create Event
@@ -19,6 +19,6 @@ export default async function CreateEvent() {
             <div className=' my-8'>
                 <EventForm eventId='' userId={userId} type="Create" />
             </div>
-        </>
+        </section>
     )
 }

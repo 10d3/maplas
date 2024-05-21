@@ -42,9 +42,9 @@ export default async function AdminPage({ searchParams }: any) {
     }
 
     return (
-        <main className="m-auto my-10 max-w-[40rem] md:min-w-full space-y-10 px-3 flex flex-col justify-center items-center">
+        <main className="m-auto mb-10 max-w-[40rem] md:min-w-full h-screen space-y-10 px-3 flex flex-col justify-center items-center">
             <h1 className="text-center"> Tickets </h1>
-            <h1>Liste de mes Tickets</h1>
+            <h1>Ma liste de Tickets</h1>
             <section className="w-[90%]">
                 <Table>
                     {/* <TableCaption>A list of your Events.</TableCaption> */}

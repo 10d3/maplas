@@ -33,7 +33,7 @@ export default function RootLayout({
           <div className="relative flex min-h-screen flex-col px-0 md:px-52 ">
             <Providers>
               <Header />
-              <div className="flex-1">
+              <div className="flex">
                 {children}
                 <SpeedInsights />
               </div>
