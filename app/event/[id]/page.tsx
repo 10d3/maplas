@@ -41,35 +41,37 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
     const closedEvent = event?.startDate && new Date(event?.startDate) < new Date();
     const soldOut = Tickets.length == 0;
     return (
-        <>
-            <section className='flex justify-center bg-contain w-auto'>
-                <div className='grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl'>
+        <section className='flex flex-col min-h-auto'>
+            <section className='flex justify-center md:max-h-[100dvh] bg-contain w-auto'>
+                <div className=' grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl'>
                     <Image
                         className='h-full min-h-[300px] object-cover object-center'
                         src={imagebla} alt={title} width={1000} height={1000} />
                     <div className='flex w-full flex-col gap-8 p-5 md:p-10'>
                         <div className='flex flex-col gap-6'>
                             <h2 className=' font-bold text-2xl'>{event?.name}</h2>
-                            <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
-                                <div className='flex gap-3 px-auto'>
-                                    <Badge className='text-[0.9rem] font-bold' variant='destructive'>
-                                        {priceStandard === 0 ? "FREE" : `${event?.standardTicketPrice} Gdes`}
-                                    </Badge>
-                                    <Badge className='text-[0.9rem] font-bold' variant='secondary'>
-                                        {event?.eventType}
-                                    </Badge>
-                                    {(event?.vipTicketPrice && Number(event?.vipTicketPrice) != 0) && (
-                                        <Badge className='text-[0.9rem] p-2 font-bold bg-green-500 '>
-                                            <BadgeCheck className='mr-2' size={15} /> {event?.vipTicketPrice} Gdes
-                                        </Badge>)}
-                                </div>
-                                <div className='flex flex-row gap-2'>
-                                    <Badge className='text-[0.9rem] font-bold' variant='secondary'>
-                                        Standard Tickets Left: {standardTickets.length}
-                                    </Badge>
-                                    <Badge className='text-[0.9rem] font-bold' variant='secondary'>
-                                        VIP Tickets Left: {vipTickets.length}
-                                    </Badge>
+                            <div className='flex flex-col gap-3 sm:flex-col'>
+                                <div className='flex flex-row gap-1'>
+                                    <div className='flex gap-2 px-auto'>
+                                        <Badge className='text-[0.9rem] font-bold' variant='destructive'>
+                                            {priceStandard === 0 ? "FREE" : `${event?.standardTicketPrice} Gdes`}
+                                        </Badge>
+                                        <Badge className='text-[0.9rem] font-bold' variant='secondary'>
+                                            {event?.eventType}
+                                        </Badge>
+                                        {(event?.vipTicketPrice && Number(event?.vipTicketPrice) != 0) && (
+                                            <Badge className='text-[0.9rem] p-2 font-bold bg-green-500 '>
+                                                <BadgeCheck className='mr-2' size={15} /> {event?.vipTicketPrice} Gdes
+                                            </Badge>)}
+                                    </div>
+                                    <div className='flex flex-row gap-2'>
+                                        <Badge className='text-[0.9rem] font-bold' variant='secondary'>
+                                            Standard Tickets Left: {standardTickets.length}
+                                        </Badge>
+                                        <Badge className='text-[0.9rem] font-bold' variant='secondary'>
+                                            VIP Tickets Left: {vipTickets.length}
+                                        </Badge>
+                                    </div>
                                 </div>
                                 <div>
                                     <p className='ml-2 mt-2 sm:mt-0 text-[1rem] font-semibold'>Organizer :{" "} <span className=' text-primary font-bold text-[1rem]'>{event?.createdBy.name}</span></p>
@@ -84,9 +86,9 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                             <div>
                                 <Button disabled>Event Close</Button>
                             </div>) : (<div>{user ? <CheckOutButton event={event} userId={user} Tickets={Tickets} /> : <div className='flex flex-col '><h1>You need to login first before you make purshase</h1><SignInButton /></div>}</div>)}
-                        <div className='flex flex-col gap-5'>
+                        <div className='flex flex-col gap-2'>
                             <div className='flex gap-2 sm:gap-3'>
-                                <Calendar size={30} />
+                                <Calendar size={25} />
                                 <div className=' flex flex-wrap items-center'>
                                     <p>{formatDateTime(dateS).dateOnly} - {formatDateTime(dateS).timeOnly}</p>
                                     {/* {dateE && (<p className='ml-1'>{formatDateTime(dateE).dateOnly} -
@@ -95,7 +97,7 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                                 </div>
                             </div>
                             <div className='flex items-center gap-3'>
-                                <LocateIcon size={30} />
+                                <LocateIcon size={25} />
                                 <p>{event?.location}</p>
                             </div>
                         </div>
@@ -120,6 +122,6 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                     ))}
                 </div>
             </section>)}
-        </>
+        </section>
     )
 }

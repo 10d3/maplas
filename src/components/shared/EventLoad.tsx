@@ -67,23 +67,23 @@ export default async function EventLoad({ title, filterValues }: { title: string
             <div className=' mb-4 flex items-center justify-center'>
                 <h1 className='text-4xl' >{title}</h1>
             </div>
-            <EventFilterSidebar />
-            <div className='flex flex-col mt-6 justify-center items-center gap-6'>
-                <div className='flex flex-col md:flex-wrap md:flex-row gap-4'>
-                    {events?.map((event) => (
-                        <CardEvent key={event.id} {...event} />
-                    ))}
+                <EventFilterSidebar />
+                <div className='flex w-4/4 flex-col mt-6 justify-center items-center gap-6'>
+                    <div className='flex flex-col md:flex-row md:flex-wrap gap-4'>
+                        {events?.map((event) => (
+                            <CardEvent key={event.id} {...event} />
+                        ))}
+                    </div>
+                    {
+                        title !== "Top Events" &&
+                        events.length > 0 &&
+                        <Pagination
+                            currentPage={pageN}
+                            totalPage={Math.ceil(totalEvent / eventPerPage)}
+                            filterValues={filterValues}
+                        />
+                    }
                 </div>
-                {
-                    title !== "Top Events" &&
-                    events.length > 0 &&
-                    <Pagination
-                        currentPage={pageN}
-                        totalPage={Math.ceil(totalEvent / eventPerPage)}
-                        filterValues={filterValues}
-                    />
-                }
-            </div>
         </section>
     );
 }

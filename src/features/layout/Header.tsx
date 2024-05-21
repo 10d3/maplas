@@ -11,7 +11,7 @@ export default async function Header() {
     const links = [
         { name: "Home", href: "/" },
         { name: "Event", href: "/event" },
-        { name: 'Create', href: '/event/create' },
+        { name: 'Create  Event', href: '/event/create' },
         { name: "FAQ", href: "#" },
     ];
 
@@ -29,13 +29,6 @@ export default async function Header() {
                             </DrawerTrigger>
                             <DrawerContent>
                                 <div className='flex flex-col h-[85%] w-full justify-center items-center'>
-                                    {/* <div className='flex self-end'>
-                                        <DrawerTitle>
-                                            <DrawerClose asChild>
-                                                <X />
-                                            </DrawerClose>
-                                        </DrawerTitle>
-                                    </div> */}
                                     <div className='flex flex-col items-center gap-4'>
                                         {links.map((link, i) => {
                                             return (
@@ -67,7 +60,7 @@ export default async function Header() {
                 </div>
                 {/* menu pc */}
 
-                <div className=' hidden md:flex gap-2 items-center '>
+                <div className=' hidden md:flex gap-6 items-center '>
                     {links.map((link, i) => {
                         return (
                             <Link className='' key={i} href={link.href}>{link.name}</Link>

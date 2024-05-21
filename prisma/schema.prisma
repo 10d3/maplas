@@ -61,12 +61,14 @@ model User {
   superAdmin    Boolean    @default(false)
   isVerify      Boolean    @default(false)
   balance       Float      @default(0)
+  point         Int        @default(0)
   accounts      Account[]
   sessions      Session[]
   tickets       Ticket[]   @relation("UserTickets")
   events        Event[]    @relation("UserEvents")
   Purchase      Purchase[]
   Transfer      Transfer[]
+  Product       Product[]  @relation("UserProducts")
 }
 
 model Event {
@@ -104,6 +106,19 @@ model Ticket {
   createdAt   DateTime @default(now())
   event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade) // Définition de l'argument onDelete ici
   buyer       User?    @relation("UserTickets", fields: [userId], references: [id])
+}
+
+model Product {
+  id                 String   @id @default(cuid())
+  productName        String
+  productDescription String
+  price              Float
+  quantity           Int
+  image              String
+  productPass        String?
+  createdAt          DateTime @default(now())
+  userId             String?
+  buyer              User?    @relation("UserProducts", fields: [userId], references: [id])
 }
 
 model Purchase {

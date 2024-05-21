@@ -174,8 +174,9 @@ export const PaymentStripeCreator = async (userId:any, amount:number, accountId:
     //   type: 'express',
     //   country: 'US',
     //  })
+     const amountB = amount * 100
      const payout = await stripe.transfers.create({
-       amount,
+       amount: amountB,
        currency: 'usd',
        destination: accountId,
        source_type:'bank_account'
