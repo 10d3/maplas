@@ -98,7 +98,7 @@ export default function CheckOutButton({ userId, event, Tickets }: { userId: str
                             <FormItem className="w-full">
                                 {/* <FormLabel>Event Description</FormLabel> */}
                                 <FormControl>
-                                    <SelectCustom {...field} defaultValue=''>
+                                    <SelectCustom {...field}>
                                         <option value='' hidden>Type ticket</option>
                                         {priceD.map(eventTyp => (
                                             <option key={eventTyp} value={eventTyp}>{eventTyp}</option>
@@ -116,7 +116,7 @@ export default function CheckOutButton({ userId, event, Tickets }: { userId: str
                             <FormItem className="w-full">
                                 {/* <FormLabel>Event Description</FormLabel> */}
                                 <FormControl>
-                                    <SelectCustom {...field} defaultValue=''>
+                                    <SelectCustom {...field}>
                                         <option value='' hidden>Methode de Paiment</option>
                                         {methodPP.map(eventTyp => (
                                             <option key={eventTyp} value={eventTyp}>{eventTyp}</option>

@@ -133,7 +133,7 @@ export const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                 <FormItem className="w-full">
                   {/* <FormLabel>Event Description</FormLabel> */}
                   <FormControl>
-                    <SelectCustom {...field} defaultValue=''>
+                    <SelectCustom {...field} >
                       <option value='' hidden>Select event type</option>
                       {eventTypes.map(eventTyp => (
                         <option key={eventTyp} value={eventTyp}>{eventTyp}</option>

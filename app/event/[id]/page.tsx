@@ -42,11 +42,11 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
     const soldOut = Tickets.length == 0;
     return (
         <section className='flex flex-col min-h-auto'>
-            <section className='flex justify-center md:max-h-[100dvh] bg-contain w-auto'>
+            <section className='flex justify-center bg-contain w-auto'>
                 <div className=' grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl'>
                     <Image
                         className='h-full min-h-[300px] object-cover object-center'
-                        src={imagebla} alt={title} width={1000} height={1000} />
+                        src={imagebla} alt={title} width={1000} height={1000} priority />
                     <div className='flex w-full flex-col gap-8 p-5 md:p-10'>
                         <div className='flex flex-col gap-6'>
                             <h2 className=' font-bold text-2xl'>{event?.name}</h2>
@@ -114,14 +114,15 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                 </div>
             </section>
             <Separator className='my-4 w-full' />
-            {filteredEvents?.length == 0 ? null : (<section className='flex flex-col gap-4 my-4 items-center w-full'>
-                <h1 className='font-bold text-2xl'>Related Events</h1>
-                <div className='flex flex-col md:flex-row items-center gap-4'>
-                    {filteredEvents?.map((event) => (
-                        <CardEvent key={event.id} {...event} />
-                    ))}
-                </div>
-            </section>)}
+            {filteredEvents?.length == 0 ? null : (
+                <section className='flex flex-col gap-4 my-4 items-center w-full'>
+                    <h1 className='font-bold text-2xl'>Related Events</h1>
+                    <div className='flex flex-col md:flex-row items-center gap-4'>
+                        {filteredEvents?.map((event) => (
+                            <CardEvent key={event.id} {...event} />
+                        ))}
+                    </div>
+                </section>)}
         </section>
     )
 }

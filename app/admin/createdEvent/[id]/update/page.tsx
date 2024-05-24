@@ -39,7 +39,7 @@ export default async function page({ params: { id } }: UpdateEventProps) {
     }
 
     return (
-        <>
+        <section className='flex flex-col'>
             <section className=' bg-primary-50 bg-cover bg-center py-5 md:py-10'>
                 <h3 className=' text-2xl text-center sm:text-left '>
                     Update Event
@@ -48,6 +48,6 @@ export default async function page({ params: { id } }: UpdateEventProps) {
             <div className=' my-8'>
                 <EventForm userId={userId} type="Update" eventId={event?.id} event={EventB} />
             </div>
-        </>
+        </section>
     )
 }
