@@ -46,12 +46,12 @@ export default function CardEvent({ id, slug, name, description, startDate, endD
                         <h2>{time12HourFormat}</h2>
                     </div>
                     <div className='flex justify-between'>
-                        <h2>{location}</h2>
+                        <h2 className='line-clamp-1 text-[0.8rem] '>{location}</h2>
                         <Badge variant='destructive' ><h2>{standardTicketPrice} GDES</h2></Badge>
                     </div>
                 </div>
             </CardContent>
-            <CardFooter className=' flex justify-between'>
+            <CardFooter className='flex justify-between'>
                 <Button>Buy Now</Button>
                 <Link href={`/event/${slug}`}>Read More</Link>
             </CardFooter>
