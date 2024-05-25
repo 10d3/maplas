@@ -1,13 +1,13 @@
-// // app/api/wallet/route.js
+// app/api/wallet/route.js
 // import { NextResponse } from 'next/server';
 // import { GoogleAuth } from 'google-auth-library';
 // import jwt from 'jsonwebtoken';
 
-// // Securely load sensitive information
-// const serviceAccount = process.env.GOOGLE_WALLET_SERVICE_ACCOUNT!;
+// Securely load sensitive information
+const serviceAccount = process.env.GOOGLE_WALLET_SERVICE_ACCOUNT!;
 
-// export async function POST(req:Request) {
-//   const { type, passData } = await req.json();
+export async function POST(req:Request) {
+  const { type, passData } = await req.json();
 
 //   if (type === 'google') {
 //     try {
@@ -34,4 +34,4 @@
 //   } else {
 //     return NextResponse.json({ error: 'Invalid wallet type' }, { status: 400 });
 //   }
-// }
+}
