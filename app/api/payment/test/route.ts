@@ -17,8 +17,8 @@ export const POST = async function (req: Request, res: NextApiResponse) {
 
   Moncash.configure({
     mode: "sandbox",
-    client_id: env.ClientId,
-    client_secret: env.ClientSecret,
+    client_id: process.env.ClientId,
+    client_secret: process.env.ClientSecret,
   });
 
   try {
