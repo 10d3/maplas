@@ -7,15 +7,29 @@ import Image from 'next/image';
 import QrCodetoImage from '@/components/shared/qrcode';
 import { formatDateTime } from '@/lib/utils';
 import { Button } from '../ui/button';
+import { AddToCalendarButton } from 'add-to-calendar-button-react';
 
-interface blaProps{
-    ticket: any;
-    event: any;
-    session: any;
+interface blaProps {
+  ticket: any;
+  event: any;
+  session: any;
 }
 
-const Ticket = ({ ticket, event, session }:blaProps) => {
+const Ticket = ({ ticket, event, session }: blaProps) => {
   const ticketRef = useRef<HTMLDivElement>(null); // Typing the reference
+
+  function formatDateToYYYYMMDD(date:Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Les mois sont indexés à partir de 0
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  function formatTimeToHHMM(date:Date) {
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+
 
   const downloadTicket = () => {
     const input = ticketRef.current;
@@ -48,7 +62,7 @@ const Ticket = ({ ticket, event, session }:blaProps) => {
   const dateS = event.startDate;
 
   return (
-    <section className='w-full flex flex-col gap-4 my-8 items-center justify-center h-[90dvh]'>
+    <section className='w-full flex flex-col gap-4 my-8 items-center justify-center h-auto'>
       <div id="ticket" ref={ticketRef} className="bg-[#6c47b8] text-white w-80 rounded-2xl overflow-hidden shadow-lg">
         <div className="p-6">
           <Image
@@ -103,7 +117,24 @@ const Ticket = ({ ticket, event, session }:blaProps) => {
           <QrCodetoImage imageB={imageB} />
         </div>
       </div>
-      <Button onClick={downloadTicket} className="mt-4 p-2 text-white rounded">Download Ticket</Button>
+      <div className='flex flex-col md:flex-row gap-4 md:items-center md:justify-center h-auto'>
+        <Button onClick={downloadTicket} className="mt-4 p-2 text-white rounded">Download Ticket</Button>
+        <AddToCalendarButton
+          name={ticket.eventName}
+          description={event.description}
+          styleDark='#000'
+          buttonStyle='3d'
+          trigger='click'
+          iCalFileName={ticket.eventName}
+          options={['Apple', 'Google','iCal']}
+          location={event.location}
+          startDate={formatDateToYYYYMMDD(dateS)}
+          endDate={formatDateToYYYYMMDD(event.endDate)}
+          startTime={formatTimeToHHMM(dateS)}
+          endTime={formatTimeToHHMM(event.endDate)}
+          timeZone="America/Los_Angeles"
+        ></AddToCalendarButton>
+      </div>
     </section>
   );
 };
