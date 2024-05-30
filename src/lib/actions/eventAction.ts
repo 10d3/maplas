@@ -6,6 +6,7 @@ import { toSlug } from "../utils";
 import { nanoid } from "nanoid";
 import { EventFormSchema } from "../validation";
 import generateTicketsForEvent, { generateVIPTicketsForEvent } from "../ticketGenerator/ticketsGenerator";
+import { sendEmail } from "./resend-email";
 
 export const createEvent = async ({
   event,

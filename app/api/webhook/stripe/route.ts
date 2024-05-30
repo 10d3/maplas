@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createOrder, userTicketAssign } from "@/lib/actions/orderAction";
 import { prisma } from "@/db/prisma";
 import stripe from "stripe";
+import { sendEmail } from "@/lib/actions/resend-email";
 
 export const POST = async function (request: Request) {
   const body = await request.text();

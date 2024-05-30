@@ -1,4 +1,4 @@
 export const SiteConfig = {
-    title: 'Allo Ticket',
+    title: 'Allo Billet',
     description: 'Acheter des tickets plus facilement.',
   } as const;

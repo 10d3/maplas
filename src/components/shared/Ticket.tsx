@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { CheckCheckIcon, MapPinIcon, ShareIcon } from 'lucide-react';
+import { CheckCheckIcon, MapPinIcon } from 'lucide-react';
 import Image from 'next/image';
 import QrCodetoImage from '@/components/shared/qrcode';
 import { formatDateTime } from '@/lib/utils';
@@ -117,11 +117,12 @@ const Ticket = ({ ticket, event, session }: blaProps) => {
           <QrCodetoImage imageB={imageB} />
         </div>
       </div>
-      <div className='flex flex-col md:flex-row gap-4 md:items-center md:justify-center h-auto'>
+      <div className='flex flex-col gap-4'>
         <Button onClick={downloadTicket} className="mt-4 p-2 text-white rounded">Download Ticket</Button>
         <AddToCalendarButton
           name={ticket.eventName}
           description={event.description}
+          label='Add Event to Calendar'
           styleDark='#000'
           buttonStyle='3d'
           trigger='click'
