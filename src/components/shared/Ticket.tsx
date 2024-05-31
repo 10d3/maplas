@@ -31,7 +31,7 @@ const Ticket = ({ ticket, event, session }: blaProps) => {
   }
 
 
-  const downloadTicket = () => {
+  const downloadTicket = async () => {
     const input = ticketRef.current;
     if (!input) {
       console.error('Ticket reference is null');
@@ -51,6 +51,7 @@ const Ticket = ({ ticket, event, session }: blaProps) => {
 
         pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
         pdf.save(`${ticket.eventName}.pdf`);
+
       })
       .catch((error) => {
         console.error('Error generating PDF: ', error);
