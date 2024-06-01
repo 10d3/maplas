@@ -1,6 +1,5 @@
 import { auth } from '@/auth/auth';
 import Ticket from '@/components/shared/Ticket';
-import TicketTo from '@/components/shared/TicketToSend';
 import { prisma } from '@/db/prisma';
 
 interface UpdateEventProps {
@@ -24,7 +23,6 @@ export default async function Page({ params: { id } }: UpdateEventProps) {
   return (
     <>
       <Ticket ticket={ticket} event={event} session={session} />
-      <TicketTo ticket={ticket} event={event} session={session} />
     </>
   );
 }

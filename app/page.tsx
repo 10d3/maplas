@@ -25,7 +25,7 @@ export default function Home({ searchParams: { q, eventtype, location, page } }:
   }
   const data = "Top Events"
   return (
-    <main className="flex w-full min-h-screen flex-col items-center justify-between px-4 md:pl-24 md:pr-24 ">
+    <main className="flex w-full min-h-screen flex-col items-center justify-between px-4 md:px-24 ">
       <Hero />
       <LogoCarousel />
       <CategorySection />

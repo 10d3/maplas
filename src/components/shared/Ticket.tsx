@@ -114,7 +114,7 @@ const Ticket = ({ ticket, event, session }: blaProps) => {
           </div>
         </div>
         <div className="bg-[#6c47b8] items-center p-4 flex flex-col gap-2">
-          <p className="text-xs text-center opacity-70">SCAN BARCODE</p>
+          <p className="text-xs text-center opacity-70">SCAN QRCODE</p>
           <QrCodetoImage imageB={imageB} />
         </div>
       </div>

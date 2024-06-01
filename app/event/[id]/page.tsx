@@ -14,6 +14,7 @@ import { formatDateTime } from '@/lib/utils'
 import { SearchParamProps } from '@/types/next'
 import { BadgeCheck, Calendar, LocateIcon } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export default async function EventDetail({ params: { id } }: SearchParamProps) {
@@ -74,7 +75,11 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                                     </div>
                                 </div>
                                 <div>
-                                    <p className='ml-2 mt-2 sm:mt-0 text-[1rem] font-semibold'>Organizer :{" "} <span className=' text-primary font-bold text-[1rem]'>{event?.createdBy.name}</span></p>
+                                    <Link href={`/organizer/${event?.createdById}`}>
+                                        <p className='ml-2 mt-2 sm:mt-0 text-[1rem] font-semibold'>
+                                            Organizer :{" "} <span className=' text-primary font-bold text-[1rem]'>{event?.createdBy.name}</span>
+                                        </p>
+                                    </Link>
                                     {/* <Avatar>
                                         {event?.createdBy.image && (<AvatarImage src={event?.createdBy.image} alt={event?.createdBy.name?.[0]} />)}
                                         <AvatarFallback>{event?.createdBy.name?.[0]}</AvatarFallback>

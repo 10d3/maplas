@@ -51,24 +51,28 @@ model Session {
 }
 
 model User {
-  id            String     @id @default(cuid())
-  name          String?
-  email         String?    @unique
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-  superAdmin    Boolean    @default(false)
-  isVerify      Boolean    @default(false)
-  balance       Float      @default(0)
-  point         Int        @default(0)
-  accounts      Account[]
-  sessions      Session[]
-  tickets       Ticket[]   @relation("UserTickets")
-  events        Event[]    @relation("UserEvents")
-  Purchase      Purchase[]
-  Transfer      Transfer[]
-  Product       Product[]  @relation("UserProducts")
+  id                 String     @id @default(cuid())
+  name               String?
+  organizerName      String?
+  email              String?    @unique
+  emailVerified      DateTime?
+  image              String?
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+  superAdmin         Boolean    @default(false)
+  isVerify           Boolean    @default(false)
+  balance            Float      @default(0)
+  point              Int        @default(0)
+  isOrganizerProfile Boolean    @default(false)
+  accounts           Account[]
+  sessions           Session[]
+  tickets            Ticket[]   @relation("UserTickets")
+  events             Event[]    @relation("UserEvents")
+  Purchase           Purchase[]
+  Transfer           Transfer[]
+  Product            Product[]  @relation("UserProducts")
+  followers          Follower[] @relation("following")
+  following          Follower[] @relation("followers")
 }
 
 model Event {
@@ -140,6 +144,18 @@ model Transfer {
   method          String
   recipientUser   User     @relation(fields: [recipientUserId], references: [id])
   recipientUserId String
+}
+
+model Follower {
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  followedAt  DateTime @default(now())
+
+  follower  User @relation("following", fields: [followerId], references: [id])
+  following User @relation("followers", fields: [followingId], references: [id])
+
+  @@unique([followerId, followingId])
 }
 
 model VerificationToken {

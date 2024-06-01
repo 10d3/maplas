@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import QRCode from 'qrcode'
 
 export default function QrCodetoImage({ imageB }: any) {

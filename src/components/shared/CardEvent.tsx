@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { convertUnixTimestamp } from '@/lib/utils';
-import {  EventProps } from '@/types/next';
+import { EventProps } from '@/types/next';
 
 
 export default function CardEvent({ id, slug, name, description, startDate, endDate, location, standardTicketPrice, image, standardTicketCapacity, createdById }: EventProps) {
@@ -30,7 +30,7 @@ export default function CardEvent({ id, slug, name, description, startDate, endD
         <Card className='w-[300px] h-auto'>
             <CardHeader>
                 <div className='w-[250px] m-auto'>
-                <Image className=' w-96 h-full max-h-[260px] object-cover object-center rounded-md' width={1000} height={1000} src={imageSt} alt={name} />
+                    <Image className=' w-96 h-[250px] max-h-[260px] object-cover object-center rounded-md' width={1000} height={1000} src={imageSt} alt={name} />
                 </div>
             </CardHeader>
             <CardContent>
@@ -51,10 +51,10 @@ export default function CardEvent({ id, slug, name, description, startDate, endD
                     </div>
                 </div>
             </CardContent>
-            <CardFooter className='flex justify-between'>
+            {/* <CardFooter className='flex justify-between'>
                 <Button>Buy Now</Button>
                 <Link href={`/event/${slug}`}>Read More</Link>
-            </CardFooter>
+            </CardFooter> */}
         </Card>
     );
 }

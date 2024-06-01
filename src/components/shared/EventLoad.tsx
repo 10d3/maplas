@@ -5,6 +5,7 @@ import EventFilterSidebar from './EventFilterSidebar';
 import { eventFilterValues } from '@/lib/validation';
 import { prisma } from '@/db/prisma';
 import Pagination from './pagination';
+import Link from 'next/link';
 
 interface searchParams {
     q: string | undefined,
@@ -67,23 +68,25 @@ export default async function EventLoad({ title, filterValues }: { title: string
             <div className=' mb-4 flex items-center justify-center'>
                 <h1 className='text-4xl' >{title}</h1>
             </div>
-                <EventFilterSidebar />
-                <div className='flex w-4/4 flex-col mt-6 justify-center items-center gap-6'>
-                    <div className='flex flex-col md:flex-row md:flex-wrap gap-4'>
-                        {events?.map((event) => (
-                            <CardEvent key={event.id} {...event} />
-                        ))}
-                    </div>
-                    {
-                        title !== "Top Events" &&
-                        events.length > 0 &&
-                        <Pagination
-                            currentPage={pageN}
-                            totalPage={Math.ceil(totalEvent / eventPerPage)}
-                            filterValues={filterValues}
-                        />
-                    }
+            <EventFilterSidebar />
+            <div className='flex w-4/4 flex-col mt-6 justify-center items-center gap-6'>
+                <div className='flex flex-col md:flex-row md:flex-wrap gap-4'>
+                    {events?.map((event) => (
+                        <Link key={event.id} href={`/event/${event.slug}`}>
+                            <CardEvent {...event} />
+                        </Link>
+                    ))}
                 </div>
+                {
+                    title !== "Top Events" &&
+                    events.length > 0 &&
+                    <Pagination
+                        currentPage={pageN}
+                        totalPage={Math.ceil(totalEvent / eventPerPage)}
+                        filterValues={filterValues}
+                    />
+                }
+            </div>
         </section>
     );
 }

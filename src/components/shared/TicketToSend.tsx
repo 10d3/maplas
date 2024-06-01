@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-'use client'
 import { CheckCheckIcon, MapPinIcon } from 'lucide-react';
 import QrCodetoImage from '@/components/shared/qrcode';
 import { formatDateTime } from '@/lib/utils';
