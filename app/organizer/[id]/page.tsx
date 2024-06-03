@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { prisma } from "@/db/prisma";
 import { followUser } from "@/lib/actions/following-actions";
+import { revalidatePath } from "next/cache";
 import Image from "next/image";
 
 interface UpdateEventProps {
@@ -31,7 +32,16 @@ export default async function page({ params: { id } }: UpdateEventProps) {
         _count: true
     })
 
-    async function follow() {
+    const existingFollower = await prisma.follower.findUnique({
+        where: {
+            followerId_followingId: {
+                followerId: user?.id as string,
+                followingId: id,
+            },
+        },
+    });
+
+    const follow = async () => {
         'use server'
         const followerId = user?.id;
         const followingId = id;
@@ -39,6 +49,7 @@ export default async function page({ params: { id } }: UpdateEventProps) {
         try {
             const result = await followUser(followerId as string, followingId);
             console.log('Successfully followed the user:', result);
+            revalidatePath(`/organizer/${followingId}`)
         } catch (error) {
             console.error('Error following the user:', error);
         }
@@ -63,12 +74,19 @@ export default async function page({ params: { id } }: UpdateEventProps) {
                 </div>
                 <div className="flex flex-col items-center gap-2">
                     <div className="flex flex-row gap-6 items-center">
-                        <p className="text-xl">{organizer?._count.events} Events</p>
-                        <p className="text-xl">{followers._count}{followers._count ? ' Followers' : ' Follower'}</p>
-
+                        {organizer?._count.events &&
+                            <p className="text-xl">
+                                {organizer?._count.events}{organizer?._count.events <= 1 ? ' Event' : ' Events'}
+                            </p>
+                        }
+                        <p className="text-xl">{followers._count}{followers._count <= 1 ? ' Follower' : ' Followers'}</p>
                     </div>
                     <form action={follow}>
-                        <Button type="submit">Follow</Button>
+                        {existingFollower ?
+                            (<Button type="submit">Unfollow</Button>)
+                            :
+                            (<Button type="submit">Follow</Button>)
+                        }
                     </form>
                 </div>
             </div>
