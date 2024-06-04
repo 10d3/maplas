@@ -1,4 +1,6 @@
 import TestSend from "@/components/test/testSend";
+import { SiteConfig } from "@/lib/site-config";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -13,7 +15,7 @@ export default function Footer() {
   return (
     <footer className="w-full flex items-center justify-center flex-col md:flex-row pb-8">
         <div className="w-full md:w-1/3 items-center flex flex-col md:flex-row">
-            <div>logo</div>
+            <div><Image className="w-16 h-auto" src='/logo/logo-p.png' height={1000} width={1000} alt={`${SiteConfig.title} logo`}/></div>
             <div>newsletter</div>
         </div>
         <div className="w-full md:w-2/3 items-center flex flex-col md:flex-row gap-4">
