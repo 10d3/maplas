@@ -35,12 +35,12 @@ export default async function EventFilterSidebar() {
 
 
   return (
-    <aside className="flex">
+    <aside className="flex items-center">
       <form action={filterEvent}>
         <div className="flex flex-col gap-3">
           <div className="flex">
             {/* <Label htmlFor='q'>Search</Label> */}
-            <Input id="q" name="q" placeholder="Search event" />
+            <Input className="bg-white" id="q" name="q" placeholder="Search event" />
           </div>
           <div className="flex">
             <SelectCustom id="eventtype" name="eventtype" defaultValue="">
@@ -52,14 +52,14 @@ export default async function EventFilterSidebar() {
           </div>
           <div className="flex">
             {/* <Label htmlFor='evenement'>Type Event</Label> */}
-            <SelectCustom id="location" name="location" defaultValue="">
+            <SelectCustom className="min-w-full" id="location" name="location" defaultValue="">
               <option value="">All location</option>
               {distinctLocaions.map(location => (
                 <option key={location} value={location}>{location}</option>
               ))}
             </SelectCustom>
           </div>
-          <Button type="submit">Filter Events</Button>
+          <Button className=" bg-custom-button-primary" type="submit">Filter Events</Button>
         </div>
       </form>
     </aside>

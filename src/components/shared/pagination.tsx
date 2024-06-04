@@ -15,20 +15,19 @@ export default function Pagination({ totalPage, currentPage, filterValues: { q, 
         })
         return `/event/?${searParams.toString()}`
     }
-    console.log(currentPage)
     return (
         <div className='flex flex-row gap-2'>
             <Link href={generatePageLink(currentPage - 1)}
                 className={cn("flex items-center font-semibold",
                     currentPage <= 1 && 'invisible')}>
-                <Button className='flex gap-2 items-center justify-center' size='lg' variant='outline'>
+                <Button className=' bg-custom-button-primary text-white flex gap-2 items-center justify-center' size='lg' variant='outline'>
                     <ArrowLeft size={15} />Prev
                 </Button>
             </Link>
             <Link href={generatePageLink(currentPage + 1)}
                 className={cn("flex items-center font-semibold",
                     currentPage >= totalPage && 'invisible')}>
-                <Button className='flex gap-2 items-center justify-center' size='lg' variant='outline'>
+                <Button className=' bg-custom-button-primary text-white flex gap-2 items-center justify-center' size='lg' variant='outline'>
                     Next<ArrowRight size={15} />
                 </Button>
             </Link>

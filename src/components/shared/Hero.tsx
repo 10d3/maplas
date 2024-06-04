@@ -1,20 +1,20 @@
-
-import { Button } from "../ui/button"
+import Image from "next/image"
+import Carousel from "./shadcnCaroussel"
+import EventFilterSidebar from "./EventFilterSidebar"
 
 export default function Hero() {
 
-  const intro = `life is short. find tickets.`
-  const intro2 = `enjoy events. easy.`
+  const slides: string[] = ["/assets/image-slider1.jpg", "/assets/image-slider2.jpg"]
   return (
-    <section className=" h-[90vh] flex flex-col justify-around md:pt-14 md:pb-14 items-center ">
-      <div className="flex flex-col items-center">
-        <h1 className=" text-4xl md:text-5xl">{intro.toUpperCase()}</h1>
-        <h1 className=" text-4xl md:text-5xl">{intro2.toUpperCase()}</h1>
+    <section className=" h-[90vh] flex flex-col justify-around items-center ">
+      <div className=" w-full flex flex-col md:flex-row items-center gap-6">
+        <div className="flex w-full md:w-2/4 items-center justify-center"><EventFilterSidebar /></div>
+        <Carousel autoSlide={true}>
+          {[...slides.map((s: string) =>
+            <Image className="w-full" priority key={s} src={s} height={1000} width={1000} alt="image slider" />
+          )]}
+        </Carousel>
       </div>
-      {/* <div className=" hidden flex-col md:flex-row gap-4">
-        <Input className="w-full" type="search" placeholder="Search Event, Location" />
-        <Button type="submit">Search</Button>
-      </div> */}
       <h3 className=" hidden text-xl">FEATURED EVENTS</h3>
     </section>
   )

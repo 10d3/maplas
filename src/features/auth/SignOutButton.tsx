@@ -16,11 +16,11 @@ export const SignOutButton = (props: SignOutButtonProps) => {
             <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    <Link className="flex flex-row gap-1 items-center" href='/admin'>
+                {/* <DropdownMenuItem>
+                    <Link className="flex flex-row gap-1 items-center" href={`/organizer/`}>
                         <User size={15} /> Profile
                     </Link>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 {/* <DropdownMenuItem>Billing</DropdownMenuItem>
                 <DropdownMenuItem>Team</DropdownMenuItem> */}
                 <DropdownMenuItem>

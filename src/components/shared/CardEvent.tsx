@@ -47,7 +47,7 @@ export default function CardEvent({ id, slug, name, description, startDate, endD
                     </div>
                     <div className='flex justify-between'>
                         <h2 className='line-clamp-1 text-[0.8rem] '>{location}</h2>
-                        <Badge variant='destructive' ><h2>{standardTicketPrice} GDES</h2></Badge>
+                        <Badge className=' bg-custom-destructive' ><h2>{standardTicketPrice} GDES</h2></Badge>
                     </div>
                 </div>
             </CardContent>

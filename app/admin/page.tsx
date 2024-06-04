@@ -7,13 +7,12 @@ import { buttonVariants } from '@/components/ui/button';
 import { auth } from '@/auth/auth';
 import { SignOutButton } from '@/features/auth/SignOutButton';
 import { prisma } from '@/db/prisma';
-import { LayoutDashboard, LockKeyhole, Settings2, SquareGanttChart, TicketCheck } from 'lucide-react';
+import { LayoutDashboard, LockKeyhole, Settings2, SquareGanttChart, TicketCheck, User } from 'lucide-react';
 
 export default async function AccountPage() {
     const session = await auth();
     const user = session?.user;
     console.log(user)
-
 
     const userPri = await prisma.user.findUnique({
         where: { id: user?.id },
@@ -21,12 +20,6 @@ export default async function AccountPage() {
     })
 
     const isSuperAdmin: boolean | undefined = userPri?.superAdmin
-
-    const events = await prisma.event.findMany({
-        where: {
-            createdById: user?.id
-        }
-    })
 
     const tickets = await prisma.ticket.findMany({
         where: {
@@ -55,6 +48,9 @@ export default async function AccountPage() {
                     </div>
                 </CardHeader>
                 <CardContent className='flex flex-col gap-2'>
+                    <Link className={buttonVariants({variant:'outline', size:'lg'})} href={`/organizer/${user?.id}`}>
+                        <User className='mr-2' size={15} /> Profile
+                    </Link>
                     {/* <Link href='/admin/setting' className={buttonVariants({ variant: "outline", size: "lg" })}>
                         <Settings2 className='mr-2' size={15} />Setting</Link> */}
                     <Link href='admin/createdEvent' className={buttonVariants({ variant: "outline", size: 'lg' })}>
