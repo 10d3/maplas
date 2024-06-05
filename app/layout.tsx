@@ -30,7 +30,7 @@ export default function RootLayout({
             inter.className
           )}
         >
-          <div className="relative flex min-h-screen flex-col px-0 md:px-52 ">
+          <div className="relative flex min-h-screen flex-col px-0 ">
             <Providers>
               <Header />
               <div className="flex">
