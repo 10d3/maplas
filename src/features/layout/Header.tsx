@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { SiteConfig } from '@/lib/site-config';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
+import { buttonVariants } from '@/components/ui/button';
 
 
 export default async function Header() {
@@ -13,17 +14,24 @@ export default async function Header() {
         { name: "Home", href: "/" },
         { name: "Event", href: "/event" },
         { name: 'Create  Event', href: '/event/create' },
+        { name: 'Blog', href: '#' },
         { name: "FAQ", href: "#" },
     ];
 
+    const linksPc = [
+        { name: "Home", href: "/" },
+        { name: "Event", href: "/event" },
+        { name: 'Blog', href: '#' },
+        { name: "FAQ", href: "#" },
+    ];
 
     return (
-        <header>
-            <div className="container flex h-16 items-center justify-between space-x-4 sm:justify-between sm:space-x-0">
+        <header className='bg-custom-destructive'>
+            <div className="container flex h-16 items-center justify-between my-0 py-0 space-x-4 sm:justify-between sm:space-x-0">
                 {/*menu mobile*/}
 
-                <div className='flex md:hidden justify-between w-full'>
-                    <div className='flex md:hidden'>
+                <div className=' bg-custom-destructive flex md:hidden justify-between w-full'>
+                    <div className=' bg-custom-destructive flex md:hidden'>
                         <Drawer direction='left'>
                             <DrawerTrigger>
                                 <Menu />
@@ -57,24 +65,25 @@ export default async function Header() {
                 </div>
                 {/*end menu mobile*/}
 
-                <div className=" hidden md:flex gap-2 items-center ">
-                    {/* <Image src="/images/logo.svg" width={50} height={35} alt="app logo" /> */}
-                    <Link href='/'>
-                        <Image className=' w-auto h-9' src='/logo/logo-primary.png' height={1000} width={1000} alt={`${SiteConfig.title} logo`} />
-                    </Link>
-                </div>
                 {/* menu pc */}
 
                 <div className=' hidden md:flex gap-6 items-center '>
-                    {links.map((link, i) => {
+                    {linksPc.map((link, i) => {
                         return (
                             <Link className='' key={i} href={link.href}>{link.name}</Link>
                         );
                     })}
                 </div>
 
+                <div className=" hidden md:flex gap-2 items-center ">
+                    <Link href='/'>
+                        <Image className=' w-auto h-9' src='/logo/logo-primary.png' height={1000} width={1000} alt={`${SiteConfig.title} logo`} />
+                    </Link>
+                </div>
+
                 <div className=" hidden md:flex items-center justify-end space-x-4">
-                    <nav className="flex items-center space-x-1">
+                    <nav className="flex items-center space-x-1 gap-4">
+                        <Link href='/event/create' className={buttonVariants({variant:'default', size:'sm'})}>Create Event</Link>
                         <LoggedInButton />
                     </nav>
                 </div>

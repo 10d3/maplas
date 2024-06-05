@@ -7,9 +7,9 @@ export default function CategorySection() {
 
     const eventPhotos = [
         '/categorie/icons8-concert-50.png', '/categorie/icons8-musicien-60.png',
-        '/categorie/icons8-festival-50.png', '/categorie/icons8-film-60.png',
-        '/categorie/icons8-danse-50.png', '/categorie/icons8-exposition-50.png',
-        '/categorie/icons8-conferences-50.png', '/categorie/icons8-sportives-48.png',
+        '/categorie/new/020-fireworks.svg', '/categorie/new/021-videocamera.svg',
+        '/categorie/new/039-discoball.svg', '/categorie/icons8-exposition-50.png',
+        '/categorie/new/049-auditorium.svg', '/categorie/icons8-sportives-48.png',
         '/categorie/icons8-gastro-50.png', '/categorie/icons8-fonds-50.png',
         '/categorie/icons8-ecole-48.png', '/categorie/icons8-touristique-60.png'
     ]

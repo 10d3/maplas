@@ -6,12 +6,12 @@ export default function Hero() {
 
   const slides: string[] = ["/assets/image-slider1.jpg", "/assets/image-slider2.jpg", '/assets/image-slider3.jpg']
   return (
-    <section className=" h-[30vh] md:h-[60vh] w-dvw mb-10 flex flex-col justify-around items-center relative ">
+    <section className=" h-[30vh] md:h-[80vh] w-dvw mb-10 mt-0 py-0 flex flex-col justify-around items-center relative ">
       <div className="absolute -x-1 w-full h-full">
         {/* <div className="flex w-full md:w-2/4 items-center justify-center"><EventFilterSidebar /></div> */}
         <Carousel autoSlide={true}>
           {[...slides.map((s: string) =>
-            <Image className="min-w-full object-cover object-center" priority key={s} src={s} height={1000} width={1000} alt="image slider" />
+            <Image className="min-w-full priority object-cover object-center" priority key={s} src={s} height={1000} width={1000} alt="image slider" />
           )]}
         </Carousel>
       </div>

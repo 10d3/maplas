@@ -25,7 +25,7 @@ export default function Footer() {
     return (
         <>
             <Separator className=" bg-slate-300" />
-            <footer className="w-full flex items-center space-x-4 justify-center flex-col py-6 sm:space-x-0 gap-4">
+            <footer className=" text-white w-full flex items-center space-x-4 justify-center flex-col py-6 sm:space-x-0 gap-4 bg-custom-destructive">
                 <div className="w-full flex items-center justify-center flex-col md:flex-row gap-4 md:px-4">
                     <div className="w-full md:w-1/3 items-center flex flex-col md:flex-row gap-4">
                         <Link href='/'>
@@ -38,8 +38,8 @@ export default function Footer() {
                         <div className="w-full flex flex-col items-center justify-center gap-4">
                             <h1 className="text-xl font-medium">Subcribe to our newsletter</h1>
                             <div className=" w-3/4 flex flex-col gap-2 items-center">
-                                <Input className="w-full" type="email" placeholder="email" />
-                                <Button className=" w-2/4 bg-custom-button-primary">Subcribe</Button>
+                                <Input className="w-full bg-white" type="email" placeholder="email" />
+                                <Button className=" w-2/4 bg-custom-button-secondary">Subcribe</Button>
                             </div>
                         </div>
                     </div>

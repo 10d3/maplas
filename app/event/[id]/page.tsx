@@ -36,7 +36,6 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
     const standardTickets = Tickets.filter(ticket => ticket.isVIPticket === false);
     const eventRelated = await getRelatedEvents(eventTypeOf)
     const filteredEvents = eventRelated?.filter(event => event.slug !== id);
-    console.log(filteredEvents)
 
     const closedEvent = event?.startDate && new Date(event?.startDate) < new Date();
     const soldOut = Tickets.length == 0;
@@ -51,12 +50,12 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                         <div className='flex flex-col gap-6'>
                             <h2 className=' font-bold text-2xl'>{event?.name}</h2>
                             <div className='flex flex-col gap-3 sm:flex-col'>
-                                <div className='flex flex-row gap-1'>
+                                <div className='flex flex-col gap-4'>
                                     <div className='flex gap-2 px-auto'>
-                                        <Badge className='text-[0.9rem] font-bold bg-custom-button-secondary' variant='destructive'>
+                                        <Badge className='text-[0.9rem] text-black font-bold bg-custom-button-secondary hover:bg-custom-button-secondary'>
                                             {priceStandard === 0 ? "FREE" : `${event?.standardTicketPrice} Gdes`}
                                         </Badge>
-                                        <Badge className='text-[0.9rem] font-bold' variant='secondary'>
+                                        <Badge className='text-[0.9rem] font-bold bg-custom-button-primary text-white' variant='secondary'>
                                             {event?.eventType}
                                         </Badge>
                                         {(event?.vipTicketPrice && Number(event?.vipTicketPrice) != 0) && (
@@ -65,10 +64,10 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                                             </Badge>)}
                                     </div>
                                     <div className='flex flex-row gap-2'>
-                                        <Badge className='text-[0.9rem] font-bold' variant='secondary'>
+                                        <Badge className='text-[0.9rem] font-bold p-2 bg-custom-button-secondary' variant='secondary'>
                                             Standard Tickets Left: {standardTickets.length}
                                         </Badge>
-                                        <Badge className='text-[0.9rem] font-bold' variant='secondary'>
+                                        <Badge className='text-[0.9rem] font-bold p-2 bg-custom-button-secondary' variant='secondary'>
                                             VIP Tickets Left: {vipTickets.length}
                                         </Badge>
                                     </div>
