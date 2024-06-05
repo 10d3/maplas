@@ -9,13 +9,13 @@ export default function CardCarou({ data }: any) {
                 <div className=' w-[200px]'>
                     <Image
                         priority
-                        className=' w-full h-[200px] max-h-[200px] object-cover object-center rounded-md'
+                        className='w-full h-[200px] object-cover object-center rounded-md'
                         width={1000} height={1000} src={data?.image} alt={data.name}
                     />
                 </div>
             </CardHeader>
             <CardContent>
-                <CardTitle>{data.name}</CardTitle>
+                <CardTitle className=' line-clamp-1'>{data.name}</CardTitle>
             </CardContent>
         </Card>
     )
