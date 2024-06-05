@@ -53,14 +53,14 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
                             <div className='flex flex-col gap-3 sm:flex-col'>
                                 <div className='flex flex-row gap-1'>
                                     <div className='flex gap-2 px-auto'>
-                                        <Badge className='text-[0.9rem] font-bold' variant='destructive'>
+                                        <Badge className='text-[0.9rem] font-bold bg-custom-button-secondary' variant='destructive'>
                                             {priceStandard === 0 ? "FREE" : `${event?.standardTicketPrice} Gdes`}
                                         </Badge>
                                         <Badge className='text-[0.9rem] font-bold' variant='secondary'>
                                             {event?.eventType}
                                         </Badge>
                                         {(event?.vipTicketPrice && Number(event?.vipTicketPrice) != 0) && (
-                                            <Badge className='text-[0.9rem] p-2 font-bold bg-green-500 '>
+                                            <Badge className='text-[0.9rem] p-2 font-bold bg-custom-secondary '>
                                                 <BadgeCheck className='mr-2' size={15} /> {event?.vipTicketPrice} Gdes
                                             </Badge>)}
                                     </div>

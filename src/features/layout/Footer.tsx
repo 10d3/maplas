@@ -25,10 +25,16 @@ export default function Footer() {
     return (
         <>
             <Separator className=" bg-slate-300" />
-            <footer className="w-full flex items-center justify-center flex-col py-6 gap-4">
-                <div className="w-full flex items-center justify-center flex-col md:flex-row gap-4">
+            <footer className="w-full flex items-center space-x-4 justify-center flex-col py-6 sm:space-x-0 gap-4">
+                <div className="w-full flex items-center justify-center flex-col md:flex-row gap-4 md:px-4">
                     <div className="w-full md:w-1/3 items-center flex flex-col md:flex-row gap-4">
-                        <div><Image className="w-[4rem] h-auto" src='/logo/logo-p.png' height={1000} width={1000} alt={`${SiteConfig.title} logo`} /></div>
+                        <Link href='/'>
+                            <Image
+                                className="w-[4rem] md:w-[8rem] h-auto"
+                                src='/logo/logo-p.png' height={1000} width={1000}
+                                alt={`${SiteConfig.title} logo`}
+                            />
+                        </Link>
                         <div className="w-full flex flex-col items-center justify-center gap-4">
                             <h1 className="text-xl font-medium">Subcribe to our newsletter</h1>
                             <div className=" w-3/4 flex flex-col gap-2 items-center">
