@@ -35,7 +35,7 @@ export default async function EventFilterSidebar() {
 
 
   return (
-    <aside className="flex items-center">
+    <aside className=" bg-transparent flex items-center">
       <form action={filterEvent}>
         <div className="flex flex-col gap-3">
           <div className="flex">
