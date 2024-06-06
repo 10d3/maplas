@@ -1,5 +1,5 @@
 
-import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import Image from "next/image"
@@ -32,11 +32,11 @@ export default function BlogCard({ data }: any) {
         <div className="flex items-center mt-4 space-x-4">
           <div className="flex items-center">
             <Avatar className="mr-2">
-              {/* <Image src="/placeholder.svg" alt="Author Avatar" /> */}
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarImage src="/placeholder.svg"  alt="Author Avatar" />
+              <AvatarFallback>AD</AvatarFallback>
             </Avatar>
             <div>
-              <div className="text-sm font-medium text-gray-900 dark:text-gray-100">John Doe</div>
+              <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Admin</div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Author</div>
             </div>
           </div>

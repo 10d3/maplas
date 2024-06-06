@@ -26,7 +26,7 @@ export default async function Header() {
     ];
 
     return (
-        <header className=' bg-transparent absolute top-0 w-full h-auto z-50'>
+        <header className=' bg-transparent/20 fixed backdrop-blur-sm top-0 w-full h-auto z-50'>
             <div className="container text-white flex h-16 items-center justify-between my-0 py-0 space-x-4 sm:justify-between sm:space-x-0">
                 {/*menu mobile*/}
 
