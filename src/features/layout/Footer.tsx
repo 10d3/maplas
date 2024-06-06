@@ -13,6 +13,7 @@ export default function Footer() {
         { name: "Home", href: "/" },
         { name: "Event", href: "/event" },
         { name: 'Create  Event', href: '/event/create' },
+        { name: 'Blog', href: '/blog' },
         { name: "FAQ", href: "#" },
     ];
 
@@ -43,7 +44,7 @@ export default function Footer() {
                             </div>
                         </div>
                     </div>
-                    <div className="w-full md:w-2/3 items-center flex flex-col md:flex-row gap-4">
+                    <div className="w-full md:w-2/3 items-center flex flex-row gap-4">
                         <div className="w-full md:w-1/3 items-center flex flex-col">
                             <h1 className="text-xl font-medium">Quick link</h1>
                             <div className="flex flex-col items-center justify-center gap-2">
@@ -59,10 +60,10 @@ export default function Footer() {
                             <div>link</div>
                             <TestSend />
                         </div>
-                        <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
+                        {/* <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
                             <h1 className="text-xl font-medium">Quick link</h1>
                             <div>link</div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="w-full items-center flex flex-col gap-4">

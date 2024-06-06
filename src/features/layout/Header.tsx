@@ -14,20 +14,20 @@ export default async function Header() {
         { name: "Home", href: "/" },
         { name: "Event", href: "/event" },
         { name: 'Create  Event', href: '/event/create' },
-        { name: 'Blog', href: '#' },
+        { name: 'Blog', href: '/blog' },
         { name: "FAQ", href: "#" },
     ];
 
     const linksPc = [
         { name: "Home", href: "/" },
         { name: "Event", href: "/event" },
-        { name: 'Blog', href: '#' },
+        { name: 'Blog', href: '/blog' },
         { name: "FAQ", href: "#" },
     ];
 
     return (
         <header className='bg-custom-destructive'>
-            <div className="container flex h-16 items-center justify-between my-0 py-0 space-x-4 sm:justify-between sm:space-x-0">
+            <div className="container text-white flex h-16 items-center justify-between my-0 py-0 space-x-4 sm:justify-between sm:space-x-0">
                 {/*menu mobile*/}
 
                 <div className=' bg-custom-destructive flex md:hidden justify-between w-full'>
@@ -42,7 +42,7 @@ export default async function Header() {
                                         {links.map((link, i) => {
                                             return (
                                                 <DrawerClose key={i} asChild>
-                                                    <Link className='' key={i} href={link.href}>{link.name}</Link>
+                                                    <Link className='text-white' key={i} href={link.href}>{link.name}</Link>
                                                 </DrawerClose>
                                             );
                                         })}
@@ -67,7 +67,7 @@ export default async function Header() {
 
                 {/* menu pc */}
 
-                <div className=' hidden md:flex gap-6 items-center '>
+                <div className='text-white hidden md:flex gap-6 items-center '>
                     {linksPc.map((link, i) => {
                         return (
                             <Link className='' key={i} href={link.href}>{link.name}</Link>

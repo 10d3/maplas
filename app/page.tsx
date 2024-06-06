@@ -1,9 +1,11 @@
 
+import CardCarou from "@/components/shared/CardCarou";
 import LogoCarousel from "@/components/shared/CardCaroussel";
 import EventLoad from "@/components/shared/EventLoad";
 import Hero from "@/components/shared/Hero";
 import CategorySection from "@/components/shared/multiCategorySection";
 import { Button } from "@/components/ui/button";
+import { prisma } from "@/db/prisma";
 import Image from "next/image";
 
 interface PageProps {
@@ -15,7 +17,7 @@ interface PageProps {
   }
 }
 
-export default function Home({ searchParams: { q, eventtype, location, page } }: PageProps) {
+export default async function Home({ searchParams: { q, eventtype, location, page } }: PageProps) {
 
   const filterValues = {
     q,
@@ -27,9 +29,10 @@ export default function Home({ searchParams: { q, eventtype, location, page } }:
   return (
     <main className="flex w-full min-h-screen my-0 py-0 flex-col items-center justify-between px-4 ">
       <Hero />
-      <LogoCarousel />
+      <LogoCarousel type='event' />
       <CategorySection />
       <EventLoad title={data} filterValues={filterValues} />
+      <LogoCarousel type='blog' />
     </main>
   );
 }
