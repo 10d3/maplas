@@ -41,9 +41,7 @@ export default async function LogoCarousel({ type, }: { type: string }) {
                         </li>
                     )) : blogData.map((data, i) => (
                         <li key={i}>
-                            <Link href={`/event/${data.title}`}>
-                                <BlogCard data={data} />
-                            </Link>
+                            <BlogCard data={data} />
                         </li>
                     ))}
                 </ul>
@@ -56,9 +54,7 @@ export default async function LogoCarousel({ type, }: { type: string }) {
                         </li>
                     )) : blogData.map((data, i) => (
                         <li key={i}>
-                            <Link href={`/event/${data.title}`}>
-                                <BlogCard data={data} />
-                            </Link>
+                            <BlogCard data={data} />
                         </li>
                     ))}
                 </ul>

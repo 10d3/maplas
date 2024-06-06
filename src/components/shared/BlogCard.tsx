@@ -1,12 +1,12 @@
 
-import { Card, CardContent, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import Image from "next/image"
 
-export default function BlogCard({data}:any) {
+export default function BlogCard({ data }: any) {
   return (
-    <Card className="flex flex-col md:flex-row w-full min-w-56 md:min-w-[40rem] max-w-3xl overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow">
+    <Card className=" hover:cursor-pointer flex flex-col md:flex-row w-full min-w-56 md:min-w-[40rem] max-w-3xl overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow">
       <Link href="#" className="flex-shrink-0 w-full md:w-1/2 overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg" prefetch={false}>
         <Image
           src="/assets/image-slider2.jpg"
@@ -17,17 +17,17 @@ export default function BlogCard({data}:any) {
         />
       </Link>
       <CardContent className="flex flex-col justify-between flex-1 p-6">
-        <CardDescription>
+        <CardTitle className="block mb-2 text-lg font-bold text-gray-900 dark:text-gray-100">
           <Link
             href="#"
-            className="block mb-2 text-lg font-bold text-gray-900 hover:underline dark:text-gray-100"
+            className=" hover:underline dark:text-gray-100"
             prefetch={false}
           >
             {data.title}
           </Link>
-          <p className="text-gray-700 dark:text-gray-400 line-clamp-4">
-            {data.content}
-          </p>
+        </CardTitle>
+        <CardDescription className="text-gray-700 dark:text-gray-400 line-clamp-4">
+          {data.content}
         </CardDescription>
         <div className="flex items-center mt-4 space-x-4">
           <div className="flex items-center">

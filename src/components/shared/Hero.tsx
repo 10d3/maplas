@@ -4,9 +4,9 @@ import EventFilterSidebar from "./EventFilterSidebar"
 
 export default function Hero() {
 
-  const slides: string[] = ["/assets/image-slider1.jpg", "/assets/image-slider2.jpg", '/assets/image-slider3.jpg']
+  const slides: string[] = ["/assets/image-slider2.jpg", '/assets/image-slider3.jpg']
   return (
-    <section className=" h-[32vh] md:h-[80vh] w-dvw mb-10 mt-0 py-0 flex flex-col justify-around items-center relative ">
+    <section className=" h-[40vh] md:h-[80vh] w-dvw mb-10 mt-0 py-0 flex flex-col justify-around items-center relative ">
       <div className="absolute -x-1 w-full h-full">
         {/* <div className="flex w-full md:w-2/4 items-center justify-center"><EventFilterSidebar /></div> */}
         <Carousel autoSlide={true}>

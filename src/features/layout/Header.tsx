@@ -26,12 +26,12 @@ export default async function Header() {
     ];
 
     return (
-        <header className='bg-custom-destructive'>
+        <header className=' bg-transparent absolute top-0 w-full h-auto z-50'>
             <div className="container text-white flex h-16 items-center justify-between my-0 py-0 space-x-4 sm:justify-between sm:space-x-0">
                 {/*menu mobile*/}
 
-                <div className=' bg-custom-destructive flex md:hidden justify-between w-full'>
-                    <div className=' bg-custom-destructive flex md:hidden'>
+                <div className='flex md:hidden justify-between w-full'>
+                    <div className=' flex md:hidden'>
                         <Drawer direction='left'>
                             <DrawerTrigger>
                                 <Menu />
@@ -89,7 +89,7 @@ export default async function Header() {
                 </div>
 
             </div>
-            <Separator className='w-full' />
+            {/* <Separator className='w-full' /> */}
         </header>
     )
 }
