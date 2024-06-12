@@ -1,6 +1,5 @@
+import NewsLetter from "@/components/shared/NewaLetter";
 import TestSend from "@/components/test/testSend";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SiteConfig } from "@/lib/site-config";
 import { Facebook, Instagram, Twitter } from "lucide-react";
@@ -8,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
+
 
     const links = [
         { name: "Home", href: "/" },
@@ -38,34 +38,32 @@ export default function Footer() {
                         </Link>
                         <div className="w-full flex flex-col items-center justify-center gap-4">
                             <h1 className="text-xl font-medium">Subcribe to our newsletter</h1>
-                            <div className=" w-3/4 flex flex-col gap-2 items-center">
-                                <Input className="w-full bg-white" type="email" placeholder="email" />
-                                <Button className=" w-2/4 bg-custom-button-secondary">Subcribe</Button>
-                            </div>
+                            <NewsLetter />
                         </div>
                     </div>
-                    <div className="w-full md:w-2/3 items-center flex flex-row gap-4">
-                        <div className="w-full md:w-1/3 items-center flex flex-col">
-                            <h1 className="text-xl font-medium">Quick link</h1>
-                            <div className="flex flex-col items-center justify-center gap-2">
-                                {links.map((link, i) => {
-                                    return (
-                                        <Link className='' key={i} href={link.href}>{link.name}</Link>
-                                    );
-                                })}
-                            </div>
+                </div>
+                <div className="w-full md:w-2/3 items-center flex flex-row gap-4">
+                    <div className="w-full md:w-1/3 items-center flex flex-col">
+                        <h1 className="text-xl font-medium">Quick link</h1>
+                        <div className="flex flex-col items-center justify-center gap-2">
+                            {links.map((link, i) => {
+                                return (
+                                    <Link className='' key={i} href={link.href}>{link.name}</Link>
+                                );
+                            })}
                         </div>
-                        <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
-                            <h1 className="text-xl font-medium">Quick link</h1>
-                            <div>link</div>
-                            <TestSend />
-                        </div>
-                        {/* <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
+                    </div>
+                    <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
+                        <h1 className="text-xl font-medium">Quick link</h1>
+                        <div>link</div>
+                        <TestSend />
+                    </div>
+                    {/* <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
                             <h1 className="text-xl font-medium">Quick link</h1>
                             <div>link</div>
                         </div> */}
-                    </div>
                 </div>
+
                 <div className="w-full items-center flex flex-col gap-4">
                     <h1 className="text-xl font-medium">Follow Us</h1>
                     <div className="flex flex-row gap-4">
@@ -76,7 +74,7 @@ export default function Footer() {
                         }
                     </div>
                 </div>
-            </footer>
+            </footer >
         </>
     )
 }

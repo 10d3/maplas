@@ -13,7 +13,7 @@ export default async function page() {
     return (
         <div className='w-[100%] md:w-auto flex items-center flex-col justify-center gap-4'>
             <h1>Orders Details</h1>
-            <Card className='w-full md:w-[80%]'>
+            <Card className='w-sm md:min-w-[80%]'>
                 <CardContent>
                     <Table>
                         <TableCaption>A list of your orders.</TableCaption>

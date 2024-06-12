@@ -55,3 +55,13 @@ export const withdrawSchema = z.object({
   recipient: z.string().min(1)
 })
 export type withdrawSchemaProps = z.infer<typeof withdrawSchema>
+
+export const NewsletterValues = {
+  email:'',
+}
+
+export const NewsletterSchema = z.object({
+  email: z.string().email().min(5),
+})
+
+export type NewsletterSchemaProps = z.infer<typeof NewsletterSchema>

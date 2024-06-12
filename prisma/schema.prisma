@@ -158,6 +158,10 @@ model Follower {
   @@unique([followerId, followingId])
 }
 
+model Newsletter {
+  id    String @id @default(cuid())
+  email String @unique
+}
 model VerificationToken {
   identifier String
   token      String   @unique

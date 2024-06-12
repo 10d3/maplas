@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function DashboardLayout({ children }: PropsWithChildren) {
     return (
         <>
-            <div className="relative w-full flex min-h-screen flex-row px-5 mt-6">
+            <div className="relative w-full flex min-h-screen flex-row px-5 mt-20">
                 <SideBar />
                 <div className="flex-1">{children}</div>
             </div>

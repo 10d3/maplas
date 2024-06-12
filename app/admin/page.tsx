@@ -33,7 +33,7 @@ export default async function AccountPage() {
     }
 
     return (
-        <main className='w-full md:flex md:justify-center mb-32'>
+        <main className='mt-6 w-full md:flex md:justify-center mb-32'>
             <Card className='mx-5 md:mx-24 min-w-lg mt-20 md:w-[450px]'>
                 <CardHeader className='flex flex-row gap-4'>
                     <Avatar>
