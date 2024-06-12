@@ -93,7 +93,6 @@ export async function userTicketAssign(order: any) {
       },
     });
 
-    await sendEmail(order)
   } catch (error) {
     console.log(error);
   }

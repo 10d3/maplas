@@ -48,6 +48,7 @@ export const POST = async function (request: Request) {
     const newOrder = await createOrder(order);
     console.log(newOrder)
     await userTicketAssign(order);
+    await sendEmail(order)
 
     return NextResponse.json({ message: 'OK', order: newOrder });
   }
