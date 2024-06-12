@@ -1,17 +1,22 @@
 import { EmailTemplate } from '@/components/emailTemplates/Congrats';
+import { prisma } from '@/db/prisma';
 import { Resend } from 'resend';
-import { PassThrough } from 'stream';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const sendEmail = async () =>{
+export const sendEmail = async (order:any) =>{
+    const user = await prisma.user.findUnique({
+        where:{
+            id:order.buyerId,
+        }
+    })
     try {
         const {data, error} = await resend.emails.send({
             from:'AlloBillet <info@allobillet.app>',
-            to:['ffast2000@gmail.com'],
+            to:`${user?.email}`,
             subject:'hello first test',
-            react: EmailTemplate({firstName:'jhon'}),
-            text:'',
+            react: EmailTemplate({firstName:`${user?.name}`}),
+            text:'Congratulations',
         })
         if(error){
             return error

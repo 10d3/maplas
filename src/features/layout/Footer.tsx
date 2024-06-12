@@ -58,7 +58,7 @@ export default function Footer() {
                         <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
                             <h1 className="text-xl font-medium">Quick link</h1>
                             <div>link</div>
-                            <TestSend />
+                            {/* <TestSend /> */}
                         </div>
                         {/* <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
                             <h1 className="text-xl font-medium">Quick link</h1>

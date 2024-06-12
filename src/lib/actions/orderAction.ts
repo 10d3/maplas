@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { handleError } from "../utils";
 import { prisma } from "@/db/prisma";
 import { env } from "process";
+import { sendEmail } from "./resend-email";
 
 export const checkoutOrder = async (order: any) => {
   console.log(order);
@@ -91,6 +92,8 @@ export async function userTicketAssign(order: any) {
         status: "sold",
       },
     });
+
+    await sendEmail(order)
   } catch (error) {
     console.log(error);
   }
