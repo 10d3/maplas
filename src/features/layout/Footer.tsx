@@ -28,50 +28,47 @@ export default function Footer() {
             <Separator className=" bg-slate-300" />
             <footer className=" text-white w-full flex items-center space-x-4 justify-center flex-col py-6 sm:space-x-0 gap-4 bg-custom-destructive">
                 <div className="w-full flex items-center justify-center flex-col md:flex-row gap-4 md:px-4">
-                    <div className="w-full md:w-1/3 items-center flex flex-col md:flex-row gap-4">
-                        <Link href='/'>
-                            <Image
-                                className="w-[4rem] md:w-[8rem] h-auto"
-                                src='/logo/logo-p.png' height={1000} width={1000}
-                                alt={`${SiteConfig.title} logo`}
-                            />
-                        </Link>
-                        <div className="w-full flex flex-col items-center justify-center gap-4">
-                            <h1 className="text-xl font-medium">Subcribe to our newsletter</h1>
-                            <NewsLetter />
+                    <div className="w-full flex items-center justify-center flex-col md:flex-row gap-4 md:px-4">
+                        <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
+                            <Link href='/'>
+                                <Image
+                                    className="w-[4rem] md:w-[8rem] h-auto"
+                                    src='/logo/logo-p.png' height={1000} width={1000}
+                                    alt={`${SiteConfig.title} logo`}
+                                />
+                            </Link>
+                            <div className="w-full flex flex-col items-center justify-center gap-4">
+                                <h1 className="text-xl font-medium">Subcribe to our newsletter</h1>
+                                <NewsLetter />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="w-full md:w-2/3 items-center flex flex-row gap-4">
-                    <div className="w-full md:w-1/3 items-center flex flex-col">
-                        <h1 className="text-xl font-medium">Quick link</h1>
-                        <div className="flex flex-col items-center justify-center gap-2">
-                            {links.map((link, i) => {
-                                return (
-                                    <Link className='' key={i} href={link.href}>{link.name}</Link>
-                                );
-                            })}
+                    <div className="w-full md:w-2/3 items-center flex flex-row gap-4">
+                        <div className="w-full md:w-1/3 items-center flex flex-col">
+                            <h1 className="text-xl font-medium">Quick link</h1>
+                            <div className="flex flex-col items-center justify-center gap-2">
+                                {links.map((link, i) => {
+                                    return (
+                                        <Link className='' key={i} href={link.href}>{link.name}</Link>
+                                    );
+                                })}
+                            </div>
                         </div>
-                    </div>
-                    <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
-                        <h1 className="text-xl font-medium">Quick link</h1>
-                        <div>link</div>
-                        <TestSend />
-                    </div>
-                    {/* <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
+                        <div className="w-full md:w-1/3 items-center flex flex-col gap-4">
                             <h1 className="text-xl font-medium">Quick link</h1>
                             <div>link</div>
-                        </div> */}
-                </div>
-
-                <div className="w-full items-center flex flex-col gap-4">
-                    <h1 className="text-xl font-medium">Follow Us</h1>
-                    <div className="flex flex-row gap-4">
-                        {
-                            icons.map((icon, i) => {
-                                return (<Link key={i} href={icon.href}>{icon.name}</Link>)
-                            })
-                        }
+                            <TestSend />
+                        </div>
+                    </div>
+                    <div className="w-full items-center flex flex-col gap-4">
+                        <h1 className="text-xl font-medium">Follow Us</h1>
+                        <div className="flex flex-row gap-4">
+                            {
+                                icons.map((icon, i) => {
+                                    return (<Link key={i} href={icon.href}>{icon.name}</Link>)
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             </footer >

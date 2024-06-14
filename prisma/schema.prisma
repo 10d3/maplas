@@ -51,34 +51,47 @@ model Session {
 }
 
 model User {
-  id                 String     @id @default(cuid())
+  id                 String      @id @default(cuid())
   name               String?
   organizerName      String?
-  email              String?    @unique
+  influencerName     String?
+  email              String?     @unique
   emailVerified      DateTime?
   image              String?
-  createdAt          DateTime   @default(now())
-  updatedAt          DateTime   @updatedAt
-  superAdmin         Boolean    @default(false)
-  isVerify           Boolean    @default(false)
-  balance            Float      @default(0)
-  point              Int        @default(0)
-  isOrganizerProfile Boolean    @default(false)
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  superAdmin         Boolean     @default(false)
+  isVerify           Boolean     @default(false)
+  balance            Float       @default(0)
+  point              Int         @default(0)
+  isOrganizerProfile Boolean     @default(false)
+  isInfluencer       Boolean     @default(false)
   accounts           Account[]
   sessions           Session[]
-  tickets            Ticket[]   @relation("UserTickets")
-  events             Event[]    @relation("UserEvents")
+  tickets            Ticket[]    @relation("UserTickets")
+  events             Event[]     @relation("UserEvents")
   Purchase           Purchase[]
   Transfer           Transfer[]
-  Product            Product[]  @relation("UserProducts")
-  followers          Follower[] @relation("following")
-  following          Follower[] @relation("followers")
+  Product            Product[]   @relation("UserProducts")
+  followers          Follower[]  @relation("following")
+  following          Follower[]  @relation("followers")
+  affiliates         Affiliate[] @relation("InfluencerAffiliate")
+  socialLinks        SocialLink[] @relation("UserSocialLinks")
+
+}
+
+model SocialLink {
+  id          String   @id @default(cuid())
+  platform    String   // e.g., 'Twitter', 'Instagram', 'Facebook'
+  url         String
+  userId      String
+  user        User     @relation("UserSocialLinks", fields: [userId], references: [id])
 }
 
 model Event {
-  id                     String     @id @default(cuid())
-  name                   String     @unique
-  slug                   String     @unique
+  id                     String      @id @default(cuid())
+  name                   String      @unique
+  slug                   String      @unique
   description            String
   eventType              String
   startDate              DateTime
@@ -90,10 +103,11 @@ model Event {
   vipTicketCapacity      String? // Capacité du billet VIP
   standardTicketCapacity String // Capacité du billet stand
   tickets                Ticket[]
-  createdBy              User       @relation("UserEvents", fields: [createdById], references: [id])
+  createdBy              User        @relation("UserEvents", fields: [createdById], references: [id])
   createdById            String
-  approved               Boolean    @default(false)
+  approved               Boolean     @default(false)
   Purchase               Purchase[]
+  affiliates             Affiliate[]
 }
 
 model Ticket {
@@ -126,14 +140,16 @@ model Product {
 }
 
 model Purchase {
-  id        String   @id @default(cuid())
-  event     Event    @relation(fields: [eventId], references: [id])
-  eventId   String
-  price     Float
-  createdAt DateTime @default(now())
-  method    String
-  buyer     User     @relation(fields: [buyerId], references: [id])
-  buyerId   String
+  id          String     @id @default(cuid())
+  event       Event      @relation(fields: [eventId], references: [id])
+  eventId     String
+  price       Float
+  createdAt   DateTime   @default(now())
+  method      String
+  buyer       User       @relation(fields: [buyerId], references: [id])
+  buyerId     String
+  affiliate   Affiliate? @relation("AffiliatePurchases", fields: [affiliateId], references: [id])
+  affiliateId String?
 }
 
 model Transfer {
@@ -158,10 +174,24 @@ model Follower {
   @@unique([followerId, followingId])
 }
 
+model Affiliate {
+  id           String     @id @default(cuid())
+  influencer   User       @relation("InfluencerAffiliate", fields: [influencerId], references: [id])
+  influencerId String
+  event        Event      @relation(fields: [eventId], references: [id])
+  eventId      String
+  affiliateId  String     @unique
+  clicks       Int        @default(0)
+  signups      Int        @default(0)
+  sales        Float      @default(0)
+  purchases    Purchase[] @relation("AffiliatePurchases")
+}
+
 model Newsletter {
   id    String @id @default(cuid())
   email String @unique
 }
+
 model VerificationToken {
   identifier String
   token      String   @unique

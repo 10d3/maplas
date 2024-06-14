@@ -47,21 +47,56 @@ export const checkOutSchema = z.object({
 
 export type checkOutSchemaProps = z.infer<typeof checkOutSchema>;
 
-const methodW = ['MonCash', 'BankAccount']
+const methodW = ["MonCash", "BankAccount"];
 
 export const withdrawSchema = z.object({
   amount: z.string().min(1),
-  methodWithdraw: z.string().min(1).refine((value) => methodW.includes(value), 'Invalid withdraw type' ),
-  recipient: z.string().min(1)
-})
-export type withdrawSchemaProps = z.infer<typeof withdrawSchema>
+  methodWithdraw: z
+    .string()
+    .min(1)
+    .refine((value) => methodW.includes(value), "Invalid withdraw type"),
+  recipient: z.string().min(1),
+});
+export type withdrawSchemaProps = z.infer<typeof withdrawSchema>;
 
 export const NewsletterValues = {
-  email:'',
-}
+  email: "",
+};
 
 export const NewsletterSchema = z.object({
   email: z.string().email().min(5),
-})
+});
 
-export type NewsletterSchemaProps = z.infer<typeof NewsletterSchema>
+export type NewsletterSchemaProps = z.infer<typeof NewsletterSchema>;
+
+export const InfluencerSchema = z.object({
+  influencerName: z.string().min(5),
+  facebook: z.string().optional(),
+  instagram: z.string().optional(),
+  twitter: z.string().optional(),
+  youtube: z.string().optional(),
+  tiktok: z.string().optional(),
+});
+
+export const InfluencerValue = {
+  influencerName: "",
+  facebook: "",
+  instagram: "",
+  twitter: "",
+  youtube: "",
+  tiktok: "",
+};
+
+export type InfluencerSchemaProps = z.infer<typeof InfluencerSchema>;
+
+export const AffFormCSchema = z.object({
+  influencer: z.string(),
+  event : z.string()
+});
+
+export const AffFormCValue = {
+  influencer : '',
+  event : '',
+}
+
+export type AffFormCSchemaProps = z.infer<typeof AffFormCSchema>

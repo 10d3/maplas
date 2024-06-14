@@ -18,7 +18,7 @@ export default function SideBar() {
         { name: "Dashboard", href: "/admin/dashboard", icon: <LayoutDashboard size={16} /> },
         { name: "Orders", href: "/admin/dashboard/orders", icon: <ShoppingCart size={16} /> },
         { name: 'Event', href: '/admin/create-event', icon: <Package size={16} /> },
-        { name: "Users", href: "/admin/dashboard/users", icon: <Users2 size={16} /> },
+        { name: "Affiliation", href: "/admin/dashboard/affiliation", icon: <Users2 size={16} /> },
     ];
     return (
         <aside className="absolute md:w-[10%] md:flex h-4/5">
