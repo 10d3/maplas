@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/features/layout/Header";
 import Providers from "./Providers";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 import Footer from "@/features/layout/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -36,6 +37,7 @@ export default function RootLayout({
               <div className="flex">
                 {children}
                 <SpeedInsights />
+                <Analytics/>
               </div>
               <Footer/>
             </Providers>
