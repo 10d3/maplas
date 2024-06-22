@@ -1,9 +1,27 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
+import { getToken } from "next-auth/jwt";
 
 const f = createUploadthing();
 
-const auth = (req: Request) => ({ id: "fakeId" }); // Fake auth function
+// const auth = (req: Request) => ({ id: "fakeId" }); // Fake auth function
+const auth = async (req: Request) => {
+  const secret = process.env.NEXTAUTH_SECRET;
+  const salt = process.env.NEXTAUTH_SALT || "default-salt"; // Use environment variable or a default value
+
+  if (!secret) {
+    console.error("NEXTAUTH_SECRET is not set");
+    throw new UploadThingError("Internal Server Error: Missing Auth Secret");
+  }
+
+  const token = await getToken({ req, secret, salt });
+  if (!token) {
+    console.error("Unauthorized access attempt.");
+    throw new UploadThingError("Unauthorized");
+  }
+  return { id: token.sub };
+};
+
 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
