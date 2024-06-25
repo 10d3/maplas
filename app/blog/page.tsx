@@ -13,7 +13,7 @@ function page() {
         },
     ]
   return (
-    <section className='w-full h-auto flex flex-col items-center justify-center my-6'>
+    <section className='w-full min-h-screen flex flex-col items-center justify-center my-6'>
         <h1 className='mb-4 text-xl font-medium'>Welcomw to our BLOG</h1>
         <div className='flex flex-col gap-4 w-full items-center'>
             {

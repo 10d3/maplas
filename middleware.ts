@@ -20,7 +20,7 @@ export default async function middleware(req: NextRequest) {
   // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
   let hostname = req.headers
     .get("host")!
-    .replace(".localhost:3000", `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
+    .replace(`.localhost:3000`, `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
 
   // special case for Vercel preview deployment URLs
   if (
@@ -39,52 +39,57 @@ export default async function middleware(req: NextRequest) {
   }`;
 
   // rewrites for app pages
-  if (hostname == `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
+  if (hostname === `home.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     // const session = await getToken({ req });
     // if (!session && path !== "/login") {
     //   return NextResponse.redirect(new URL("/login", req.url));
-    // } else if (session && path == "/login") {
+    // } else if (session && path === "/login") {
     //   return NextResponse.redirect(new URL("/", req.url));
     // }
     return NextResponse.rewrite(
-      new URL(`/app${path === "/" ? "" : path}`, req.url),
+      new URL(`/home${path === "/" ? "" : path}`, req.url),
     );
   }
 
   // rewrites for organizer subdomain
-  if (hostname == `organizer.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
+  if (hostname === `organizer.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     return NextResponse.rewrite(
       new URL(`/organizer${path === "/" ? "" : path}`, req.url),
     );
   }
 
   // rewrites for influencer subdomain
-  if (hostname == `influencer.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
+  if (hostname === `influencer.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     return NextResponse.rewrite(
       new URL(`/influencer${path === "/" ? "" : path}`, req.url),
     );
   }
 
   // rewrites for dashboard subdomain
-  if (hostname == `dashboard.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
+  if (hostname === `dashboard.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     return NextResponse.rewrite(
       new URL(`/admin/dashboard${path === "/" ? "" : path}`, req.url),
     );
   }
 
   // rewrites for blog subdomain
-  if (hostname == `blog.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
+  if (hostname === `blog.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     return NextResponse.rewrite(
       new URL(`/blog${path === "/" ? "" : path}`, req.url),
     );
   }
 
+  // handle event path
+  // if (path.startsWith('/event')) {
+  //   return NextResponse.rewrite(new URL(`/event${path === "/" ? "" : path}`, req.url));
+  // }
+
   // special case for `vercel.pub` domain
-//   if (hostname === "vercel.pub") {
-//     return NextResponse.redirect(
-//       "https://vercel.com/blog/platforms-starter-kit",
-//     );
-//   }
+  // if (hostname === "vercel.pub") {
+  //   return NextResponse.redirect(
+  //     "https://vercel.com/blog/platforms-starter-kit",
+  //   );
+  // }
 
   // rewrite root application to the root page
   if (
@@ -92,7 +97,7 @@ export default async function middleware(req: NextRequest) {
     hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN
   ) {
     return NextResponse.rewrite(
-      new URL(`/app${path === "/" ? "" : path}`, req.url),
+      new URL(`/home${path === "/" ? "" : path}`, req.url),
     );
   }
 
