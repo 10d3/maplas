@@ -18,6 +18,8 @@ export default async function page({params: {influencerName}}:paramsProps) {
         }
     })
 
+    console.log(influencerName)
+
     // const followers = await prisma.follower.aggregate({
     //     where: {
     //         followingId: id
