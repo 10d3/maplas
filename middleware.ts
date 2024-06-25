@@ -39,17 +39,17 @@ export default async function middleware(req: NextRequest) {
   }`;
 
   // rewrites for app pages
-//   if (hostname == `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
-//     const session = await getToken({ req });
-//     if (!session && path !== "/login") {
-//       return NextResponse.redirect(new URL("/login", req.url));
-//     } else if (session && path == "/login") {
-//       return NextResponse.redirect(new URL("/", req.url));
-//     }
-//     return NextResponse.rewrite(
-//       new URL(`/app${path === "/" ? "" : path}`, req.url),
-//     );
-//   }
+  if (hostname == `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
+    // const session = await getToken({ req });
+    // if (!session && path !== "/login") {
+    //   return NextResponse.redirect(new URL("/login", req.url));
+    // } else if (session && path == "/login") {
+    //   return NextResponse.redirect(new URL("/", req.url));
+    // }
+    return NextResponse.rewrite(
+      new URL(`/app${path === "/" ? "" : path}`, req.url),
+    );
+  }
 
   // rewrites for organizer subdomain
   if (hostname == `organizer.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
@@ -80,11 +80,11 @@ export default async function middleware(req: NextRequest) {
   }
 
   // special case for `vercel.pub` domain
-  if (hostname === "vercel.pub") {
-    return NextResponse.redirect(
-      "https://vercel.com/blog/platforms-starter-kit",
-    );
-  }
+//   if (hostname === "vercel.pub") {
+//     return NextResponse.redirect(
+//       "https://vercel.com/blog/platforms-starter-kit",
+//     );
+//   }
 
   // rewrite root application to the root page
   if (
@@ -92,7 +92,7 @@ export default async function middleware(req: NextRequest) {
     hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN
   ) {
     return NextResponse.rewrite(
-      new URL(`/${path === "/" ? "" : path}`, req.url),
+      new URL(`/app/${path === "/" ? "" : path}`, req.url),
     );
   }
 
