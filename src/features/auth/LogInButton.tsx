@@ -16,7 +16,7 @@ export const LoginButton = () => {
     });
 
     return (
-        <Button variant="outline" size="sm"
+        <Button className="bg-black hover:bg-gray-950 text-white hover:text-white border-black" variant="outline" size="sm"
             disabled={mutation.isPending}
             onClick={() => { mutation.mutate() }}>
             {mutation.isPending

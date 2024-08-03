@@ -6,7 +6,7 @@ import React from 'react'
 export default function SignInButton() {
   return (
     <form>
-        <Button variant="secondary" size='sm' formAction={async () =>{
+        <Button className='text-white bg-custom-secondary' variant="secondary" size='sm' formAction={async () =>{
             "use server"
             await signIn();
         }}>

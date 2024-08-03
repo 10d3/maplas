@@ -13,30 +13,20 @@ export const metadata: Metadata = {
   description: "Find unique event & Buy your ticket",
 };
 
-export default function RootLayout({
+export default function HomeLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <>
-      <html lang="en" className="h-full" suppressHydrationWarning>
-        <head />
-        <body
-          className={cn(
-            'h-full bg-custom-primary font-sans antialiased',
-            inter.className
-          )}
-        >
-          <div className="relative flex min-h-screen flex-col px-0 ">
-              <Header />
-              <div className="flex">
-                {children}
-              </div>
-              <Footer/>
-          </div>
-        </body>
-      </html>
+      <div className={cn('relative flex min-h-screen flex-col px-0', inter.className)}>
+        <Header />
+        <div className="flex">
+          {children}
+        </div>
+        <Footer />
+      </div>
     </>
   );
 }

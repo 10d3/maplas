@@ -83,7 +83,7 @@ export default async function Header() {
 
                 <div className=" hidden md:flex items-center justify-end space-x-4">
                     <nav className="flex items-center space-x-1 gap-4">
-                        <Link href='/event/create' className={buttonVariants({variant:'default', size:'sm'})}>Create Event</Link>
+                        <Link href='http://organizer.localhost:3000' className={buttonVariants({variant:'default', size:'sm'})}>Create Event</Link>
                         <LoggedInButton />
                     </nav>
                 </div>

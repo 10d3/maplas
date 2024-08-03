@@ -37,7 +37,8 @@ export default async function EventDetail({ params: { id } }: SearchParamProps) 
     const eventRelated = await getRelatedEvents(eventTypeOf)
     const filteredEvents = eventRelated?.filter(event => event.slug !== id);
 
-    const closedEvent = event?.startDate && new Date(event?.startDate) < new Date();
+    const closedEvent = event?.endDate && new Date(event?.endDate) < new Date();
+    console.log(closedEvent)
     const soldOut = Tickets.length == 0;
     return (
         <section className='flex flex-col min-h-auto'>

@@ -8,6 +8,8 @@ export default async function CreateEvent() {
 
     const userId = session?.user?.id as string
 
+    console.log(session)
+
 
     return (
         <section className='w-full flex flex-col items-center'>

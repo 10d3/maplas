@@ -31,15 +31,15 @@ export default function RootLayout({
             inter.className
           )}
         >
-          <div className="relative flex flex-col px-0 ">
+          {/* <div className="relative flex flex-col px-0 "> */}
             <Providers>
-              <div className="flex">
+              {/* <div className="flex"> */}
                 {children}
                 <SpeedInsights />
                 <Analytics/>
-              </div>
+              {/* </div> */}
             </Providers>
-          </div>
+          {/* </div> */}
         </body>
       </html>
     </>

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+// import { getToken } from "next-auth/jwt";
+import { getToken } from "@auth/core/jwt";
+import NextAuth from "next-auth";
+import { auth } from "@/auth/auth";
 
 export const config = {
   matcher: [
@@ -16,6 +19,7 @@ export const config = {
 
 export default async function middleware(req: NextRequest) {
   const url = req.nextUrl;
+  console.log(url.host)
 
   // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
   let hostname = req.headers
@@ -39,43 +43,48 @@ export default async function middleware(req: NextRequest) {
   }`;
 
   // rewrites for app pages
-  if (hostname === `home.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
-    // const session = await getToken({ req,  secret: process.env.NEXTAUTH_SECRET });
+  if (hostname === `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
+    // const session = await getToken({
+    //   req,
+    //   secret: `${process.env.NEXTAUTH_SECRET}`,
+    //   salt: "authjs.session-token",
+    // });
     // if (!session && path !== "/login") {
+    //   console.log(null);
     //   return NextResponse.redirect(new URL("/login", req.url));
     // } else if (session && path === "/login") {
     //   return NextResponse.redirect(new URL("/", req.url));
     // }
     return NextResponse.rewrite(
-      new URL(`/home${path === "/" ? "" : path}`, req.url),
+      new URL(`/${path === "/" ? "" : path}`, req.url)
     );
   }
 
   // rewrites for organizer subdomain
   if (hostname === `organizer.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     return NextResponse.rewrite(
-      new URL(`/organizer${path === "/" ? "" : path}`, req.url),
+      new URL(`/organizer${path === "/" ? "" : path}`, req.url)
     );
   }
 
   // rewrites for influencer subdomain
   if (hostname === `influencer.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     return NextResponse.rewrite(
-      new URL(`/influencer${path === "/" ? "" : path}`, req.url),
+      new URL(`/influencer${path === "/" ? "" : path}`, req.url)
     );
   }
 
   // rewrites for dashboard subdomain
   if (hostname === `dashboard.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     return NextResponse.rewrite(
-      new URL(`/admin/dashboard${path === "/" ? "" : path}`, req.url),
+      new URL(`/admin/dashboard${path === "/" ? "" : path}`, req.url)
     );
   }
 
   // rewrites for blog subdomain
   if (hostname === `blog.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     return NextResponse.rewrite(
-      new URL(`/blog${path === "/" ? "" : path}`, req.url),
+      new URL(`/blog${path === "/" ? "" : path}`, req.url)
     );
   }
 
@@ -97,7 +106,7 @@ export default async function middleware(req: NextRequest) {
     hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN
   ) {
     return NextResponse.rewrite(
-      new URL(`/home${path === "/" ? "" : path}`, req.url),
+      new URL(`/${path === "/" ? "" : path}`, req.url)
     );
   }
 
